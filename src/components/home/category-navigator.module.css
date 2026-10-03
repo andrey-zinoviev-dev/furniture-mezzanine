@@ -1,0 +1,92 @@
+.shell {
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+
+.track {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.track:focus-within {
+  outline: none;
+}
+
+.item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: clamp(12.5rem, 28vw, 18rem);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  color: #f4f1ec;
+  isolation: isolate;
+  transition: transform 280ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(160deg, rgb(255 255 255 / 0.1), transparent 42%),
+    linear-gradient(180deg, transparent 45%, rgb(0 0 0 / 0.55)),
+    repeating-linear-gradient(
+      -14deg,
+      transparent,
+      transparent 5px,
+      rgb(0 0 0 / 0.08) 5px,
+      rgb(0 0 0 / 0.08) 6px
+    );
+  transition: transform 320ms ease;
+  z-index: 0;
+}
+
+.card:hover .grain {
+  transform: scale(1.04);
+}
+
+.index,
+.name {
+  position: relative;
+  z-index: 1;
+  padding-inline: 1rem;
+}
+
+.index {
+  margin-bottom: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.name {
+  padding-bottom: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}

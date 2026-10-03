@@ -1,0 +1,120 @@
+import { productRoutes, siteRoutes } from "@/lib/routes";
+
+/** Тон-заглушка под фото категории. */
+const categoryTones: Record<string, string> = {
+  "/kuhni/": "#1a1714",
+  "/shkafy/": "#3a2f28",
+  "/garderobnye/": "#2c221c",
+  "/stoly/": "#4a3b32",
+  "/mebel-dlya-vannoy/": "#161312",
+  "/detskaya-mebel/": "#312820",
+  "/mebel-dlya-spalni/": "#241c18",
+};
+
+export const categoryNavigator = productRoutes.map((route, index) => ({
+  href: route.href,
+  title: route.title,
+  tone: categoryTones[route.href] ?? "#1a1714",
+  index: index + 1,
+}));
+
+export const values = [
+  {
+    id: "design",
+    title: "Проектируем и согласовываем до производства",
+    body: "Чертежи, материалы и узлы фиксируем до запуска в цех. Так вы видите результат заранее — и не платите за переделки «по факту».",
+  },
+  {
+    id: "cost",
+    title: "Понятная стоимость и этапность",
+    body: "Смета и график привязаны к этапам: проект → производство → монтаж. Изменения обсуждаем до того, как они влияют на бюджет.",
+  },
+  {
+    id: "production",
+    title: "Собственное производство и профессиональный монтаж",
+    body: "Изготавливаем у себя и ставим своей бригадой. Меньше посредников — короче путь от чертежа до посадки в размер.",
+  },
+  {
+    id: "responsibility",
+    title: "Одна ответственность за результат",
+    body: "Один подрядчик отвечает за проект, качество изделий и монтаж. Не нужно сводить гарантии разных исполнителей.",
+  },
+] as const;
+
+export const productionProof = [
+  {
+    title: "Производство",
+    detail: "Цех, раскрой, кромление",
+    note: "Своя база",
+  },
+  {
+    title: "Детали",
+    detail: "Стыки, кромки, фурнитура",
+    note: "Узлы в размере",
+  },
+  {
+    title: "Сборка",
+    detail: "Предсборка и проверка",
+    note: "До выезда",
+  },
+  {
+    title: "Контроль",
+    detail: "Многоступенчатая приёмка",
+    note: "Перед монтажом",
+  },
+] as const;
+
+export const workSteps = [
+  {
+    n: "01",
+    title: "Обсуждение",
+    checkpoint: "Задача, бюджетный контур, срок",
+  },
+  {
+    n: "02",
+    title: "Проектирование",
+    checkpoint: "Планировка, узлы, материалы",
+  },
+  {
+    n: "03",
+    title: "Согласование",
+    checkpoint: "Фиксация сметы и комплектации",
+  },
+  {
+    n: "04",
+    title: "Производство",
+    checkpoint: "Контрольные точки по готовности",
+  },
+  {
+    n: "05",
+    title: "Монтаж",
+    checkpoint: "Посадка, сдача, гарантия",
+  },
+] as const;
+
+export const materialsPreview = [
+  { title: "Шпон и массив", caption: "Живая текстура, спокойный тон", tone: "#3a2f28" },
+  { title: "ЛМДФ / эмаль", caption: "Глухие фасады, точный цвет", tone: "#1a1714" },
+  { title: "Камень и Compact", caption: "Столешницы под нагрузку", tone: "#2c221c" },
+  { title: "Фурнитура", caption: "Петли, направляющие, системы", tone: "#241c18" },
+  { title: "Кромка и стык", caption: "Чистота примыканий", tone: "#4a3b32" },
+  { title: "Свет в мебели", caption: "Подсветка хранения и ниш", tone: "#161312" },
+] as const;
+
+export const journalPreview = [
+  {
+    title: "Как согласовать кухню, чтобы не переделывать на объекте",
+    tag: "Проект",
+    href: siteRoutes.process.href,
+  },
+  {
+    title: "Что влияет на стоимость встроенного шкафа",
+    tag: "Смета",
+    href: siteRoutes.materials.href,
+  },
+  {
+    title: "Комплексная меблировка: когда это выгоднее отдельных заказов",
+    tag: "Меблировка",
+    href: siteRoutes.meblirovkaKvartiry.href,
+  },
+] as const;

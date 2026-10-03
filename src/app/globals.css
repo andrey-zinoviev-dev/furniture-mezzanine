@@ -1,13 +1,14 @@
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #0c0c0c;
+  --muted: #7a7a7a;
+  --muted-strong: #3a3a3a;
+  --line: #0c0c0c;
+  --accent: #c45c4a;
+  --container: 1440px;
+  --gutter: clamp(1rem, 2.5vw, 1.75rem);
+  --font-ui: var(--font-ui-family), "Helvetica Neue", Helvetica, sans-serif;
+  --font-display: var(--font-display-family), var(--font-ui-family), sans-serif;
 }
 
 html {
@@ -26,9 +27,13 @@ body {
   flex-direction: column;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  flex: 1;
 }
 
 * {
@@ -42,8 +47,19 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+::selection {
+  background: var(--foreground);
+  color: var(--background);
 }

@@ -1,0 +1,50 @@
+.list {
+  display: grid;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.85rem 0.65rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 35%, transparent);
+  font-size: 0.95rem;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.row:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.category,
+.year {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.row:hover .category,
+.row:hover .year {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .category {
+    display: none;
+  }
+}
