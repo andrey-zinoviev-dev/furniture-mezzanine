@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CategoryNavigator } from "@/components/home/category-navigator";
 import { FeaturedProjects } from "@/components/home/featured-projects";
 import { ProductionProof } from "@/components/home/production-proof";
+import { RisksSolutions } from "@/components/home/risks-solutions";
 import { SolutionsMarquee } from "@/components/home/solutions-marquee";
 import { ValuesAccordion } from "@/components/home/values-accordion";
 import {
@@ -86,7 +88,10 @@ export default function HomePage() {
         <SolutionsMarquee />
       </section>
 
-      {/* 5. Ценности */}
+      {/* 5. Риски и решения */}
+      <RisksSolutions />
+
+      {/* 6. Ценности */}
       {/* <section className={styles.section} aria-labelledby="values">
         <div className={styles.sectionHead}>
           <div>
@@ -132,7 +137,7 @@ export default function HomePage() {
       </section> */}
 
       {/* 8. Комплексная меблировка */}
-      <section className={styles.meblirovka} aria-labelledby="meblirovka">
+      {/* <section className={styles.meblirovka} aria-labelledby="meblirovka">
         <div
           className={styles.meblirovkaVisual}
           style={{ backgroundColor: "#1f1915" }}
@@ -154,7 +159,7 @@ export default function HomePage() {
             К меблировке квартиры
           </Link>
         </div>
-      </section>
+      </section> */}
 
       {/* 9. Материалы */}
       {/* <section className={styles.section} aria-labelledby="materials">
@@ -198,8 +203,31 @@ export default function HomePage() {
           {journalPreview.map((article) => (
             <li key={article.title}>
               <Link href={article.href} className={styles.journalItem}>
-                <span className={styles.journalTag}>{article.tag}</span>
-                <span className={styles.journalTitle}>{article.title}</span>
+                <span className={styles.journalMedia}>
+                  <Image
+                    src={article.cover}
+                    alt=""
+                    fill
+                    sizes="(max-width: 720px) 100vw, 50vw"
+                    className={styles.journalMediaImage}
+                  />
+                </span>
+                <span className={styles.journalBody}>
+                  <span className={styles.journalBlur} aria-hidden="true">
+                    <Image
+                      src={article.cover}
+                      alt=""
+                      fill
+                      sizes="(max-width: 720px) 100vw, 50vw"
+                      className={styles.journalBlurImage}
+                    />
+                  </span>
+                  <span className={styles.journalCopy}>
+                    <span className={styles.journalTag}>{article.tag}</span>
+                    <span className={styles.journalTitle}>{article.title}</span>
+                    <span className={styles.journalCta}>Читать →</span>
+                  </span>
+                </span>
               </Link>
             </li>
           ))}

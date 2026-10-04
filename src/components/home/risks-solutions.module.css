@@ -1,0 +1,201 @@
+.band {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0 0 4rem;
+  margin-left: calc(50% - 50vw);
+  padding: clamp(3.5rem, 7vw, 5.5rem) var(--gutter);
+  background: #050505;
+  color: #f4f1ec;
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 1.5rem 2rem;
+  align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.eyebrow {
+  margin-bottom: 0.85rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(244 241 236 / 0.55);
+}
+
+.title {
+  max-width: 12ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4vw, 2.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+.note {
+  max-width: 28rem;
+  justify-self: end;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgb(244 241 236 / 0.62);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(22rem, 36vw, 28rem);
+  padding: 1.25rem;
+  overflow: hidden;
+  border-radius: 1.35rem;
+  isolation: isolate;
+}
+
+.backdrop {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  filter: blur(28px);
+  transform: scale(1.08);
+}
+
+.card[data-tone="1"] .backdrop {
+  background:
+    radial-gradient(ellipse at 28% 18%, #e8d5c0 0%, transparent 48%),
+    radial-gradient(ellipse at 78% 72%, #6b5344 0%, transparent 46%),
+    linear-gradient(155deg, #2c241f, #12100e);
+}
+
+.card[data-tone="2"] .backdrop {
+  background:
+    radial-gradient(ellipse at 70% 20%, #c9b8a4 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, #3d4a52 0%, transparent 48%),
+    linear-gradient(165deg, #1a1f22, #0d0c0b);
+}
+
+.card[data-tone="3"] .backdrop {
+  background:
+    radial-gradient(ellipse at 40% 30%, #f0e6da 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 60%, #8a6a55 0%, transparent 42%),
+    linear-gradient(150deg, #241c18, #100e0c);
+}
+
+.card[data-tone="4"] .backdrop {
+  background:
+    radial-gradient(ellipse at 55% 15%, #d7cfc4 0%, transparent 48%),
+    radial-gradient(ellipse at 15% 75%, #4a4038 0%, transparent 50%),
+    linear-gradient(160deg, #1c1815, #0b0a09);
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgb(5 5 5 / 0.08) 0%,
+    rgb(5 5 5 / 0.22) 45%,
+    rgb(5 5 5 / 0.72) 100%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.15rem;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 0.35rem;
+  background: rgb(244 241 236 / 0.16);
+  border: 1px solid rgb(244 241 236 / 0.28);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.index {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgb(244 241 236 / 0.55);
+}
+
+.risk {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.solution {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: rgb(244 241 236 / 0.72);
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card {
+    min-height: 20rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .note {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 18rem;
+  }
+}
