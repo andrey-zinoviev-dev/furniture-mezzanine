@@ -1,0 +1,124 @@
+.section {
+  /* Золотая сетка только в этой секции: заголовок слева, список справа. */
+  --grid-rail: minmax(0, 0.75fr);
+  --grid-main: minmax(0, 0.66fr);
+  --grid-gap: clamp(1.25rem, 3vw, 2.75rem);
+
+  display: grid;
+  grid-template-columns: var(--grid-rail) var(--grid-main);
+  column-gap: var(--grid-gap);
+  align-items: start;
+  margin-bottom: 4rem;
+  padding-block: 0.5rem 0.25rem;
+}
+
+.rail {
+  position: sticky;
+  top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding-top: 0.15rem;
+  min-width: 0;
+}
+
+.title {
+  max-width: 9ch;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.caption {
+  /* max-width: 18ch; */
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.main {
+  min-width: 0;
+}
+
+.listHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.listLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.listArrow {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.list {
+  border-top: 1px solid color-mix(in srgb, var(--line) 22%, transparent);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding-block: clamp(1.05rem, 2vw, 1.35rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 22%, transparent);
+  transition: color 160ms ease;
+}
+
+.row:hover,
+.row:focus-visible {
+  color: var(--muted);
+  outline: none;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.num {
+  flex: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+@media (max-width: 860px) {
+  .section {
+    grid-template-columns: 1fr;
+    row-gap: 1.5rem;
+  }
+
+  .rail {
+    position: static;
+  }
+
+  .title {
+    max-width: none;
+  }
+
+  .caption {
+    max-width: 28ch;
+  }
+}

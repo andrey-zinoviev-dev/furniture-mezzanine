@@ -1,22 +1,33 @@
 import { productRoutes, siteRoutes } from "@/lib/routes";
 
-/** Тон-заглушка под фото категории. */
-const categoryTones: Record<string, string> = {
-  "/kuhni/": "#1a1714",
-  "/shkafy/": "#3a2f28",
-  "/garderobnye/": "#2c221c",
-  "/stoly/": "#4a3b32",
-  "/mebel-dlya-vannoy/": "#161312",
-  "/detskaya-mebel/": "#312820",
-  "/mebel-dlya-spalni/": "#241c18",
+/** Заглушка-обложка категории до появления реальных фото. */
+const categoryCovers: Record<string, string> = {
+  "/kuhni/": "/covers/cat-kitchen.jpg",
+  "/shkafy/": "/covers/cat-wardrobe.jpg",
+  "/garderobnye/": "/covers/cat-closet.jpg",
+  "/stoly/": "/covers/cat-table.jpg",
+  "/mebel-dlya-vannoy/": "/covers/cat-bath.jpg",
+  "/detskaya-mebel/": "/covers/cat-kids.jpg",
+  "/mebel-dlya-spalni/": "/covers/cat-bedroom.jpg",
 };
 
 export const categoryNavigator = productRoutes.map((route, index) => ({
   href: route.href,
   title: route.title,
-  tone: categoryTones[route.href] ?? "#1a1714",
+  cover: categoryCovers[route.href] ?? "/covers/cat-kitchen.jpg",
   index: index + 1,
 }));
+
+/** Индекс категорий для блока «Что производим» (+ меблировка как услуга). */
+export const productionIndex = [
+  ...categoryNavigator,
+  {
+    href: siteRoutes.meblirovkaKvartiry.href,
+    title: siteRoutes.meblirovkaKvartiry.title,
+    cover: "/covers/proj-studio-a.jpg",
+    index: categoryNavigator.length + 1,
+  },
+] as const;
 
 export const values = [
   {
@@ -137,30 +148,30 @@ export const journalPreview = [
     title: "Как согласовать кухню, чтобы не переделывать на объекте",
     tag: "Проект",
     href: siteRoutes.process.href,
-    cover: "/covers/kitchen.jpg",
+    cover: "/covers/journal-01.jpg",
   },
   {
     title: "Что влияет на стоимость встроенного шкафа",
     tag: "Смета",
     href: siteRoutes.materials.href,
-    cover: "/covers/wardrobe.jpg",
+    cover: "/covers/journal-02.jpg",
   },
   {
     title: "Комплексная меблировка: когда это выгоднее отдельных заказов",
     tag: "Меблировка",
     href: siteRoutes.meblirovkaKvartiry.href,
-    cover: "/covers/living.jpg",
+    cover: "/covers/journal-03.jpg",
   },
   {
     title: "Гардеробная: с чего начать планировку хранения",
     tag: "Хранение",
     href: siteRoutes.garderobnye.href,
-    cover: "/covers/bedroom.jpg",
+    cover: "/covers/journal-04.jpg",
   },
   {
     title: "Фасады и столешницы: как выбрать материал под задачу",
     tag: "Материалы",
     href: siteRoutes.materials.href,
-    cover: "/covers/table.jpg",
+    cover: "/covers/journal-05.jpg",
   },
 ] as const;

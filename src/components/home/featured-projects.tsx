@@ -1,30 +1,27 @@
+import Image from "next/image";
 import Link from "next/link";
-import { getFeaturedProjects, type Project } from "@/lib/projects";
+import { getFeaturedProjects, stubCovers, type Project } from "@/lib/projects";
 import styles from "./featured-projects.module.css";
 
 type FeaturedProjectsProps = {
   limit?: number;
 };
 
-/** Несколько тонов-заглушек под будущую галерею кадров проекта. */
+/** Кадры галереи: свои у проекта, иначе ротация из общего пула. */
 function galleryFrames(project: Project, count: number): string[] {
-  const base = project.tone.replace("#", "");
-  if (base.length !== 6) {
-    return Array.from({ length: count }, () => project.tone);
+  if (project.gallery && project.gallery.length > 0) {
+    return project.gallery.slice(0, count);
   }
 
-  const r = parseInt(base.slice(0, 2), 16);
-  const g = parseInt(base.slice(2, 4), 16);
-  const b = parseInt(base.slice(4, 6), 16);
+  const offset = Math.max(
+    0,
+    stubCovers.findIndex((cover) => cover === project.cover),
+  );
 
-  return Array.from({ length: count }, (_, index) => {
-    const shift = (index - (count - 1) / 2) * 14;
-    const channel = (value: number) =>
-      Math.max(0, Math.min(255, Math.round(value + shift)))
-        .toString(16)
-        .padStart(2, "0");
-    return `#${channel(r)}${channel(g)}${channel(b)}`;
-  });
+  return Array.from(
+    { length: count },
+    (_, index) => stubCovers[(offset + index) % stubCovers.length],
+  );
 }
 
 /** Избранные проекты: слева название, справа горизонтальная лента кадров. */
@@ -52,14 +49,20 @@ export function FeaturedProjects({ limit = 5 }: FeaturedProjectsProps) {
 
             <div className={styles.scroller} tabIndex={0} aria-label={`Кадры: ${project.title}`}>
               <div className={styles.track}>
-                {frames.map((tone, index) => (
+                {frames.map((cover, index) => (
                   <Link
                     key={`${project.slug}-${index}`}
                     href={`/projects/${project.slug}/`}
                     className={styles.frame}
-                    style={{ backgroundColor: tone }}
                     tabIndex={-1}
                   >
+                    <Image
+                      src={cover}
+                      alt=""
+                      fill
+                      sizes="(max-width: 720px) 45vw, 20vw"
+                      className={styles.image}
+                    />
                     <span className={styles.grain} aria-hidden="true" />
                   </Link>
                 ))}

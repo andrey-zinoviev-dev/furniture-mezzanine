@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CategoryNavigator } from "@/components/home/category-navigator";
 import { FeaturedProjects } from "@/components/home/featured-projects";
+import { ProductionIndex } from "@/components/home/production-index";
 import { ProductionProof } from "@/components/home/production-proof";
 import { RisksSolutions } from "@/components/home/risks-solutions";
 import { SolutionsMarquee } from "@/components/home/solutions-marquee";
@@ -21,43 +21,32 @@ export const metadata = pageMetadata(siteRoutes.home);
 export default function HomePage() {
   return (
     <div className={styles.home}>
-      {/* 1. Оффер */}
+      {/* 1. Оффер — на всю ширину, подпись и CTA по нижним углам */}
       <section className={styles.hero} aria-labelledby="home-offer">
-        <p className={styles.eyebrow}>{site.name}</p>
-        <h1 id="home-offer" className={styles.offer}>
+        {/* <p className={styles.heroNote}>{site.name}</p> */}
+        <h1 id="home-offer" className={styles.monument}>
           Индивидуальная мебель без компромиссов между интерьером, функцией и
           реализацией
         </h1>
-        <p className={styles.lead}>
-          Проектируем мебель под конкретное пространство — от отдельного изделия до
-          комплексной меблировки. Берём на себя техническую проработку, производство и
-          монтаж.
-        </p>
-        <div className={styles.actions}>
-          <Link href={siteRoutes.contacts.href} className={styles.primary}>
-            Обсудить проект
-          </Link>
-          <Link href={siteRoutes.projects.href} className={styles.secondary}>
-            Смотреть проекты
-          </Link>
+        <div className={styles.heroFoot}>
+          <p className={styles.monumentLead}>
+            Проектируем мебель под конкретное пространство — от отдельного изделия до
+            комплексной меблировки. Берём на себя техническую проработку, производство и
+            монтаж.
+          </p>
+          <div className={styles.actions}>
+            <Link href={siteRoutes.contacts.href} className={styles.primary}>
+              Обсудить проект
+            </Link>
+            <Link href={siteRoutes.projects.href} className={styles.secondary}>
+              Смотреть проекты
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* 2. Что производим */}
-      <section className={styles.section} aria-labelledby="produce">
-        <div className={styles.sectionHead}>
-          <div>
-            <p className={styles.sectionEyebrow}>Категории</p>
-            <h2 id="produce" className={styles.sectionTitle}>
-              Что производим
-            </h2>
-          </div>
-          <p className={styles.sectionNote}>
-            Приходите с конкретной задачей — кухня, шкаф, гардеробная или целый объект.
-          </p>
-        </div>
-        <CategoryNavigator />
-      </section>
+      {/* 2. Что производим — золотая сетка только здесь */}
+      <ProductionIndex />
 
       {/* 3. Избранные проекты */}
       <section className={styles.section} aria-labelledby="featured-projects">
@@ -76,17 +65,13 @@ export default function HomePage() {
       </section>
 
       {/* 4. Новые решения */}
-      <section className={styles.section} aria-labelledby="new-solutions">
-        <div className={styles.sectionHead}>
-          <div>
-            <p className={styles.sectionEyebrow}>В работе и рядом</p>
-            <h2 id="new-solutions" className={`${styles.sectionTitle} ${styles.recentTitle}`}>
-              Недавно реализовали
-            </h2>
-          </div>
-        </div>
+      {/* <section className={styles.section} aria-labelledby="new-solutions">
+        <p className={styles.sectionEyebrow}>В работе и рядом</p>
+        <h2 id="new-solutions" className={styles.srOnly}>
+          Недавно реализовали
+        </h2>
         <SolutionsMarquee />
-      </section>
+      </section> */}
 
       {/* 5. Риски и решения */}
       <RisksSolutions />
