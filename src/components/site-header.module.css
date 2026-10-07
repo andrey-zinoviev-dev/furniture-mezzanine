@@ -2,8 +2,8 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  border-bottom: 1px solid var(--line);
-  background: var(--background);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .bar {
@@ -11,7 +11,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  min-height: 4.25rem;
+  height: var(--header-height);
+  min-height: var(--header-height);
 }
 
 .brand {
@@ -39,7 +40,7 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--foreground);
+  color: inherit;
   background: none;
   border: 0;
   padding: 0.35rem 0;
@@ -48,7 +49,7 @@
 
 .link:hover,
 .trigger:hover {
-  color: var(--muted);
+  color: rgb(255 255 255 / 0.55);
 }
 
 .dropdown {
@@ -72,8 +73,9 @@
   left: 0;
   min-width: 14rem;
   padding: 0.55rem 0;
-  border: 1px solid var(--line);
-  background: var(--background);
+  border: 1px solid rgb(255 255 255 / 0.2);
+  background: var(--foreground);
+  color: var(--background);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-0.35rem);
@@ -102,19 +104,19 @@
 }
 
 .menuLink:hover {
-  background: var(--foreground);
-  color: var(--background);
+  background: var(--background);
+  color: var(--foreground);
 }
 
 @media (max-width: 900px) {
   .bar {
-    align-items: flex-start;
-    flex-direction: column;
-    padding-block: 1rem;
-    min-height: 0;
+    gap: 1rem;
   }
 
   .nav {
-    justify-content: flex-start;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100%;
   }
 }

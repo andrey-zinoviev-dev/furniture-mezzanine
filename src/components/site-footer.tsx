@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
-import { primaryNavRoutes, productRoutes, siteRoutes } from "@/lib/routes";
+import {
+  furnitureNavRoutes,
+  primaryNavRoutes,
+  proofNavRoutes,
+  siteRoutes,
+} from "@/lib/routes";
 import { site } from "@/lib/site";
 import styles from "./site-footer.module.css";
 
@@ -22,7 +27,20 @@ export function SiteFooter() {
           <div>
             <p className={styles.colTitle}>Мебель</p>
             <ul className={styles.list}>
-              {productRoutes.map((route) => (
+              <li>
+                <Link href={siteRoutes.kuhni.href}>{siteRoutes.kuhni.title}</Link>
+              </li>
+              {furnitureNavRoutes.map((route) => (
+                <li key={route.href}>
+                  <Link href={route.href}>{route.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className={styles.colTitle}>Производство</p>
+            <ul className={styles.list}>
+              {proofNavRoutes.map((route) => (
                 <li key={route.href}>
                   <Link href={route.href}>{route.title}</Link>
                 </li>

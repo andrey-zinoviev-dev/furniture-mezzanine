@@ -3,68 +3,69 @@
 }
 
 .hero {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(2rem, 4vh, 3rem);
-  min-height: calc(100svh - 4.25rem);
-  padding-block: clamp(2rem, 5vh, 3.5rem);
-  text-align: left;
-  border-bottom: 1px solid var(--line);
+  position: relative;
+  /* Выходим из Container на полный экран */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  min-height: calc(100svh - var(--header-height));
   margin-bottom: 3rem;
-}
-
-.heroNote {
-  margin: 0;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  animation: heroRise 700ms ease both;
-}
-
-.monument {
-  flex: 1;
-  display: grid;
-  align-content: center;
-  margin: 0;
-  max-width: none;
-  width: 100%;
-  font-family: var(--font-display);
-  font-size: clamp(1.95rem, 5vw, 3.85rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.02;
+  overflow: hidden;
   text-align: left;
-  text-transform: uppercase;
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #ececec;
+}
+
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  width: 100%;
+  padding: 0.75rem var(--gutter);
+  background: var(--foreground);
+  color: var(--background);
   animation: heroRise 900ms 60ms ease both;
 }
 
-.heroFoot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem 2.5rem;
-  width: 100%;
-}
-
-.monumentLead {
+.monument {
   margin: 0;
-  max-width: 28rem;
-  font-size: clamp(0.95rem, 1.35vw, 1.1rem);
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  line-height: 1.4;
-  text-align: left;
-  color: var(--muted-strong);
-  animation: heroRise 900ms 140ms ease both;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  max-width: 720px;
 }
 
-.hero .actions {
+.hero .primary {
   flex-shrink: 0;
-  margin-top: 0;
-  justify-content: flex-end;
-  animation: heroRise 900ms 200ms ease both;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.hero .primary:hover {
+  background: #e8e8e8;
 }
 
 .eyebrow,
@@ -208,48 +209,6 @@
   color: var(--muted);
 }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0;
-  border: 1px solid var(--line);
-}
-
-.step {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  padding: 1.15rem 1rem 1.25rem;
-  border-right: 1px solid var(--line);
-}
-
-.step:last-child {
-  border-right: 0;
-}
-
-.stepNum {
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--accent);
-}
-
-.stepTitle {
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  line-height: 1.1;
-}
-
-.stepCheck {
-  font-size: 0.84rem;
-  line-height: 1.35;
-  color: var(--muted);
-}
-
 .meblirovka {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
@@ -354,95 +313,101 @@
   opacity: 0.72;
 }
 
-.journal {
+.journalSection {
+  margin-bottom: 4rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+
+.journalHead {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+  margin-bottom: 1.5rem;
+}
+
+.journalEyebrow {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.journalHeading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.journal {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 1.25rem;
 }
 
 .journalItem {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  min-height: clamp(15rem, 28vw, 19rem);
-  overflow: hidden;
-  color: #f7f4ef;
-  background: #1a1714;
-}
-
-.journalMedia,
-.journalBody {
-  position: relative;
-  min-height: inherit;
-  overflow: hidden;
-}
-
-.journalMediaImage,
-.journalBlurImage {
-  object-fit: cover;
-}
-
-.journalBlur {
-  position: absolute;
-  inset: 0;
-}
-
-.journalBlurImage {
-  filter: blur(42px);
-  transform: scale(1.2);
-}
-
-.journalBody::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgb(12 12 12 / 0.38);
-}
-
-.journalCopy {
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  height: 100%;
-  padding: clamp(1.15rem, 2.5vw, 1.75rem);
+  gap: 0.65rem;
+  color: var(--foreground);
+  transition: opacity 160ms ease;
+}
+
+.journalItem:hover {
+  opacity: 0.72;
+}
+
+.journalMedia {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #ececec;
+}
+
+.journalMediaImage {
+  object-fit: cover;
+  transition: transform 420ms ease;
+}
+
+.journalItem:hover .journalMediaImage {
+  transform: scale(1.03);
+}
+
+.journalMeta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.journalIndex {
+  font-variant-numeric: tabular-nums;
 }
 
 .journalTag {
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgb(247 244 239 / 0.72);
+  text-align: right;
 }
 
 .journalTitle {
-  max-width: 18ch;
+  max-width: 28ch;
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  line-height: 1.12;
-}
-
-.journalCta {
-  margin-top: auto;
-  align-self: flex-end;
-  padding: 0.55rem 0.95rem;
-  border: 1px solid rgb(247 244 239 / 0.55);
-  border-radius: 999px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
-}
-
-.journalItem:hover .journalCta {
-  background: #f7f4ef;
-  color: #0c0c0c;
-  border-color: #f7f4ef;
+  line-height: 1.2;
 }
 
 .finalCta {
@@ -474,23 +439,6 @@
 }
 
 @media (max-width: 980px) {
-  .steps {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .step {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .step:nth-child(odd) {
-    border-right: 1px solid var(--line);
-  }
-
-  .step:nth-last-child(-n + 2) {
-    border-bottom: 0;
-  }
-
   .meblirovka {
     grid-template-columns: 1fr;
   }
@@ -510,35 +458,23 @@
 
 @media (max-width: 720px) {
   .hero {
-    min-height: 0;
-    gap: 1.75rem;
+    min-height: calc(100svh - var(--header-height));
+  }
+
+  .heroContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding-block: 1rem;
   }
 
   .monument {
-    font-size: clamp(1.85rem, 8.5vw, 2.75rem);
+    font-size: 18px;
   }
 
-  .heroFoot {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.25rem;
-  }
-
-  .hero .actions {
-    justify-content: flex-start;
-  }
-
-  .journalItem {
+  .journal {
     grid-template-columns: 1fr;
-    min-height: 0;
-  }
-
-  .journalMedia {
-    min-height: 14rem;
-  }
-
-  .journalBody {
-    min-height: 12rem;
+    gap: 1.5rem;
   }
 
   .journalTitle {
@@ -547,29 +483,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroNote,
-  .monument,
-  .monumentLead,
-  .hero .actions {
+  .heroContent {
     animation: none;
+  }
+
+  .journalMediaImage,
+  .journalItem:hover .journalMediaImage {
+    transition: none;
+    transform: none;
   }
 }
 
 @media (max-width: 560px) {
-  .steps {
-    grid-template-columns: 1fr;
-  }
-
-  .step,
-  .step:nth-child(odd) {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .step:last-child {
-    border-bottom: 0;
-  }
-
   .materials {
     grid-template-columns: 1fr;
   }

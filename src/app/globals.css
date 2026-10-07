@@ -7,6 +7,7 @@
   --accent: #c45c4a;
   --container: 1440px;
   --gutter: clamp(1rem, 2.5vw, 1.75rem);
+  --header-height: 48px;
   --font-ui: var(--font-ui-family), "Helvetica Neue", Helvetica, sans-serif;
   --font-display: var(--font-display-family), var(--font-ui-family), sans-serif;
 }

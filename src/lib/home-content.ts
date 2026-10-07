@@ -5,10 +5,8 @@ const categoryCovers: Record<string, string> = {
   "/kuhni/": "/covers/cat-kitchen.jpg",
   "/shkafy/": "/covers/cat-wardrobe.jpg",
   "/garderobnye/": "/covers/cat-closet.jpg",
-  "/stoly/": "/covers/cat-table.jpg",
   "/mebel-dlya-vannoy/": "/covers/cat-bath.jpg",
   "/detskaya-mebel/": "/covers/cat-kids.jpg",
-  "/mebel-dlya-spalni/": "/covers/cat-bedroom.jpg",
 };
 
 export const categoryNavigator = productRoutes.map((route, index) => ({
@@ -18,16 +16,8 @@ export const categoryNavigator = productRoutes.map((route, index) => ({
   index: index + 1,
 }));
 
-/** Индекс категорий для блока «Что производим» (+ меблировка как услуга). */
-export const productionIndex = [
-  ...categoryNavigator,
-  {
-    href: siteRoutes.meblirovkaKvartiry.href,
-    title: siteRoutes.meblirovkaKvartiry.title,
-    cover: "/covers/proj-studio-a.jpg",
-    index: categoryNavigator.length + 1,
-  },
-] as const;
+/** Индекс категорий для блока «Что производим». */
+export const productionIndex = categoryNavigator;
 
 export const values = [
   {
@@ -158,8 +148,8 @@ export const journalPreview = [
   },
   {
     title: "Комплексная меблировка: когда это выгоднее отдельных заказов",
-    tag: "Меблировка",
-    href: siteRoutes.meblirovkaKvartiry.href,
+    tag: "Проекты",
+    href: siteRoutes.projects.href,
     cover: "/covers/journal-03.jpg",
   },
   {

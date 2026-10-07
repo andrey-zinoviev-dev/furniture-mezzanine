@@ -1,7 +1,6 @@
 export type PageKind =
   | "home"
   | "product"
-  | "service"
   | "portfolio"
   | "case"
   | "proof"
@@ -31,7 +30,7 @@ export const siteRoutes = {
     kind: "home",
     kindLabel: "Главная коммерческая",
     description:
-      "Индивидуальная мебель на заказ: кухни, шкафы, гардеробные и меблировка квартиры.",
+      "Индивидуальная мебель на заказ: кухни, шкафы, гардеробные и мебель для дома.",
     inNav: true,
   },
   kuhni: {
@@ -59,14 +58,6 @@ export const siteRoutes = {
     description: "Гардеробные системы на заказ: планировка хранения и изготовление.",
     inNav: true,
   },
-  stoly: {
-    href: "/stoly/",
-    title: "Столы",
-    kind: "product",
-    kindLabel: "Продуктовая",
-    description: "Столы на заказ: обеденные, рабочие и решения нестандартных размеров.",
-    inNav: true,
-  },
   mebelDlyaVannoy: {
     href: "/mebel-dlya-vannoy/",
     title: "Мебель для ванной",
@@ -77,32 +68,15 @@ export const siteRoutes = {
   },
   detskayaMebel: {
     href: "/detskaya-mebel/",
-    title: "Детская мебель",
+    title: "Мебель для детской",
     kind: "product",
     kindLabel: "Продуктовая",
-    description: "Детская мебель на заказ: безопасные материалы и эргономика под рост ребёнка.",
-    inNav: true,
-  },
-  mebelDlyaSpalni: {
-    href: "/mebel-dlya-spalni/",
-    title: "Мебель для спальни",
-    kind: "product",
-    kindLabel: "Продуктовая",
-    description: "Мебель для спальни на заказ: кровати, системы хранения и комплекты.",
-    inNav: true,
-  },
-  meblirovkaKvartiry: {
-    href: "/meblirovka-kvartiry/",
-    title: "Меблировка квартиры",
-    kind: "service",
-    kindLabel: "Коммерческая услуга",
-    description:
-      "Комплексная меблировка квартиры: единый проект, производство и монтаж.",
+    description: "Мебель для детской на заказ: безопасные материалы и эргономика под рост ребёнка.",
     inNav: true,
   },
   projects: {
     href: "/projects/",
-    title: "Все проекты",
+    title: "Проекты",
     kind: "portfolio",
     kindLabel: "Проектная / портфолио",
     description: "Портфолио реализованных проектов индивидуальной мебели.",
@@ -158,23 +132,36 @@ export const siteRoutes = {
   },
 } as const satisfies Record<string, SiteRoute>;
 
+/** Продуктовые страницы (категории на главной и т.п.). */
 export const productRoutes = [
   siteRoutes.kuhni,
   siteRoutes.shkafy,
   siteRoutes.garderobnye,
-  siteRoutes.stoly,
   siteRoutes.mebelDlyaVannoy,
   siteRoutes.detskayaMebel,
-  siteRoutes.mebelDlyaSpalni,
 ] as const;
 
-/** Верхнее меню без продуктовых страниц — они в группе «Мебель». */
-export const primaryNavRoutes = [
-  siteRoutes.meblirovkaKvartiry,
-  siteRoutes.projects,
+/** Выпадающее меню «Мебель» в хедере (кухни — отдельная ссылка). */
+export const furnitureNavRoutes = [
+  siteRoutes.shkafy,
+  siteRoutes.garderobnye,
+  siteRoutes.mebelDlyaVannoy,
+  siteRoutes.detskayaMebel,
+] as const;
+
+/** Выпадающее меню «Производство» в хедере. */
+export const proofNavRoutes = [
   siteRoutes.production,
   siteRoutes.process,
   siteRoutes.materials,
+] as const;
+
+/**
+ * Плоские ссылки верхней навигации.
+ * Кухни, «Мебель» и «Производство» рендерятся отдельно в хедере.
+ */
+export const primaryNavRoutes = [
+  siteRoutes.projects,
   siteRoutes.designers,
   siteRoutes.about,
   siteRoutes.contacts,
