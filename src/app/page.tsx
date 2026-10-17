@@ -1,15 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AboutSection } from "@/components/home/about-section";
+import { DesignersInvite } from "@/components/home/designers-invite";
 import { FeaturedProjects } from "@/components/home/featured-projects";
 import { ProductionIndex } from "@/components/home/production-index";
 import { ProductionProof } from "@/components/home/production-proof";
 import { RisksSolutions } from "@/components/home/risks-solutions";
-import { SolutionsMarquee } from "@/components/home/solutions-marquee";
+// import { SolutionsMarquee } from "@/components/home/solutions-marquee";
 import { ValuesAccordion } from "@/components/home/values-accordion";
 import { WorkProcess } from "@/components/home/work-process";
 import {
   journalPreview,
-  materialsPreview,
+  // materialsPreview,
 } from "@/lib/home-content";
 import { pageMetadata } from "@/lib/metadata";
 import { siteRoutes } from "@/lib/routes";
@@ -20,7 +22,7 @@ export const metadata = pageMetadata(siteRoutes.home);
 export default function HomePage() {
   return (
     <div className={styles.home}>
-      {/* 1. Hero — видео на весь экран, оффер и CTA внизу */}
+      {/* 1. Hero — медиа сверху, оффер и CTA в белом блоке снизу */}
       <section className={styles.hero} aria-labelledby="home-offer">
         <div className={styles.heroMedia} aria-hidden="true">
           <video
@@ -39,36 +41,35 @@ export default function HomePage() {
           </video>
         </div>
         <div className={styles.heroContent}>
-          <h1 id="home-offer" className={styles.monument}>
-            Индивидуальная мебель без компромиссов между интерьером, функцией и
-            реализацией
-          </h1>
-          <Link href={siteRoutes.contacts.href} className={styles.primary}>
-            Обсудить проект
-          </Link>
+          <div className={styles.heroMain}>
+            <h1 id="home-offer" className={styles.monument}>
+              Индивидуальная мебель без компромиссов между интерьером, функцией
+              и реализацией
+            </h1>
+            <Link href={siteRoutes.contacts.href} className={styles.primary}>
+              Обсудить проект
+            </Link>
+          </div>
+          <p className={styles.heroLead}>
+            Проектируем и производим под конкретное пространство: кухни,
+            гардеробные, комплексная меблировка. Чертежи и узлы фиксируем до
+            запуска в цех.
+          </p>
         </div>
       </section>
 
-      {/* 2. Что производим — золотая сетка только здесь */}
+      {/* 2. Услуги — слайдер 50/50 */}
       <ProductionIndex />
 
-      {/* 3. Избранные проекты */}
+      {/* 3. Избранные проекты — сетка 320px | 1fr, горизонтальная лента */}
       <section className={styles.section} aria-labelledby="featured-projects">
-        <div className={styles.sectionHead}>
-          <div>
-            <p className={styles.sectionEyebrow}>Портфолио</p>
-            <h2 id="featured-projects" className={styles.sectionTitle}>
-              Избранные проекты
-            </h2>
-          </div>
-          <Link href={siteRoutes.projects.href} className={styles.sectionLink}>
-            Все проекты
-          </Link>
-        </div>
         <FeaturedProjects />
       </section>
 
-      {/* 4. Новые решения */}
+      {/* 4. О нас — editorial-сетка */}
+      {/* <AboutSection /> */}
+
+      {/* 5. Новые решения */}
       {/* <section className={styles.section} aria-labelledby="new-solutions">
         <p className={styles.sectionEyebrow}>В работе и рядом</p>
         <h2 id="new-solutions" className={styles.srOnly}>
@@ -78,7 +79,7 @@ export default function HomePage() {
       </section> */}
 
       {/* 5. Риски и решения */}
-      {/* <RisksSolutions /> */}
+      <RisksSolutions />
 
       {/* 6. Ценности */}
       {/* <section className={styles.section} aria-labelledby="values">
@@ -102,9 +103,9 @@ export default function HomePage() {
       </section> */}
 
       {/* 7. Процесс — равные карточки со скроллом */}
-      <WorkProcess />
+      {/* <WorkProcess /> */}
 
-      {/* 9. Материалы */}
+      {/* 8. Материалы */}
       {/* <section className={styles.section} aria-labelledby="materials">
         <div className={styles.sectionHead}>
           <div>
@@ -131,6 +132,10 @@ export default function HomePage() {
           ))}
         </ul>
       </section> */}
+
+
+      {/* 9. Дизайнерам — тёмное типографическое поле */}
+      <DesignersInvite />
 
       {/* 10. Журнал */}
       <section className={styles.journalSection} aria-labelledby="journal">
@@ -166,27 +171,63 @@ export default function HomePage() {
         </ul>
       </section>
 
-      {/* 11. Финальный CTA */}
-      <section className={styles.finalCta} aria-labelledby="final-cta">
-        <div className={styles.finalCopy}>
-          <p className={styles.sectionEyebrow}>Следующий шаг</p>
+
+      {/* 12. Финальный CTA — 50/50: цитата | фото + действия */}
+      {/* <section className={styles.finalCta} aria-labelledby="final-cta">
+        <div className={styles.finalQuote}>
+          <p className={styles.finalMeta}>2026</p>
           <h2 id="final-cta" className={styles.finalTitle}>
-            Расскажите о вашем проекте
+            От эскиза до монтажа — мебель, которая живёт с интерьером
           </h2>
-          <p className={styles.finalLead}>
-            Пришлите планировку или опишите пространство — обсудим решение, этапы и
-            ориентир по стоимости.
-          </p>
-        </div>
-        <div className={styles.actions}>
-          <Link href={siteRoutes.contacts.href} className={styles.primary}>
-            Оставить заявку
-          </Link>
-          <Link href={siteRoutes.contacts.href} className={styles.secondary}>
-            Приложить планировку
+          <Link href={siteRoutes.contacts.href} className={styles.finalAsideLink}>
+            Контакты —
           </Link>
         </div>
-      </section>
+
+        <div className={styles.finalPanel}>
+          <div className={styles.finalMedia} aria-hidden="true">
+            <Image
+              src="/covers/living.jpg"
+              alt=""
+              fill
+              sizes="(max-width: 980px) 100vw, 50vw"
+              className={styles.finalImage}
+            />
+            <span className={styles.finalGrain} />
+          </div>
+
+          <div className={styles.finalInfo}>
+            <div>
+              <p className={styles.finalColTitle}>Связь</p>
+              <ul className={styles.finalList}>
+                <li>
+                  <Link href={siteRoutes.contacts.href}>Оставить заявку</Link>
+                </li>
+                <li>
+                  <Link href={siteRoutes.contacts.href}>Приложить планировку</Link>
+                </li>
+                <li>
+                  <Link href={siteRoutes.contacts.href}>Обсудить проект</Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className={styles.finalColTitle}>Разделы</p>
+              <ul className={styles.finalList}>
+                <li>
+                  <Link href={siteRoutes.projects.href}>Проекты</Link>
+                </li>
+                <li>
+                  <Link href={siteRoutes.kuhni.href}>Кухни</Link>
+                </li>
+                <li>
+                  <Link href={siteRoutes.garderobnye.href}>Гардеробные</Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section> */}
     </div>
   );
 }

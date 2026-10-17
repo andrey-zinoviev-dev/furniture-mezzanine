@@ -1,76 +1,104 @@
-.list {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--line);
-}
-
-.row {
+/*
+  Десктоп 1023px+: сетка 320px | 1fr.
+  Слева — заголовок, справа — лид и горизонтальная лента карточек.
+  Между шапкой и карточками — крупный вертикальный зазор, как на референсе.
+*/
+.works {
   display: grid;
-  grid-template-columns: 20% 0.5fr 1fr;
+  grid-template-columns: 320px minmax(0, 1fr);
+  grid-template-areas:
+    "title aside"
+    ". scroller";
+  column-gap: clamp(1.5rem, 3vw, 2.5rem);
+  row-gap: clamp(3.5rem, 8vw, 6.5rem);
   align-items: start;
-  padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
-  border-bottom: 1px solid var(--line);
 }
 
-.indent {
-  min-height: 1px;
-}
-
-.meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  padding-top: 0.15rem;
-  min-width: 0;
-}
-
-.label {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.45rem 0.55rem;
-  width: fit-content;
-  max-width: 100%;
-}
-
-.label:hover .title,
-.label:focus-visible .title {
-  color: var(--muted);
+.head {
+  display: contents;
 }
 
 .title {
-  font-size: 2.1rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  grid-area: title;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.35rem 0.5rem;
+  font-family: var(--font-h2);
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 1.25;
-  transition: color 160ms ease;
+  line-height: 0.95;
 }
 
 .count {
-  font-size: 1rem;
+  font-size: 0.42em;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
   color: var(--muted);
-  white-space: nowrap;
+  transform: translateY(0.15em);
 }
 
-.category {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+.headAside {
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.85rem;
+  max-width: 22rem;
+  justify-self: end;
+  text-align: right;
+}
+
+.lead {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--muted-strong);
+}
+
+.allLink {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.2rem;
+}
+
+.allLink:hover {
   color: var(--muted);
 }
 
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Лента в правой колонке, выходит за правый gutter контейнера */
 .scroller {
-  min-width: 0;
+  grid-area: scroller;
+  margin-right: calc(var(--gutter) * -1);
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  container-type: inline-size;
   scrollbar-width: thin;
   scrollbar-color: var(--muted) transparent;
   outline: none;
+  cursor: grab;
+}
+
+.scroller:active {
+  cursor: grabbing;
 }
 
 .scroller:focus-visible {
@@ -80,14 +108,61 @@
 .track {
   display: flex;
   width: max-content;
-  gap: 0.45rem;
-  padding-bottom: 0.15rem;
+  gap: clamp(0.85rem, 1.5vw, 1.25rem);
+  padding-right: var(--gutter);
+  list-style: none;
+  margin: 0;
+}
+
+.card {
+  flex: 0 0 clamp(14rem, 22vw, 18.5rem);
+}
+
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.cardIndex {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  transition: color 160ms ease;
+}
+
+.cardPlace {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cardLink:hover .cardTitle,
+.cardLink:focus-visible .cardTitle {
+  color: var(--muted);
 }
 
 .frame {
   position: relative;
-  /* Вертикальный кадр как у категорий (3/4), но своя ширина — не копируем их размер. */
-  flex: 0 0 calc((100cqi - 0.9rem) / 3 + 75px);
+  display: block;
   aspect-ratio: 3 / 4;
   overflow: hidden;
   background: #1a1714;
@@ -116,23 +191,40 @@
   pointer-events: none;
 }
 
-.frame:hover .image,
-.frame:focus-visible .image {
+.cardLink:hover .image,
+.cardLink:focus-visible .image {
   transform: scale(1.04);
 }
 
-@media (max-width: 720px) {
-  .row {
+@media (max-width: 1022px) {
+  .works {
     grid-template-columns: 1fr;
-    gap: 0.85rem;
+    grid-template-areas:
+      "title"
+      "aside"
+      "scroller";
+    row-gap: 1.25rem;
   }
 
-  .indent {
-    display: none;
+  .title {
+    font-size: clamp(2rem, 8vw, 2.75rem);
+  }
+
+  .headAside {
+    max-width: none;
+    justify-self: start;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .scroller {
-    margin-inline: calc(var(--gutter) * -1);
-    padding-inline: var(--gutter);
+    margin-top: 0.75rem;
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+    padding-left: var(--gutter);
+  }
+
+  .card {
+    flex-basis: min(70vw, 16rem);
   }
 }

@@ -10,6 +10,11 @@
   --header-height: 48px;
   --font-ui: var(--font-ui-family), "Helvetica Neue", Helvetica, sans-serif;
   --font-display: var(--font-display-family), var(--font-ui-family), sans-serif;
+  --font-h2: var(--font-h2-family), var(--font-ui-family), sans-serif;
+}
+
+h2 {
+  font-family: var(--font-h2);
 }
 
 html {
@@ -26,6 +31,7 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  padding-top: var(--header-height);
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-ui);

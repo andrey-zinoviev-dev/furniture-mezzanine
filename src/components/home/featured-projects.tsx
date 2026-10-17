@@ -1,76 +1,71 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getFeaturedProjects, stubCovers, type Project } from "@/lib/projects";
+import { getFeaturedProjects } from "@/lib/projects";
+import { siteRoutes } from "@/lib/routes";
 import styles from "./featured-projects.module.css";
 
 type FeaturedProjectsProps = {
   limit?: number;
 };
 
-/** Кадры галереи: свои у проекта, иначе ротация из общего пула. */
-function galleryFrames(project: Project, count: number): string[] {
-  if (project.gallery && project.gallery.length > 0) {
-    return project.gallery.slice(0, count);
-  }
-
-  const offset = Math.max(
-    0,
-    stubCovers.findIndex((cover) => cover === project.cover),
-  );
-
-  return Array.from(
-    { length: count },
-    (_, index) => stubCovers[(offset + index) % stubCovers.length],
-  );
-}
-
-/** Избранные проекты: слева название, справа горизонтальная лента кадров. */
-export function FeaturedProjects({ limit = 5 }: FeaturedProjectsProps) {
+/** Избранные проекты: заголовок слева, горизонтальная лента карточек справа. */
+export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
   const items = getFeaturedProjects(limit);
 
   return (
-    <ul className={styles.list}>
-      {items.map((project) => {
-        const frames = galleryFrames(project, 5);
+    <div className={styles.works}>
+      <header className={styles.head}>
+        <h2 id="featured-projects" className={styles.title}>
+          Проекты
+          <span className={styles.count} aria-hidden="true">
+            ({String(items.length).padStart(2, "0")})
+          </span>
+          <span className={styles.srOnly}> — {items.length}</span>
+        </h2>
+        <div className={styles.headAside}>
+          <p className={styles.lead}>
+            Чистые силуэты и тактильная глубина — мебель, рассчитанная на годы.
+          </p>
+          <Link href={siteRoutes.projects.href} className={styles.allLink}>
+            Все проекты
+          </Link>
+        </div>
+      </header>
 
-        return (
-          <li key={project.slug} className={styles.row}>
-            <div className={styles.meta}>
-              <Link href={`/projects/${project.slug}/`} className={styles.label}>
-                <span className={styles.title}>{project.title}</span>
-                <span className={styles.count} aria-label={`${frames.length} кадров`}>
-                  [ {frames.length} ]
+      <div
+        className={styles.scroller}
+        tabIndex={0}
+        aria-label="Избранные проекты"
+      >
+        <ul className={styles.track}>
+          {items.map((project, index) => (
+            <li key={project.slug} className={styles.card}>
+              <Link
+                href={`/projects/${project.slug}/`}
+                className={styles.cardLink}
+              >
+                <span className={styles.cardMeta}>
+                  <span className={styles.cardIndex}>
+                    {String(index + 1).padStart(3, "0")}
+                  </span>
+                  <span className={styles.cardTitle}>{project.title}</span>
+                  <span className={styles.cardPlace}>{project.category}</span>
+                </span>
+                <span className={styles.frame}>
+                  <Image
+                    src={project.cover}
+                    alt=""
+                    fill
+                    sizes="(max-width: 1022px) 70vw, 22vw"
+                    className={styles.image}
+                  />
+                  <span className={styles.grain} aria-hidden="true" />
                 </span>
               </Link>
-              <span className={styles.category}>{project.category}</span>
-            </div>
-
-            <div className={styles.indent} aria-hidden="true" />
-
-            <div className={styles.scroller} tabIndex={0} aria-label={`Кадры: ${project.title}`}>
-              <div className={styles.track}>
-                {frames.map((cover, index) => (
-                  <Link
-                    key={`${project.slug}-${index}`}
-                    href={`/projects/${project.slug}/`}
-                    className={styles.frame}
-                    tabIndex={-1}
-                  >
-                    <Image
-                      src={cover}
-                      alt=""
-                      fill
-                      sizes="(max-width: 720px) 45vw, 20vw"
-                      className={styles.image}
-                    />
-                    <span className={styles.grain} aria-hidden="true" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

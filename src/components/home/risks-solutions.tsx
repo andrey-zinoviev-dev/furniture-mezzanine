@@ -1,42 +1,75 @@
+"use client";
+
+import { useId, useState } from "react";
 import { risksSolutions } from "@/lib/home-content";
 import styles from "./risks-solutions.module.css";
 
-/** Риски клиента и как мы их закрываем — карточки mid-page. */
+/**
+ * Риски: золотая сетка 320px | 1fr (как у проектов) + аккордеон.
+ * Тоггл — шеврон, без круга с плюсом.
+ */
 export function RisksSolutions() {
-  return (
-    <section className={styles.band} aria-labelledby="risks">
-      <div className={styles.inner}>
-        <div className={styles.head}>
-          <div>
-            <p className={styles.eyebrow}>[ Риски ]</p>
-            <h2 id="risks" className={styles.title}>
-              Риски и решения
-            </h2>
-          </div>
-          <p className={styles.note}>
-            Типичные опасения до заказа мебели — и что мы делаем, чтобы они не
-            стали проблемой на объекте.
-          </p>
-        </div>
+  const baseId = useId();
+  const [openId, setOpenId] = useState<string>(risksSolutions[0]?.id ?? "");
 
-        <ul className={styles.grid}>
-          {risksSolutions.map((item, index) => (
-            <li key={item.id} className={styles.card} data-tone={index + 1}>
-              <span className={styles.backdrop} aria-hidden="true" />
-              <div className={styles.content}>
-                <div className={styles.meta}>
-                  <span className={styles.mark} aria-hidden="true">
-                    {item.mark}
+  return (
+    <section className={styles.section} aria-labelledby="risks">
+      <div className={styles.layout}>
+        <header className={styles.head}>
+          <h2 id="risks" className={styles.title}>
+            Риски
+            <span className={styles.count} aria-hidden="true">
+              (02)
+            </span>
+          </h2>
+          <p className={styles.lead}>
+            Типичные опасения до заказа — и как мы их закрываем до цеха и на
+            объекте.
+          </p>
+        </header>
+
+        <ul className={styles.list}>
+          {risksSolutions.map((item, index) => {
+            const panelId = `${baseId}-panel-${item.id}`;
+            const buttonId = `${baseId}-btn-${item.id}`;
+            const isOpen = openId === item.id;
+
+            return (
+              <li
+                key={item.id}
+                className={styles.item}
+                data-open={isOpen || undefined}
+              >
+                <button
+                  type="button"
+                  id={buttonId}
+                  className={styles.trigger}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  onClick={() => setOpenId(isOpen ? "" : item.id)}
+                >
+                  <span className={styles.triggerMain}>
+                    <span className={styles.itemIndex}>
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className={styles.itemTitle}>{item.risk}</span>
                   </span>
-                  <span className={styles.index}>
-                    /{String(index + 1).padStart(2, "0")}
-                  </span>
+                  <span className={styles.chevron} aria-hidden="true" />
+                </button>
+
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  className={styles.panel}
+                  hidden={!isOpen}
+                >
+                  <p className={styles.panelLabel}>Решение</p>
+                  <p className={styles.panelBody}>{item.solution}</p>
                 </div>
-                <h3 className={styles.risk}>{item.risk}</h3>
-                <p className={styles.solution}>{item.solution}</p>
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

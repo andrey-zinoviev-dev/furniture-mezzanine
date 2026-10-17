@@ -13,11 +13,30 @@ export const categoryNavigator = productRoutes.map((route, index) => ({
   href: route.href,
   title: route.title,
   cover: categoryCovers[route.href] ?? "/covers/cat-kitchen.jpg",
+  description: route.description,
   index: index + 1,
 }));
 
 /** Индекс категорий для блока «Что производим». */
 export const productionIndex = categoryNavigator;
+
+/** Контент секции «О нас» на главной. */
+export const aboutSection = {
+  index: "01",
+  title: "О нас",
+  body: "Мы проектируем и производим индивидуальную мебель под конкретное пространство: от кухни и гардеробной до комплексной меблировки объекта. Чертежи, материалы и узлы фиксируем до запуска в цех — так результат совпадает с интерьером, а не с компромиссом «по факту».",
+  services: productRoutes.map((route) => route.title),
+  facts: [
+    "Собственное производство",
+    "Проект до цеха",
+    "Монтаж своей бригадой",
+    "Одна ответственность за результат",
+  ],
+  image: {
+    src: "/covers/proj-studio-a.jpg",
+    credit: "Производство / Цех",
+  },
+} as const;
 
 export const values = [
   {

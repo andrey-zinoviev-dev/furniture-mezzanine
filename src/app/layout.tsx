@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Onest, Unbounded } from "next/font/google";
+import { Inter, Onest, Unbounded } from "next/font/google";
 import { Container } from "@/components/container";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -17,11 +17,19 @@ const unbounded = Unbounded({
   weight: ["600", "700", "800"],
 });
 
+const inter = Inter({
+  variable: "--font-h2-family",
+  subsets: ["latin", "cyrillic"],
+});
+
 export const metadata: Metadata = rootMetadata();
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${onest.variable} ${unbounded.variable}`}>
+    <html
+      lang="ru"
+      className={`${onest.variable} ${unbounded.variable} ${inter.variable}`}
+    >
       <body>
         <SiteHeader />
         <main>
