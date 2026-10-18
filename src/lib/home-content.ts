@@ -155,32 +155,23 @@ export const risksSolutions = [
 export const journalPreview = [
   {
     title: "Как согласовать кухню, чтобы не переделывать на объекте",
-    tag: "Проект",
+    tag: "Кухни",
+    date: "12.03.2026",
     href: siteRoutes.process.href,
     cover: "/covers/journal-01.jpg",
   },
   {
     title: "Что влияет на стоимость встроенного шкафа",
     tag: "Смета",
+    date: "28.02.2026",
     href: siteRoutes.materials.href,
     cover: "/covers/journal-02.jpg",
   },
   {
     title: "Комплексная меблировка: когда это выгоднее отдельных заказов",
-    tag: "Проекты",
+    tag: "Меблировка",
+    date: "14.02.2026",
     href: siteRoutes.projects.href,
     cover: "/covers/journal-03.jpg",
-  },
-  {
-    title: "Гардеробная: с чего начать планировку хранения",
-    tag: "Хранение",
-    href: siteRoutes.garderobnye.href,
-    cover: "/covers/journal-04.jpg",
-  },
-  {
-    title: "Фасады и столешницы: как выбрать материал под задачу",
-    tag: "Материалы",
-    href: siteRoutes.materials.href,
-    cover: "/covers/journal-05.jpg",
   },
 ] as const;

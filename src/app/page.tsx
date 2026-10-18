@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Container } from "@/components/container";
 import { AboutSection } from "@/components/home/about-section";
 import { DesignersInvite } from "@/components/home/designers-invite";
 import { FeaturedProjects } from "@/components/home/featured-projects";
@@ -41,20 +42,22 @@ export default function HomePage() {
           </video>
         </div>
         <div className={styles.heroContent}>
-          <div className={styles.heroMain}>
-            <h1 id="home-offer" className={styles.monument}>
-              Индивидуальная мебель без компромиссов между интерьером, функцией
-              и реализацией
-            </h1>
-            <Link href={siteRoutes.contacts.href} className={styles.primary}>
-              Обсудить проект
-            </Link>
-          </div>
-          <p className={styles.heroLead}>
-            Проектируем и производим под конкретное пространство: кухни,
-            гардеробные, комплексная меблировка. Чертежи и узлы фиксируем до
-            запуска в цех.
-          </p>
+          <Container className={styles.heroInner}>
+            <div className={styles.heroMain}>
+              <h1 id="home-offer" className={styles.monument}>
+                Индивидуальная мебель без компромиссов между интерьером, функцией
+                и реализацией
+              </h1>
+              <Link href={siteRoutes.contacts.href} className={styles.primary}>
+                Обсудить проект
+              </Link>
+            </div>
+            <p className={styles.heroLead}>
+              Проектируем и производим под конкретное пространство: кухни,
+              гардеробные, комплексная меблировка. Чертежи и узлы фиксируем до
+              запуска в цех.
+            </p>
+          </Container>
         </div>
       </section>
 
@@ -137,7 +140,7 @@ export default function HomePage() {
       {/* 9. Дизайнерам — тёмное типографическое поле */}
       <DesignersInvite />
 
-      {/* 10. Журнал */}
+      {/* 10. Журнал — 3 колонки: тег на фото, дата + заголовок снизу */}
       <section className={styles.journalSection} aria-labelledby="journal">
         <div className={styles.journalHead}>
           <p className={styles.journalEyebrow}>Экспертиза</p>
@@ -146,7 +149,7 @@ export default function HomePage() {
           </h2>
         </div>
         <ul className={styles.journal}>
-          {journalPreview.map((article, index) => (
+          {journalPreview.map((article) => (
             <li key={article.title}>
               <Link href={article.href} className={styles.journalItem}>
                 <span className={styles.journalMedia}>
@@ -154,17 +157,17 @@ export default function HomePage() {
                     src={article.cover}
                     alt=""
                     fill
-                    sizes="(max-width: 720px) 100vw, 50vw"
+                    sizes="(max-width: 720px) 100vw, (max-width: 1023px) 50vw, 33vw"
                     className={styles.journalMediaImage}
                   />
                 </span>
-                <span className={styles.journalMeta}>
-                  <span className={styles.journalIndex}>
-                    {String(index + 1).padStart(2, "0")}
+                <span className={styles.journalBody}>
+                  <span className={styles.journalMeta}>
+                    <time className={styles.journalDate}>{article.date}</time>
+                    <span className={styles.journalTag}>{article.tag}</span>
                   </span>
-                  <span className={styles.journalTag}>{article.tag}</span>
+                  <span className={styles.journalTitle}>{article.title}</span>
                 </span>
-                <span className={styles.journalTitle}>{article.title}</span>
               </Link>
             </li>
           ))}

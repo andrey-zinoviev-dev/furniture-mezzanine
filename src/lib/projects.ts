@@ -247,6 +247,50 @@ export const projects: Project[] = [
   },
 ];
 
+/** Стабильные slug категорий для `?category=` на /projects/. */
+const categorySlugs: Record<string, string> = {
+  Кухни: "kuhni",
+  Гардеробные: "garderobnye",
+  Шкафы: "shkafy",
+  Спальни: "spalni",
+  Столы: "stoly",
+  Ванная: "vannaya",
+  Детская: "detskaya",
+  Меблировка: "meblirovka",
+};
+
+const slugToCategoryMap = Object.fromEntries(
+  Object.entries(categorySlugs).map(([category, slug]) => [slug, category]),
+) as Record<string, string>;
+
+export function categoryToSlug(category: string): string {
+  return categorySlugs[category] ?? category.toLowerCase().replace(/\s+/g, "-");
+}
+
+export function slugToCategory(slug: string): string | undefined {
+  return slugToCategoryMap[slug];
+}
+
+/** Уникальные категории в порядке появления в данных. */
+export function getProjectCategories(): string[] {
+  const seen = new Set<string>();
+  const categories: string[] = [];
+  for (const project of projects) {
+    if (seen.has(project.category)) continue;
+    seen.add(project.category);
+    categories.push(project.category);
+  }
+  return categories;
+}
+
+/** Фильтр по slug категории; неизвестный slug → полный список. */
+export function getProjectsByCategorySlug(slug?: string): Project[] {
+  if (!slug) return projects;
+  const category = slugToCategory(slug);
+  if (!category) return projects;
+  return projects.filter((project) => project.category === category);
+}
+
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug);
 }

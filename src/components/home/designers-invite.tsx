@@ -12,17 +12,18 @@ export function DesignersInvite() {
     <section className={styles.section} aria-labelledby="designers-invite">
       <div className={styles.frame}>
         <h2 id="designers-invite" className={styles.title}>
-          Дизайнерам — мебель по вашему проекту без потери замысла
+          Ваш проект — наша точная реализация
         </h2>
 
         <div className={styles.copy}>
           {/* <p className={styles.label}>Дизайнерам</p> */}
           <p className={styles.note}>
-            Для студий и частных практик: производство по чертежам,
-            сопровождение до монтажа и одна ответственность за результат.
+            Берём на себя техническую проработку, производство и монтаж мебели
+            по вашему дизайн-проекту. Сохраняем авторский замысел и
+            согласовываем любые изменения с дизайнером.
           </p>
           <Link href={siteRoutes.designers.href} className={styles.cta}>
-            Начать сотрудничество
+            Подробнее о сотрудничестве
           </Link>
         </div>
 
