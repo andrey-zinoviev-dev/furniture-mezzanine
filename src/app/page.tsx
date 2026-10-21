@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/container";
 import { AboutSection } from "@/components/home/about-section";
+import { AfterOrder } from "@/components/home/after-order";
 import { DesignersInvite } from "@/components/home/designers-invite";
 import { FeaturedProjects } from "@/components/home/featured-projects";
+import { HomeFaq } from "@/components/home/home-faq";
 import { ProductionIndex } from "@/components/home/production-index";
 import { ProductionProof } from "@/components/home/production-proof";
 import { RisksSolutions } from "@/components/home/risks-solutions";
@@ -53,21 +55,22 @@ export default function HomePage() {
               </Link>
             </div>
             <p className={styles.heroLead}>
-              Проектируем и производим под конкретное пространство: кухни,
-              гардеробные, комплексная меблировка. Чертежи и узлы фиксируем до
-              запуска в цех.
+              Проектирование и производство — от кухни до комплексной
+              меблировки.
             </p>
           </Container>
         </div>
       </section>
 
-      {/* 2. Услуги — слайдер 50/50 */}
+      {/* 2. Услуги — навигация слева, блоки направлений справа */}
       <ProductionIndex />
 
       {/* 3. Избранные проекты — сетка 320px | 1fr, горизонтальная лента */}
       <section className={styles.section} aria-labelledby="featured-projects">
         <FeaturedProjects />
       </section>
+
+      <WorkProcess />
 
       {/* 4. О нас — editorial-сетка */}
       {/* <AboutSection /> */}
@@ -84,7 +87,11 @@ export default function HomePage() {
       {/* 5. Риски и решения */}
       <RisksSolutions />
 
-      {/* 6. Ценности */}
+      {/* 6. После заказа — bento */}
+      <AfterOrder />
+      
+
+      {/* 7. Ценности */}
       {/* <section className={styles.section} aria-labelledby="values">
         <div className={styles.sectionHead}>
           <div>
@@ -100,15 +107,12 @@ export default function HomePage() {
         <ValuesAccordion />
       </section> */}
 
-      {/* 6. Доказательство производства */}
+      {/* 8. Доказательство производства */}
       {/* <section className={styles.section} aria-labelledby="production-proof">
         <ProductionProof />
       </section> */}
 
-      {/* 7. Процесс — равные карточки со скроллом */}
-      {/* <WorkProcess /> */}
-
-      {/* 8. Материалы */}
+      {/* 9. Материалы */}
       {/* <section className={styles.section} aria-labelledby="materials">
         <div className={styles.sectionHead}>
           <div>
@@ -136,17 +140,15 @@ export default function HomePage() {
         </ul>
       </section> */}
 
-
-      {/* 9. Дизайнерам — тёмное типографическое поле */}
-      <DesignersInvite />
-
       {/* 10. Журнал — 3 колонки: тег на фото, дата + заголовок снизу */}
       <section className={styles.journalSection} aria-labelledby="journal">
         <div className={styles.journalHead}>
-          <p className={styles.journalEyebrow}>Экспертиза</p>
           <h2 id="journal" className={styles.journalHeading}>
             Статьи
           </h2>
+          <p className={styles.journalLead}>
+            Экспертиза проекта — кухни, смета, комплексная меблировка.
+          </p>
         </div>
         <ul className={styles.journal}>
           {journalPreview.map((article) => (
@@ -174,8 +176,13 @@ export default function HomePage() {
         </ul>
       </section>
 
+      {/* 11. FAQ — сразу перед приглашением дизайнеров */}
+      <HomeFaq />
 
-      {/* 12. Финальный CTA — 50/50: цитата | фото + действия */}
+      {/* 12. Дизайнерам */}
+      {/* <DesignersInvite /> */}
+
+      {/* 13. Финальный CTA — 50/50: цитата | фото + действия */}
       {/* <section className={styles.finalCta} aria-labelledby="final-cta">
         <div className={styles.finalQuote}>
           <p className={styles.finalMeta}>2026</p>

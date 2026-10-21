@@ -74,6 +74,15 @@ export const siteRoutes = {
     description: "Мебель для детской на заказ: безопасные материалы и эргономика под рост ребёнка.",
     inNav: true,
   },
+  meblirovka: {
+    href: "/meblirovka/",
+    title: "Меблировка",
+    kind: "product",
+    kindLabel: "Продуктовая",
+    description:
+      "Комплексная меблировка квартиры или дома: вся мебель в одном проекте и с одной ответственностью.",
+    inNav: true,
+  },
   projects: {
     href: "/projects/",
     title: "Проекты",
@@ -139,6 +148,7 @@ export const productRoutes = [
   siteRoutes.garderobnye,
   siteRoutes.mebelDlyaVannoy,
   siteRoutes.detskayaMebel,
+  siteRoutes.meblirovka,
 ] as const;
 
 /** Выпадающее меню «Мебель» в хедере (кухни — отдельная ссылка). */
@@ -147,6 +157,7 @@ export const furnitureNavRoutes = [
   siteRoutes.garderobnye,
   siteRoutes.mebelDlyaVannoy,
   siteRoutes.detskayaMebel,
+  siteRoutes.meblirovka,
 ] as const;
 
 /** Выпадающее меню «Производство» в хедере. */

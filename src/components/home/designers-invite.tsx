@@ -16,11 +16,10 @@ export function DesignersInvite() {
         </h2>
 
         <div className={styles.copy}>
-          {/* <p className={styles.label}>Дизайнерам</p> */}
+          <p className={styles.label}>Для дизайнеров и архитекторов</p>
           <p className={styles.note}>
-            Берём на себя техническую проработку, производство и монтаж мебели
-            по вашему дизайн-проекту. Сохраняем авторский замысел и
-            согласовываем любые изменения с дизайнером.
+            Техническая проработка, производство и монтаж — с сохранением
+            авторского замысла.
           </p>
           <Link href={siteRoutes.designers.href} className={styles.cta}>
             Подробнее о сотрудничестве

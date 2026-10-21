@@ -1,24 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Onest, Unbounded } from "next/font/google";
+import { IBM_Plex_Sans, Inter } from "next/font/google";
 import { Container } from "@/components/container";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { rootMetadata } from "@/lib/metadata";
 import "./globals.css";
 
-const onest = Onest({
+const plex = IBM_Plex_Sans({
   variable: "--font-ui-family",
   subsets: ["latin", "cyrillic"],
-});
-
-const unbounded = Unbounded({
-  variable: "--font-display-family",
-  subsets: ["latin", "cyrillic"],
-  weight: ["600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const inter = Inter({
-  variable: "--font-h2-family",
+  variable: "--font-heading-family",
   subsets: ["latin", "cyrillic"],
 });
 
@@ -26,11 +21,8 @@ export const metadata: Metadata = rootMetadata();
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="ru"
-      className={`${onest.variable} ${unbounded.variable} ${inter.variable}`}
-    >
-      <body>
+    <html lang="ru" className={`${plex.variable} ${inter.variable}`}>
+      <body id="top">
         <SiteHeader />
         <main>
           <Container>{children}</Container>

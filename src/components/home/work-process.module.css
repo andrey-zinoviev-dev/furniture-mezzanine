@@ -1,185 +1,182 @@
+/*
+  Процесс: горизонтальный таймлайн.
+  Колонки равной ширины; лёгкая «лестница» через --i (можно убрать).
+*/
+
 .section {
-  padding-block: 0.5rem 1rem;
+  padding-block: 0;
+  color: var(--foreground);
+  background: #fff;
+  min-width: 0;
 }
 
 .head {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 1.25rem 2rem;
-  align-items: end;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+  gap: 1.5rem 2rem;
+  align-items: start;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.headMain {
+  display: grid;
+  gap: 1rem;
+  max-width: 36rem;
 }
 
 .title {
   margin: 0;
-  max-width: 14ch;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 0.2em;
   font-family: var(--font-h2);
-  font-size: clamp(1.85rem, 4vw, 2.85rem);
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 1.05;
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+.count {
+  margin-top: 0.12em;
+  flex-shrink: 0;
+  font-size: 0.38em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .lead {
   margin: 0;
-  max-width: 28rem;
-  justify-self: end;
+  max-width: 32rem;
   font-size: 0.95rem;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--muted-strong);
 }
 
-@media (max-width: 720px) {
-  .head {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  .title {
-    max-width: none;
-  }
-
-  .lead {
-    justify-self: start;
-  }
+.note {
+  margin: 0;
+  max-width: 16rem;
+  justify-self: end;
+  text-align: right;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
 }
 
-/*
-  4 колонки + вертикальные линии.
-  Ряд 1: пусто | 01 | 02 | 03
-  Ряд 2: пусто | 04 | 05 | пусто
-*/
-.grid {
+.timeline {
+  --cols: 6;
+  --rise-step: clamp(0.85rem, 1.8vw, 1.45rem);
+
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 0;
-  row-gap: clamp(3.5rem, 8vw, 6.5rem);
-  /* Линии со 2-й колонки: 50% и 75% */
-  background-image:
-    linear-gradient(
-      to right,
-      color-mix(in srgb, var(--line) 14%, transparent),
-      color-mix(in srgb, var(--line) 14%, transparent)
-    ),
-    linear-gradient(
-      to right,
-      color-mix(in srgb, var(--line) 14%, transparent),
-      color-mix(in srgb, var(--line) 14%, transparent)
-    );
-  background-size: 1px 100%;
-  background-position: 50% 0, 75% 0;
-  background-repeat: no-repeat;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  align-items: stretch;
+  min-width: 0;
+  border-top: 1px solid color-mix(in srgb, var(--line) 12%, transparent);
 }
 
-.item {
+.step {
+  --i: 0;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.55rem;
+  gap: 0.85rem;
   min-width: 0;
-  padding: 0 clamp(0.85rem, 1.8vw, 1.35rem);
+  min-height: clamp(14rem, 28vw, 20rem);
+  padding: 1.15rem clamp(0.75rem, 1.6vw, 1.25rem) 0;
+  border-right: 1px solid color-mix(in srgb, var(--line) 12%, transparent);
 }
 
-.item[data-step="01"] {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.item[data-step="02"] {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.item[data-step="03"] {
-  grid-column: 4;
-  grid-row: 1;
-}
-
-.item[data-step="04"] {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-.item[data-step="05"] {
-  grid-column: 3;
-  grid-row: 2;
-}
-
-.label {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
+.step:last-child {
+  border-right: 0;
 }
 
 .num {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(4.5rem, 11vw, 8.5rem);
-  font-weight: 800;
-  font-stretch: condensed;
-  letter-spacing: -0.06em;
-  line-height: 0.85;
-  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.rule {
+.stepBody {
+  display: grid;
+  gap: 0.85rem;
+  /* Лестница: каждый следующий шаг чуть выше */
+  margin-top: calc((var(--cols) - 1 - var(--i)) * var(--rise-step));
+}
+
+.bar {
   display: block;
   width: 100%;
-  height: 1px;
-  margin-top: 0.15rem;
-  background: var(--foreground);
+  height: 3px;
+  background: var(--accent);
 }
 
-.itemTitle {
-  max-width: 14rem;
-  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-  font-weight: 500;
-  line-height: 1.3;
+.stepTitle {
+  font-family: var(--font-h2);
+  font-size: clamp(0.82rem, 1.15vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.25;
   color: var(--foreground);
 }
 
+.stepMeta {
+  margin-top: auto;
+  padding-bottom: 0.15rem;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--muted-strong);
+}
+
 @media (max-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: clamp(2.5rem, 7vw, 4rem);
-    background-image: repeating-linear-gradient(
-      to right,
-      color-mix(in srgb, var(--line) 14%, transparent) 0,
-      color-mix(in srgb, var(--line) 14%, transparent) 1px,
-      transparent 1px,
-      transparent 50%
-    );
+  .head {
+    grid-template-columns: 1fr;
+    margin-bottom: 2rem;
   }
 
-  .item[data-step="01"],
-  .item[data-step="02"],
-  .item[data-step="03"],
-  .item[data-step="04"],
-  .item[data-step="05"] {
-    grid-column: auto;
-    grid-row: auto;
+  .note {
+    justify-self: start;
+    text-align: left;
+    max-width: none;
   }
 
-  .num {
-    font-size: clamp(3.75rem, 18vw, 6rem);
+  .timeline {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    border-top: 0;
+  }
+
+  .step {
+    flex: 0 0 min(70vw, 16rem);
+    min-height: 16rem;
+    border-top: 1px solid color-mix(in srgb, var(--line) 12%, transparent);
+  }
+
+  .step:last-child {
+    border-right: 1px solid color-mix(in srgb, var(--line) 12%, transparent);
   }
 }
 
 @media (max-width: 560px) {
-  .grid {
-    grid-template-columns: 1fr;
-    background-image: none;
-    border-left: 1px solid color-mix(in srgb, var(--line) 14%, transparent);
-    row-gap: 2.25rem;
+  .title {
+    font-size: clamp(2rem, 8vw, 2.75rem);
   }
 
-  .item {
-    padding-inline: 1rem;
+  .stepBody {
+    /* На мобилке лестница слабее — меньше вертикального разброса */
+    margin-top: calc((var(--cols) - 1 - var(--i)) * 0.55rem);
   }
 }

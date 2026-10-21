@@ -24,7 +24,7 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
         </h2>
         <div className={styles.headAside}>
           <p className={styles.lead}>
-            Чистые силуэты и тактильная глубина — мебель, рассчитанная на годы.
+            Избранные объекты — кухни, гардеробные и комплексная меблировка.
           </p>
           <Link href={siteRoutes.projects.href} className={styles.allLink}>
             Все проекты
@@ -50,6 +50,9 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
                   </span>
                   <span className={styles.cardTitle}>{project.title}</span>
                   <span className={styles.cardPlace}>{project.category}</span>
+                  {project.task ? (
+                    <span className={styles.cardTask}>{project.task}</span>
+                  ) : null}
                 </span>
                 <span className={styles.frame}>
                   <Image

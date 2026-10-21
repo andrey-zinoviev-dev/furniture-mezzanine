@@ -9,8 +9,8 @@
   --gutter: clamp(1rem, 2.5vw, 1.75rem);
   --header-height: 48px;
   --font-ui: var(--font-ui-family), "Helvetica Neue", Helvetica, sans-serif;
-  --font-display: var(--font-display-family), var(--font-ui-family), sans-serif;
-  --font-h2: var(--font-h2-family), var(--font-ui-family), sans-serif;
+  --font-display: var(--font-heading-family), var(--font-ui-family), sans-serif;
+  --font-h2: var(--font-heading-family), var(--font-ui-family), sans-serif;
 }
 
 h2 {
@@ -24,7 +24,8 @@ html {
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  /* clip не создаёт scroll-container — иначе ломается position: sticky */
+  overflow-x: clip;
 }
 
 body {

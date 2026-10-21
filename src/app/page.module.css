@@ -3,9 +3,10 @@
   padding-block: 0;
 }
 
-/* Воздух сверху у всех секций, кроме hero */
+/* Равный воздух сверху у всех секций, кроме hero */
 .home > :not(.hero) {
   padding-top: 48px;
+  padding-bottom: 0;
 }
 
 @media (min-width: 1024px) {
@@ -81,14 +82,13 @@
   text-transform: uppercase;
 }
 
+/* Как .lead в production-index */
 .heroLead {
   margin: 0;
-  max-width: none;
-  font-family: var(--font-h2);
-  font-size: clamp(0.72rem, 1.1vw, 0.82rem);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  line-height: 1.55;
+  max-width: 22rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted-strong);
 }
@@ -247,15 +247,7 @@
 .materialGrain {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(155deg, rgb(255 255 255 / 0.1), transparent 42%),
-    repeating-linear-gradient(
-      -12deg,
-      transparent,
-      transparent 6px,
-      rgb(0 0 0 / 0.08) 6px,
-      rgb(0 0 0 / 0.08) 7px
-    );
+  background: linear-gradient(155deg, rgb(255 255 255 / 0.1), transparent 42%);
 }
 
 .meblirovkaCopy {
@@ -332,8 +324,9 @@
   opacity: 0.72;
 }
 
-.journalSection {
-  border-top: 1px solid var(--line);
+/* Половина бывшего padding-top футера (2.75rem / 2); перебивает padding-bottom: 0 */
+.home > .journalSection {
+  padding-bottom: 1.375rem;
 }
 
 .journalHead {
@@ -343,13 +336,15 @@
   margin-bottom: 1.75rem;
 }
 
-.journalEyebrow {
+/* Как .lead в production-index */
+.journalLead {
   margin: 0;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  max-width: 22rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--muted-strong);
 }
 
 .journalHeading {
@@ -470,13 +465,6 @@
   padding: clamp(1.5rem, 3.5vw, 2.75rem);
   background:
     linear-gradient(155deg, rgb(255 255 255 / 0.55), transparent 40%),
-    repeating-linear-gradient(
-      -12deg,
-      transparent,
-      transparent 5px,
-      rgb(0 0 0 / 0.035) 5px,
-      rgb(0 0 0 / 0.035) 6px
-    ),
     #ecebe7;
 }
 
@@ -542,15 +530,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(180deg, transparent 55%, rgb(12 12 12 / 0.55)),
-    repeating-linear-gradient(
-      -12deg,
-      transparent,
-      transparent 6px,
-      rgb(0 0 0 / 0.12) 6px,
-      rgb(0 0 0 / 0.12) 7px
-    );
+  background: linear-gradient(180deg, transparent 55%, rgb(12 12 12 / 0.55));
   pointer-events: none;
 }
 

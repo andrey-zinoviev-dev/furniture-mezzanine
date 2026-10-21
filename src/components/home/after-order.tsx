@@ -1,0 +1,37 @@
+import { afterOrder } from "@/lib/home-content";
+import styles from "./after-order.module.css";
+
+/**
+ * «Сопровождение проекта»: bento-сетка как на референсе Lawyers.
+ * tall слева → два compact сверху справа → small снизу слева → feature снизу справа.
+ */
+export function AfterOrder() {
+  const { eyebrow, title, lead, items } = afterOrder;
+
+  return (
+    <section className={styles.section} aria-labelledby="after-order">
+      <header className={styles.head}>
+        <p className={styles.eyebrow}>{eyebrow}</p>
+        <h2 id="after-order" className={styles.title}>
+          {title}
+        </h2>
+        <p className={styles.lead}>{lead}</p>
+      </header>
+
+      <ul className={styles.bento}>
+        {items.map((item) => (
+          <li
+            key={item.id}
+            className={styles.tile}
+            data-size={item.size}
+            data-tone={item.tone}
+          >
+            <span className={styles.index}>{item.n}</span>
+            <h3 className={styles.itemTitle}>{item.title}</h3>
+            <p className={styles.itemBody}>{item.body}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}

@@ -13,16 +13,6 @@ export function SiteFooter() {
   return (
     <footer className={styles.footer}>
       <Container className={styles.inner}>
-        <div className={styles.top}>
-          <Link href="/" className={styles.brand}>
-            {site.name}
-          </Link>
-          {/* <p className={styles.tagline}>{site.tagline}</p>
-          <Link href={siteRoutes.contacts.href} className={styles.cta}>
-            Заявка
-          </Link> */}
-        </div>
-
         <div className={styles.cols}>
           <div>
             <p className={styles.colTitle}>Мебель</p>
@@ -60,8 +50,17 @@ export function SiteFooter() {
         </div>
 
         <div className={styles.bottom}>
-          <span>© {new Date().getFullYear()} {site.name}</span>
-          <span>SEO · производство · заявки</span>
+          <Link href="/" className={styles.brand}>
+            {site.name}
+          </Link>
+          <div className={styles.meta}>
+            <a href="#top" className={styles.backToTop}>
+              Наверх ↑
+            </a>
+            <span>
+              © {new Date().getFullYear()} {site.name}
+            </span>
+          </div>
         </div>
       </Container>
     </footer>

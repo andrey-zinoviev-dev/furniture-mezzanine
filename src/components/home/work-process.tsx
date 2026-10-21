@@ -1,29 +1,52 @@
+import type { CSSProperties } from "react";
 import { workSteps } from "@/lib/home-content";
 import styles from "./work-process.module.css";
 
-/** Процесс работы: staggered-сетка с крупной нумерацией. */
+/**
+ * Процесс: горизонтальный таймлайн на всю ширину.
+ * Номер → акцентная черта → название → checkpoint снизу.
+ */
 export function WorkProcess() {
+  const total = workSteps.length;
+
   return (
     <section className={styles.section} aria-labelledby="process">
-      <div className={styles.head}>
-        <h2 id="process" className={styles.title}>
-          Персональная мебель — это легко
-        </h2>
-        <p className={styles.lead}>
-          Пять понятных этапов: от первого разговора до монтажа. Без сюрпризов
-          по смете и срокам — каждый шаг согласуем до следующего.
-        </p>
-      </div>
-
-      <ol className={styles.grid}>
-        {workSteps.map((step) => (
-          <li key={step.n} className={styles.item} data-step={step.n}>
-            <span className={styles.label}>Этап</span>
-            <span className={styles.num} aria-hidden="true">
-              {step.n}
+      <header className={styles.head}>
+        <div className={styles.headMain}>
+          <h2 id="process" className={styles.title}>
+            Процесс
+            <span className={styles.count} aria-hidden="true">
+              ({String(total).padStart(2, "0")})
             </span>
-            <span className={styles.rule} aria-hidden="true" />
-            <span className={styles.itemTitle}>{step.title}</span>
+          </h2>
+          <p className={styles.lead}>
+            Шесть понятных этапов: от первого разговора до обслуживания после
+            сдачи. Без сюрпризов по смете и срокам — каждый шаг согласуем до
+            следующего.
+          </p>
+        </div>
+        <p className={styles.note}>
+          Обычно путь от брифа до монтажа занимает от 6 до 12 недель — в
+          зависимости от объёма и комплектации.
+        </p>
+      </header>
+
+      <ol
+        className={styles.timeline}
+        style={{ "--cols": total } as CSSProperties}
+      >
+        {workSteps.map((step, index) => (
+          <li
+            key={step.n}
+            className={styles.step}
+            style={{ "--i": index } as CSSProperties}
+          >
+            <span className={styles.num}>{step.n}</span>
+            <div className={styles.stepBody}>
+              <span className={styles.bar} aria-hidden="true" />
+              <span className={styles.stepTitle}>{step.title}</span>
+            </div>
+            <span className={styles.stepMeta}>({step.checkpoint})</span>
           </li>
         ))}
       </ol>

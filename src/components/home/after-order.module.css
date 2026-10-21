@@ -1,0 +1,235 @@
+/*
+  Bento «После заказа» — раскладка как у Lawyers:
+  ┌──────┬───────┬───────┐
+  │ tall │  cmp  │  cmp  │
+  │      ├───────┴───────┤
+  │      │               │
+  ├──────┤    feature    │
+  │ small│   (чёрный)    │
+  └──────┴───────────────┘
+  Серый — #d9d9d9 из designers-invite .media
+*/
+
+.section {
+  padding-block: 0;
+}
+
+.head {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 42rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-h2);
+  font-size: clamp(1.65rem, 3.5vw, 2.45rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+.lead {
+  margin: 0;
+  max-width: 36rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted-strong);
+}
+
+.bento {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+  min-height: 0;
+  padding: 1.35rem 1.4rem 1.5rem;
+  border-radius: 1.5rem;
+  background: #d9d9d9;
+  color: var(--foreground);
+}
+
+.tile[data-tone="dark"] {
+  background: #111;
+  color: #fff;
+}
+
+.tile[data-tone="dark"] .index {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.tile[data-tone="dark"] .itemBody {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.index {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.itemTitle {
+  margin: 0;
+  font-family: var(--font-h2);
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.itemBody {
+  margin: 0;
+  margin-top: auto;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--muted-strong);
+}
+
+@media (min-width: 720px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "tall tall"
+      "compact-a compact-b"
+      "small feature";
+    gap: 0.85rem;
+  }
+
+  .tile[data-size="tall"] {
+    grid-area: tall;
+    min-height: 14rem;
+  }
+
+  .tile[data-size="compact"]:nth-child(2) {
+    grid-area: compact-a;
+    min-height: 10rem;
+  }
+
+  .tile[data-size="compact"]:nth-child(3) {
+    grid-area: compact-b;
+    min-height: 10rem;
+  }
+
+  .tile[data-size="small"] {
+    grid-area: small;
+    min-height: 10rem;
+  }
+
+  .tile[data-size="feature"] {
+    grid-area: feature;
+    min-height: 10rem;
+  }
+
+  .tile[data-size="feature"] .itemTitle {
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  }
+}
+
+/*
+  Десктоп: секция (с padding-top из .home) + шапка сайта = один экран.
+  Заголовок — по контенту, сетка забирает оставшуюся высоту.
+*/
+@media (min-width: 1024px) {
+  .section {
+    display: flex;
+    flex-direction: column;
+    height: calc(100svh - var(--header-height));
+    overflow: hidden;
+  }
+
+  .head {
+    flex: 0 0 auto;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .title {
+    font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+  }
+
+  .lead {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .bento {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: 1fr 0.65fr 1fr;
+    grid-template-areas:
+      "tall compact-a compact-b"
+      "tall feature feature"
+      "small feature feature";
+    gap: 0.75rem;
+  }
+
+  .tile {
+    padding: 1.15rem 1.25rem 1.25rem;
+    border-radius: 1.5rem;
+  }
+
+  .tile[data-size="tall"],
+  .tile[data-size="compact"]:nth-child(2),
+  .tile[data-size="compact"]:nth-child(3),
+  .tile[data-size="small"],
+  .tile[data-size="feature"] {
+    min-height: 0;
+  }
+
+  .tile[data-size="tall"] .itemTitle {
+    font-size: clamp(1.15rem, 1.4vw, 1.4rem);
+  }
+
+  .tile[data-size="feature"] {
+    padding: 1.35rem 1.6rem 1.5rem;
+  }
+
+  .tile[data-size="feature"] .itemTitle {
+    font-size: clamp(1.3rem, 1.8vw, 1.75rem);
+    max-width: 18ch;
+  }
+
+  .tile[data-size="feature"] .itemBody {
+    max-width: 36ch;
+    font-size: 0.88rem;
+  }
+
+  .itemBody {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+
+  .tile[data-size="feature"] .itemBody {
+    -webkit-line-clamp: 5;
+  }
+
+  .tile[data-size="small"] .itemBody,
+  .tile[data-size="compact"] .itemBody {
+    -webkit-line-clamp: 3;
+  }
+}

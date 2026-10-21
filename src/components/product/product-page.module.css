@@ -1,0 +1,14 @@
+.page {
+  padding-block: 0 4rem;
+}
+
+/* Воздух между секциями после полноэкранного hero */
+.page > :not(:first-child) {
+  padding-top: 48px;
+}
+
+@media (min-width: 1024px) {
+  .page > :not(:first-child) {
+    padding-top: 96px;
+  }
+}

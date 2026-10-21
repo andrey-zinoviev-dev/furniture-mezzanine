@@ -26,7 +26,10 @@ export type Project = {
   gallery?: string[];
   /** Вариант типографики в мозаике */
   labelMode?: "top" | "bottom" | "side" | "outline";
-  /** Задача клиента — для карточек доверия на главной */
+  /**
+   * Короткая строка для карточки на главной:
+   * выполненная задача или чем проект интересен.
+   */
   task?: string;
   /** Особенность пространства */
   space?: string;
@@ -65,7 +68,7 @@ export const projects: Project[] = [
       "/covers/proj-kitchen-b.jpg",
     ],
     labelMode: "top",
-    task: "Кухня с островом в открытой гостиной без визуального шума",
+    task: "Линейная кухня с островом и техникой в колонне — без визуального шума в гостиной.",
     space: "Длинная стена, несущая колонна, низкие потолки",
     solution: "Глухие фасады, остров как зонирование, техника в колонне",
     budget: "от 920 000 ₽",
@@ -90,7 +93,7 @@ export const projects: Project[] = [
       "/covers/feat-06.jpg",
     ],
     labelMode: "side",
-    task: "Отдельная гардеробная вместо шкафов по квартире",
+    task: "Отдельная гардеробная в узкой комнате — открытые секции и точечная подсветка.",
     space: "Узкая комната 4,2 м² после перепланировки",
     solution: "Открытые секции, остров с ящиками, точечная подсветка",
     budget: "от 640 000 ₽",
@@ -115,7 +118,7 @@ export const projects: Project[] = [
       "/covers/feat-09.jpg",
     ],
     labelMode: "outline",
-    task: "Максимум хранения в нише у входной зоны",
+    task: "Встроенный шкаф в нишу со сложной геометрией и перепадом стены.",
     space: "Ниша 2800×600, перепад стены 12 мм",
     solution: "Встроенный купе в размер, фасады ясень, выравнивание по плоскости",
     budget: "от 380 000 ₽",
@@ -139,7 +142,7 @@ export const projects: Project[] = [
       "/covers/feat-04.jpg",
     ],
     labelMode: "bottom",
-    task: "Спальный комплект в одном материале и ритме",
+    task: "Кровать, тумбы и стеновая панель — один комплект под скос потолка.",
     space: "Спальня 14 м², скос потолка у окна",
     solution: "Кровать, тумбы и стеновая панель как единый блок",
     budget: "от 510 000 ₽",
@@ -164,7 +167,7 @@ export const projects: Project[] = [
       "/covers/feat-08.jpg",
     ],
     labelMode: "top",
-    task: "Стол на 8 человек без ощущения «офисной» столешницы",
+    task: "Обеденный стол из массива на 8 человек — нестандартная длина 3200 мм.",
     space: "Столовая зона 3,6 м в ширину",
     solution: "Массив дуба 3200 мм, скрытое усиление, тонкие опоры",
     budget: "от 210 000 ₽",
@@ -188,7 +191,7 @@ export const projects: Project[] = [
       "/covers/feat-09.jpg",
     ],
     labelMode: "side",
-    task: "Тумба под накладную раковину с местом для хранения",
+    task: "Влагостойкая тумба под раковину с вырезами под коммуникации.",
     space: "Ванная с тёплым полом и стояками в углу",
     solution: "Влагостойкий корпус, вырезы под коммуникации, мягкое закрывание",
     budget: "от 145 000 ₽",
@@ -213,7 +216,7 @@ export const projects: Project[] = [
       "/covers/proj-bedroom-b.jpg",
     ],
     labelMode: "outline",
-    task: "Спальное место, стол и хранение в одной комнате",
+    task: "Спальное место, рабочая зона и хранение в одной комнате 11 м².",
     space: "Детская 11 м², два окна",
     solution: "Кровать-чердак, рабочая зона внизу, шкаф в нише",
     budget: "от 420 000 ₽",
@@ -236,7 +239,7 @@ export const projects: Project[] = [
       "/covers/feat-04.jpg",
     ],
     labelMode: "bottom",
-    task: "Вся мебель студии в одном проекте и монтаже",
+    task: "Кухня, системы хранения и мебель для спальни по единой концепции интерьера.",
     space: "Студия 28 м², открытая планировка",
     solution: "Кухня, шкаф, стеллаж и ТВ-зона в одной системе материалов",
     budget: "от 1 450 000 ₽",
@@ -288,6 +291,16 @@ export function getProjectsByCategorySlug(slug?: string): Project[] {
   if (!slug) return projects;
   const category = slugToCategory(slug);
   if (!category) return projects;
+  return projects.filter((project) => project.category === category);
+}
+
+/**
+ * Строгий фильтр для страниц направлений:
+ * неизвестный slug или пустая категория → [].
+ */
+export function getProjectsForProductCategory(slug: string): Project[] {
+  const category = slugToCategory(slug);
+  if (!category) return [];
   return projects.filter((project) => project.category === category);
 }
 

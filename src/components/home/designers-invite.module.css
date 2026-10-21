@@ -4,7 +4,7 @@
   Подпись + CTA — колонка 1fr (как список рисков).
 */
 .section {
-  padding-block: clamp(2.5rem, 6vw, 5rem);
+  padding-block: 0;
   color: var(--foreground);
 }
 
