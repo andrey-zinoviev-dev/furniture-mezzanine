@@ -1,0 +1,148 @@
+.toggle {
+  display: none;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.toggleLines {
+  display: block;
+  width: 1.15rem;
+  height: 1px;
+  background: currentColor;
+  box-shadow:
+    0 -5px 0 currentColor,
+    0 5px 0 currentColor;
+}
+
+.toggleClose {
+  font-family: var(--font-ui);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.overlay {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  padding:
+    0
+    max(1.5rem, env(safe-area-inset-right))
+    max(1.5rem, env(safe-area-inset-bottom))
+    max(1.5rem, env(safe-area-inset-left));
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 0;
+  padding-bottom: 0.25rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  margin: 0;
+  padding: 0;
+}
+
+.list[data-direction="forward"] {
+  animation: slideInFromRight 220ms ease;
+}
+
+.list[data-direction="back"] {
+  animation: slideInFromLeft 220ms ease;
+}
+
+.item {
+  display: block;
+  width: 100%;
+  padding: 0.1rem 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-family: var(--font-ui);
+  font-size: clamp(1.65rem, 7.5vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.item:focus-visible {
+  outline: none;
+  opacity: 0.55;
+}
+
+.back,
+.footerSpacer {
+  flex-shrink: 0;
+  min-height: 2.75rem;
+  margin-top: 2rem;
+}
+
+.back {
+  align-self: flex-start;
+  padding: 0.5rem 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--muted-strong);
+  cursor: pointer;
+}
+
+.back:hover,
+.back:focus-visible {
+  color: var(--foreground);
+  outline: none;
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .toggle {
+    display: inline-flex;
+  }
+}

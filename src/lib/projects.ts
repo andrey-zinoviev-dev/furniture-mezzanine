@@ -54,7 +54,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "kuhnya-loft-chernaya",
-    title: "Кухня Loft",
+    title: "ЖК Тушино",
     category: "Кухни",
     year: "2025",
     summary: "Линейная кухня с островом и глухими фасадами.",
@@ -79,7 +79,7 @@ export const projects: Project[] = [
   },
   {
     slug: "garderobnaya-walk-in",
-    title: "Walk-in",
+    title: "ЖК Шереметьевский",
     category: "Гардеробные",
     year: "2025",
     summary: "Гардеробная с открытыми секциями и подсветкой.",
@@ -104,7 +104,7 @@ export const projects: Project[] = [
   },
   {
     slug: "shkaf-kupe-yasen",
-    title: "Шкаф-купе",
+    title: "ЖК Городские истории",
     category: "Шкафы",
     year: "2024",
     summary: "Встроенный шкаф в нишу, фасады ясень.",
@@ -128,7 +128,7 @@ export const projects: Project[] = [
   },
   {
     slug: "spalnya-komplekt",
-    title: "Спальня",
+    title: "Квартира на Арбате",
     category: "Спальни",
     year: "2024",
     summary: "Кровать, прикроватные тумбы и стеновая панель.",
@@ -153,7 +153,7 @@ export const projects: Project[] = [
   },
   {
     slug: "stol-obedenniy",
-    title: "Обеденный стол",
+    title: "Квартира на Волоколамском шоссе",
     category: "Столы",
     year: "2024",
     summary: "Массив дуба, нестандартная длина.",
@@ -173,11 +173,12 @@ export const projects: Project[] = [
     budget: "от 210 000 ₽",
     purpose: "Обеденная зона",
     leadTime: "4–6 недель",
+    featured: true,
     recent: true,
   },
   {
     slug: "vannaya-tumba",
-    title: "Тумба",
+    title: "Квартира в Отрадном",
     category: "Ванная",
     year: "2025",
     summary: "Влагостойкая тумба под раковину.",
@@ -225,7 +226,7 @@ export const projects: Project[] = [
   },
   {
     slug: "meblirovka-studii",
-    title: "Студия",
+    title: "Квартира в Люблино",
     category: "Меблировка",
     year: "2025",
     summary: "Комплексная меблировка студии под ключ.",

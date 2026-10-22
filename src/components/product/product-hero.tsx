@@ -8,9 +8,9 @@ type ProductHeroProps = {
 };
 
 /**
- * Полноэкранный старт продукта (референс Still Curve):
- * h1 на линии контента после 320px (как у рисков/проектов);
- * фото 2/3 снизу слева; Info справа.
+ * Полноэкранный старт продукта:
+ * крупный h1 слева; ниже один блок на остаток экрана —
+ * фото слева + Info справа по верхней линии.
  */
 export function ProductHero({ product }: ProductHeroProps) {
   return (
@@ -21,21 +21,15 @@ export function ProductHero({ product }: ProductHeroProps) {
         </h1>
 
         <div className={styles.stage}>
-          <div className={styles.mediaCol}>
-            <div className={styles.mediaMeta}>
-              <span className={styles.index}>{product.index}</span>
-              <span className={styles.label}>{product.label}</span>
-            </div>
-            <div className={styles.media}>
-              <Image
-                src={product.cover}
-                alt={product.coverAlt}
-                fill
-                priority
-                sizes="66vw"
-                className={styles.image}
-              />
-            </div>
+          <div className={styles.media}>
+            <Image
+              src={product.cover}
+              alt={product.coverAlt}
+              fill
+              priority
+              sizes="(max-width: 1022px) 100vw, 58vw"
+              className={styles.image}
+            />
           </div>
 
           <aside className={styles.aside}>

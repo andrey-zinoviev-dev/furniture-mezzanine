@@ -177,3 +177,65 @@ export const primaryNavRoutes = [
   siteRoutes.about,
   siteRoutes.contacts,
 ] as const;
+
+export type MobileNavLink = {
+  type: "link";
+  href: string;
+  title: string;
+};
+
+export type MobileNavGroup = {
+  type: "group";
+  id: string;
+  title: string;
+  children: { href: string; title: string }[];
+};
+
+export type MobileNavItem = MobileNavLink | MobileNavGroup;
+
+/** Дерево fullscreen-меню на мобильных (порядок как в десктоп-хедере). */
+export const mobileNavItems: MobileNavItem[] = [
+  {
+    type: "link",
+    href: siteRoutes.kuhni.href,
+    title: siteRoutes.kuhni.title,
+  },
+  {
+    type: "group",
+    id: "furniture",
+    title: "Мебель",
+    children: furnitureNavRoutes.map((route) => ({
+      href: route.href,
+      title: route.title,
+    })),
+  },
+  {
+    type: "link",
+    href: siteRoutes.projects.href,
+    title: siteRoutes.projects.title,
+  },
+  {
+    type: "group",
+    id: "proof",
+    title: "Производство",
+    children: proofNavRoutes.map((route) => ({
+      href: route.href,
+      title: route.title,
+    })),
+  },
+  {
+    type: "link",
+    href: siteRoutes.designers.href,
+    title: siteRoutes.designers.title,
+  },
+  {
+    type: "link",
+    href: siteRoutes.about.href,
+    title: siteRoutes.about.title,
+  },
+  {
+    type: "link",
+    href: siteRoutes.contacts.href,
+    title: siteRoutes.contacts.title,
+  },
+];

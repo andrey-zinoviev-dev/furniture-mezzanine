@@ -24,14 +24,16 @@ export function ProductionIndex() {
     <section className={styles.section} aria-labelledby="services">
       <div className={styles.layout}>
         <h2 id="services" className={styles.title}>
-          Услуги
+          Что мы производим
           <span className={styles.count} aria-hidden="true">
             ({String(total).padStart(2, "0")})
           </span>
         </h2>
 
         <p className={styles.lead}>
-          Направления производства — от кухни до комплексной меблировки.
+          Кухни, системы хранения и мебель для жилых пространств. Конструкцию,
+          размеры и конфигурацию определяем исходя из особенностей помещения и
+          ваших требований.
         </p>
 
         {/* Мобилка: развёрнутый список — фото, название, текст, CTA */}

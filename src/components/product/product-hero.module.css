@@ -1,12 +1,10 @@
 /*
-  Полноэкранная композиция (не колонка сверху вниз).
-  — hero = весь экран под хедером
-  — title = колонка контента после 320px (как lead/list у рисков)
-  — media = 2/3 ширины, нижний левый угол
-  — aside = правая 1/3
+  Полноэкранный старт:
+  — hero = высота вьюпорта под хедером
+  — title слева сверху
+  — stage заполняет остаток: фото слева + Info справа, верхние края совпадают
 */
 .hero {
-  /* Выходим из Container на весь экран */
   width: 100vw;
   margin-inline: calc(50% - 50vw);
   height: calc(100svh - var(--header-height));
@@ -17,14 +15,12 @@
 
 .shell {
   display: grid;
-  /* Золотая сетка 320px | 1fr — как риски / проекты */
-  grid-template-columns: 320px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
   grid-template-areas:
-    ". title"
-    "stage stage";
-  column-gap: clamp(1.5rem, 3vw, 2.5rem);
-  row-gap: clamp(0.85rem, 1.8vw, 1.35rem);
+    "title"
+    "stage";
+  row-gap: 64px;
   width: 100%;
   max-width: var(--container);
   height: 100%;
@@ -37,9 +33,10 @@
 .title {
   grid-area: title;
   margin: 0;
-  max-width: 100%;
+  max-width: 18ch;
+  justify-self: start;
   font-family: var(--font-h2);
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-size: 84px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -49,50 +46,20 @@
 .stage {
   grid-area: stage;
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.75fr);
   grid-template-areas: "media aside";
   column-gap: clamp(1.5rem, 3vw, 2.5rem);
   min-height: 0;
   height: 100%;
+  /* stretch: оба столбца от одной верхней линии, фото заполняет высоту */
   align-items: stretch;
 }
 
-.mediaCol {
-  grid-area: media;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: 0.55rem;
-  min-width: 0;
-  min-height: 0;
-  align-self: stretch;
-}
-
-.mediaMeta {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: baseline;
-  gap: 1rem;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.index {
-  color: var(--foreground);
-}
-
-.label {
-  text-align: center;
-  justify-self: center;
-}
-
 .media {
+  grid-area: media;
   position: relative;
-  min-height: 0;
   width: 100%;
-  height: 100%;
+  min-height: 0;
   overflow: hidden;
   background: #ececec;
 }
@@ -108,10 +75,9 @@
   flex-direction: column;
   gap: 1.35rem;
   min-width: 0;
-  min-height: 0;
-  align-self: stretch;
-  padding-top: 1.55rem;
+  max-height: 100%;
   overflow: auto;
+  padding-top: 0;
 }
 
 .block {
@@ -174,18 +140,15 @@
   }
 
   .shell {
-    grid-template-columns: 1fr;
     grid-template-rows: auto;
-    grid-template-areas:
-      "title"
-      "stage";
     height: auto;
     row-gap: 1.25rem;
     padding-block: 1.5rem 2rem;
   }
 
   .title {
-    width: 100%;
+    max-width: none;
+    /* На мобиле 84px слишком крупно — оставляем адаптив */
     font-size: clamp(2rem, 8vw, 2.75rem);
   }
 
@@ -198,16 +161,14 @@
     row-gap: 1.25rem;
   }
 
-  .mediaCol {
-    min-height: min(48vh, 22rem);
-  }
-
   .media {
-    min-height: min(42vh, 20rem);
+    height: auto;
+    aspect-ratio: 16 / 10;
+    max-height: min(42vh, 20rem);
   }
 
   .aside {
-    padding-top: 0;
+    max-height: none;
     overflow: visible;
   }
 

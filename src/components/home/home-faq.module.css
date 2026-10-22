@@ -29,7 +29,7 @@
   align-items: flex-start;
   gap: 0.2em;
   font-family: var(--font-h2);
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-size: 48px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -154,7 +154,7 @@
   }
 
   .title {
-    font-size: clamp(2rem, 8vw, 2.75rem);
+    font-size: clamp(1.75rem, 6vw, 48px);
   }
 
   .lead {

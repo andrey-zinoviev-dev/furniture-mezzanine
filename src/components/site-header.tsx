@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
+import { MobileNav } from "@/components/mobile-nav";
 import {
   furnitureNavRoutes,
   proofNavRoutes,
@@ -15,6 +16,8 @@ export function SiteHeader() {
         <Link href="/" className={styles.brand}>
           {site.name}
         </Link>
+
+        <MobileNav />
 
         <nav className={styles.nav} aria-label="Основная навигация">
           <Link href={siteRoutes.kuhni.href} className={styles.link}>

@@ -16,12 +16,16 @@ export function HomeFaq() {
       <div className={styles.layout}>
         <header className={styles.head}>
           <h2 id="home-faq" className={styles.title}>
-            Вопросы
+            Что важно знать
             <span className={styles.count} aria-hidden="true">
               ({String(homeFaq.length).padStart(2, "0")})
             </span>
           </h2>
-          <p className={styles.lead}>До начала проекта</p>
+          <p className={styles.lead}>
+            Когда лучше обращаться, можно ли работать по готовому дизайн-проекту
+            и что подготовить для первого обсуждения — отвечаем на основные
+            вопросы.
+          </p>
         </header>
 
         <ul className={styles.list}>

@@ -1,14 +1,23 @@
 /*
-  Десктоп 1023px+: сетка 320px | 1fr.
-  Слева — заголовок, справа — лид и горизонтальная лента карточек.
-  Между шапкой и карточками — крупный вертикальный зазор, как на референсе.
+  Десктоп 1023px+: шапка в сетке 320px | 1fr,
+  лента на всю ширину секции (вне колонок), активная карточка = 2 неактивных.
+  Мобилка: нативный горизонтальный скролл + scroll-snap proximity.
 */
+
 .works {
+  /* Неактивные шире, чем раньше — не «палочки» */
+  --card-w: clamp(17rem, 23vw, 21rem);
+  --track-gap: clamp(0.85rem, 1.5vw, 1.25rem);
+  /* Общая высота кадра для всех карточек (не от ширины) */
+  --frame-h: clamp(22rem, 30vw, 28rem);
+  --slide-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --slide-duration: 650ms;
+
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
   grid-template-areas:
     "title aside"
-    ". scroller";
+    "scroller scroller";
   column-gap: clamp(1.5rem, 3vw, 2.5rem);
   row-gap: clamp(3.5rem, 8vw, 6.5rem);
   align-items: start;
@@ -54,7 +63,6 @@
   text-align: right;
 }
 
-/* Как .lead в production-index */
 .lead {
   margin: 0;
   font-size: 0.72rem;
@@ -62,6 +70,14 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted-strong);
+}
+
+.headActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.25rem 1.75rem;
 }
 
 .allLink {
@@ -77,6 +93,50 @@
   color: var(--muted);
 }
 
+.controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.controlBtn {
+  margin: 0;
+  padding: 0.15rem 0.2rem;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.controlBtn:hover {
+  color: var(--muted);
+}
+
+.controlBtn:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+.controlStatus {
+  min-width: 3.6rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-strong);
+  text-align: center;
+}
+
+.controlSep {
+  margin-inline: 0.2em;
+  color: var(--muted);
+}
+
 .srOnly {
   position: absolute;
   width: 1px;
@@ -89,20 +149,15 @@
   border: 0;
 }
 
-/* Лента в правой колонке, выходит за правый gutter контейнера */
+/*
+  Клип слева по краю контента (как у заголовка) — иначе в левом gutter
+  торчит край предыдущей карточки. Вправо по-прежнему выходим за gutter.
+*/
 .scroller {
   grid-area: scroller;
   margin-right: calc(var(--gutter) * -1);
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scrollbar-width: thin;
-  scrollbar-color: var(--muted) transparent;
+  overflow: hidden;
   outline: none;
-  cursor: grab;
-}
-
-.scroller:active {
-  cursor: grabbing;
 }
 
 .scroller:focus-visible {
@@ -111,20 +166,34 @@
 
 .track {
   display: flex;
+  align-items: flex-start;
   width: max-content;
-  gap: clamp(0.85rem, 1.5vw, 1.25rem);
+  gap: var(--track-gap);
   padding-right: var(--gutter);
   list-style: none;
   margin: 0;
+  transform: translate3d(
+    calc(-1 * var(--active-index, 0) * (var(--card-w) + var(--track-gap))),
+    0,
+    0
+  );
+  transition: transform var(--slide-duration) var(--slide-ease);
+  will-change: transform;
 }
 
 .card {
-  flex: 0 0 clamp(14rem, 22vw, 18.5rem);
+  flex: 0 0 var(--card-w);
+  transition: flex-basis var(--slide-duration) var(--slide-ease);
+}
+
+/* Активный = два неактивных с зазором между ними */
+.cardActive {
+  flex-basis: calc(var(--card-w) * 2 + var(--track-gap));
 }
 
 .cardLink {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: minmax(6.75rem, auto) var(--frame-h);
   gap: 0.75rem;
   height: 100%;
 }
@@ -134,6 +203,8 @@
   flex-direction: column;
   gap: 0.2rem;
   min-width: 0;
+  /* Текст к низу ячейки — кадры стартуют с одной линии */
+  justify-content: flex-end;
 }
 
 .cardIndex {
@@ -167,6 +238,10 @@
   line-height: 1.35;
   color: var(--muted-strong);
   text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .cardLink:hover .cardTitle,
@@ -174,10 +249,12 @@
   color: var(--muted);
 }
 
+/* Одна высота кадра у всех: неактивный ≈ 3/4, активный — шире, тот же crop */
 .frame {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 4;
+  width: 100%;
+  height: var(--frame-h);
   overflow: hidden;
   background: #1a1714;
   isolation: isolate;
@@ -204,6 +281,8 @@
 
 @media (max-width: 1022px) {
   .works {
+    --card-w: min(70vw, 16rem);
+    --frame-h: calc(var(--card-w) * 4 / 3);
     grid-template-columns: 1fr;
     grid-template-areas:
       "title"
@@ -223,14 +302,55 @@
     text-align: left;
   }
 
+  .headActions {
+    justify-content: flex-start;
+  }
+
+  /* На мобиле — свайп, стрелки не нужны */
+  .controls {
+    display: none;
+  }
+
   .scroller {
     margin-top: 0.75rem;
     margin-left: calc(var(--gutter) * -1);
     margin-right: calc(var(--gutter) * -1);
     padding-left: var(--gutter);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted) transparent;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
   }
 
-  .card {
-    flex-basis: min(70vw, 16rem);
+  .scroller:active {
+    cursor: grabbing;
+  }
+
+  .track {
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .card,
+  .cardActive {
+    flex-basis: var(--card-w);
+    scroll-snap-align: start;
+    transition: none;
+  }
+
+  .cardLink {
+    grid-template-rows: auto var(--frame-h);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .card,
+  .image {
+    transition: none;
   }
 }

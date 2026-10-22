@@ -6,6 +6,7 @@ import { AfterOrder } from "@/components/home/after-order";
 import { DesignersInvite } from "@/components/home/designers-invite";
 import { FeaturedProjects } from "@/components/home/featured-projects";
 import { HomeFaq } from "@/components/home/home-faq";
+import { FinalCta } from "@/components/final-cta";
 import { ProductionIndex } from "@/components/home/production-index";
 import { ProductionProof } from "@/components/home/production-proof";
 import { RisksSolutions } from "@/components/home/risks-solutions";
@@ -176,68 +177,14 @@ export default function HomePage() {
         </ul>
       </section>
 
-      {/* 11. FAQ — сразу перед приглашением дизайнеров */}
+      {/* 11. FAQ */}
       <HomeFaq />
 
       {/* 12. Дизайнерам */}
-      {/* <DesignersInvite /> */}
+      <DesignersInvite />
 
-      {/* 13. Финальный CTA — 50/50: цитата | фото + действия */}
-      {/* <section className={styles.finalCta} aria-labelledby="final-cta">
-        <div className={styles.finalQuote}>
-          <p className={styles.finalMeta}>2026</p>
-          <h2 id="final-cta" className={styles.finalTitle}>
-            От эскиза до монтажа — мебель, которая живёт с интерьером
-          </h2>
-          <Link href={siteRoutes.contacts.href} className={styles.finalAsideLink}>
-            Контакты —
-          </Link>
-        </div>
-
-        <div className={styles.finalPanel}>
-          <div className={styles.finalMedia} aria-hidden="true">
-            <Image
-              src="/covers/living.jpg"
-              alt=""
-              fill
-              sizes="(max-width: 980px) 100vw, 50vw"
-              className={styles.finalImage}
-            />
-            <span className={styles.finalGrain} />
-          </div>
-
-          <div className={styles.finalInfo}>
-            <div>
-              <p className={styles.finalColTitle}>Связь</p>
-              <ul className={styles.finalList}>
-                <li>
-                  <Link href={siteRoutes.contacts.href}>Оставить заявку</Link>
-                </li>
-                <li>
-                  <Link href={siteRoutes.contacts.href}>Приложить планировку</Link>
-                </li>
-                <li>
-                  <Link href={siteRoutes.contacts.href}>Обсудить проект</Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <p className={styles.finalColTitle}>Разделы</p>
-              <ul className={styles.finalList}>
-                <li>
-                  <Link href={siteRoutes.projects.href}>Проекты</Link>
-                </li>
-                <li>
-                  <Link href={siteRoutes.kuhni.href}>Кухни</Link>
-                </li>
-                <li>
-                  <Link href={siteRoutes.garderobnye.href}>Гардеробные</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section> */}
+      {/* 13. Финальный CTA главной */}
+      <FinalCta />
     </div>
   );
 }
