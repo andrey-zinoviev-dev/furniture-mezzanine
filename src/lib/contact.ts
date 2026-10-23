@@ -4,6 +4,7 @@
  */
 export const contact = {
   address: "Москва, Новодмитровская улица, 5Ас1",
+  hours: "ПН – ПТ 11–19",
   email: {
     display: "hello@mzn.design",
     href: "mailto:hello@mzn.design",

@@ -5,6 +5,8 @@ import styles from "./page.module.css";
 
 export const metadata = pageMetadata(siteRoutes.contacts);
 
+const mapsHref = `https://yandex.ru/maps/?text=${encodeURIComponent(contact.address)}`;
+
 function ArrowIcon() {
   return (
     <svg
@@ -30,66 +32,75 @@ function ArrowIcon() {
 export default function ContactsPage() {
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>Связь</p>
-        <h1 className={styles.title}>Контакты</h1>
-        <p className={styles.lead}>
-          Обсудим задачу, сроки и формат работы. Можно позвонить, написать или
-          оставить заявку — ответим в рабочее время.
-        </p>
-      </header>
+      <div className={styles.layout}>
+        <header className={styles.head}>
+          <h1 className={styles.title}>Контакты</h1>
+        </header>
 
-      <div className={styles.grid}>
-        <div>
-          <p className={styles.colTitle}>Адрес</p>
-          <address className={styles.address}>{contact.address}</address>
-        </div>
+        <div className={styles.content}>
+          <div className={styles.pitch}>
+            <h2 className={styles.pitchTitle}>
+              Создадим мебель такой, какой вы её задумали
+            </h2>
+            <p className={styles.pitchLead}>
+              Пришлите дизайн-проект, визуализации или референсы — мы проработаем
+              конструкцию и реализуем мебель в соответствии с согласованным
+              решением.
+            </p>
+          </div>
 
-        <div>
-          <p className={styles.colTitle}>Связь</p>
-          <ul className={styles.list}>
-            {contact.phones.map((phone) => (
-              <li key={phone.href}>
-                <a href={phone.href} className={styles.link}>
-                  {phone.display}{" "}
-                  <span className={styles.note}>({phone.label})</span>
+          <div className={styles.channels}>
+            <div className={styles.messengers}>
+              <span className={styles.bar} aria-hidden="true" />
+              <ul className={styles.messengerList} aria-label="Мессенджеры">
+                {contact.socials.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className={styles.messengerLink}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.label}
+                      <ArrowIcon />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <ul className={styles.directList} aria-label="Телефон и почта">
+              {contact.phones.map((phone) => (
+                <li key={phone.href}>
+                  <a href={phone.href} className={styles.detailLink}>
+                    {phone.display}{" "}
+                    <span className={styles.note}>{phone.label}</span>
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={contact.email.href} className={styles.detailLink}>
+                  {contact.email.display}
                   <ArrowIcon />
                 </a>
               </li>
-            ))}
-            <li>
-              <a href={contact.email.href} className={styles.link}>
-                {contact.email.display}
-                <ArrowIcon />
-              </a>
-            </li>
-          </ul>
-        </div>
+            </ul>
+          </div>
 
-        <div>
-          <p className={styles.colTitle}>Соцсети</p>
-          <ul className={styles.list}>
-            {contact.socials.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className={styles.link}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {item.label}
-                  <ArrowIcon />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className={styles.meta}>
+            <a
+              href={mapsHref}
+              className={styles.detailLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <address className={styles.address}>{contact.address}</address>
+              <ArrowIcon />
+            </a>
+            <p className={styles.hours}>{contact.hours}</p>
+          </div>
         </div>
       </div>
-
-      <p className={styles.formNote}>
-        Форма заявки появится здесь позже. Пока удобнее связаться по телефону
-        или почте.
-      </p>
     </div>
   );
 }
