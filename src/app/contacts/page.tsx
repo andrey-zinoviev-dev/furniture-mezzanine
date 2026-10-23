@@ -5,8 +5,6 @@ import styles from "./page.module.css";
 
 export const metadata = pageMetadata(siteRoutes.contacts);
 
-const mapsHref = `https://yandex.ru/maps/?text=${encodeURIComponent(contact.address)}`;
-
 function ArrowIcon() {
   return (
     <svg
@@ -32,74 +30,87 @@ function ArrowIcon() {
 export default function ContactsPage() {
   return (
     <div className={styles.page}>
-      <div className={styles.layout}>
-        <header className={styles.head}>
-          <h1 className={styles.title}>Контакты</h1>
-        </header>
+      <header className={styles.header}>
+        <h1 className={styles.title}>
+          Создадим мебель такой, какой вы её задумали
+        </h1>
+        <p className={styles.lead}>
+          Есть дизайн-проект, визуализации или референсы — пришлите их нам. Если пока есть только идея, этого достаточно, чтобы начать: проработаем решение и подготовим его к производству.
+        </p>
+      </header>
 
-        <div className={styles.content}>
-          <div className={styles.pitch}>
-            <h2 className={styles.pitchTitle}>
-              Создадим мебель такой, какой вы её задумали
-            </h2>
-            <p className={styles.pitchLead}>
-              Пришлите дизайн-проект, визуализации или референсы — мы проработаем
-              конструкцию и реализуем мебель в соответствии с согласованным
-              решением.
-            </p>
-          </div>
-
-          <div className={styles.channels}>
-            <div className={styles.messengers}>
-              <span className={styles.bar} aria-hidden="true" />
-              <ul className={styles.messengerList} aria-label="Мессенджеры">
-                {contact.socials.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className={styles.messengerLink}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {item.label}
-                      <ArrowIcon />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <ul className={styles.directList} aria-label="Телефон и почта">
+      <div className={styles.sections}>
+        <section className={styles.row} aria-label="Связаться">
+          <div className={styles.rowInner}>
+            <p className={styles.rowLabel}>Связь</p>
+            <ul className={styles.channelList}>
+              {contact.socials.map((item) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className={styles.channelLink}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {item.label}
+                    <ArrowIcon />
+                  </a>
+                </li>
+              ))}
               {contact.phones.map((phone) => (
                 <li key={phone.href}>
-                  <a href={phone.href} className={styles.detailLink}>
-                    {phone.display}{" "}
-                    <span className={styles.note}>{phone.label}</span>
+                  <a href={phone.href} className={styles.channelLink}>
+                    {phone.display}
+                    <ArrowIcon />
                   </a>
                 </li>
               ))}
               <li>
-                <a href={contact.email.href} className={styles.detailLink}>
+                <a href={contact.email.href} className={styles.channelLink}>
                   {contact.email.display}
                   <ArrowIcon />
                 </a>
               </li>
             </ul>
           </div>
+        </section>
 
-          <div className={styles.meta}>
-            <a
-              href={mapsHref}
-              className={styles.detailLink}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <address className={styles.address}>{contact.address}</address>
-              <ArrowIcon />
-            </a>
-            <p className={styles.hours}>{contact.hours}</p>
+        <section className={styles.row} aria-label="Офис">
+          <div className={styles.rowInner}>
+            <p className={styles.rowLabel}>Офис</p>
+            <div className={styles.officeCols}>
+              <div>
+                <p className={styles.colTitle}>Адрес</p>
+                <a
+                  href={contact.mapsUrl}
+                  className={styles.officeLink}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <address className={styles.address}>{contact.address}</address>
+                </a>
+              </div>
+
+              <div>
+                <p className={styles.colTitle}>Время работы</p>
+                <p className={styles.officeText}>{contact.hours}</p>
+              </div>
+
+              <div>
+                <p className={styles.colTitle}>Команда</p>
+                <ul className={styles.teamList}>
+                  {contact.phones.map((person) => (
+                    <li key={person.href}>
+                      <a href={person.href} className={styles.officeLink}>
+                        {person.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

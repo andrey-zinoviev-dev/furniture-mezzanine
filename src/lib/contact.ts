@@ -2,8 +2,11 @@
  * Единый источник контактных данных.
  * Использует страница /contacts; CTA только ведёт туда.
  */
+const address = "Москва, Новодмитровская улица, 5Ас1";
+
 export const contact = {
-  address: "Москва, Новодмитровская улица, 5Ас1",
+  address,
+  mapsUrl: `https://yandex.ru/maps/?text=${encodeURIComponent(address)}`,
   hours: "ПН – ПТ 11–19",
   email: {
     display: "hello@mzn.design",
