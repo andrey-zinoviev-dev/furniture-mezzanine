@@ -21,11 +21,11 @@ export function HomeFaq() {
               ({String(homeFaq.length).padStart(2, "0")})
             </span>
           </h2>
-          <p className={styles.lead}>
+          {/* <p className={styles.lead}>
             Когда лучше обращаться, можно ли работать по готовому дизайн-проекту
             и что подготовить для первого обсуждения — отвечаем на основные
             вопросы.
-          </p>
+          </p> */}
         </header>
 
         <ul className={styles.list}>

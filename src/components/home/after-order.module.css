@@ -17,7 +17,7 @@
 .head {
   display: grid;
   gap: 0.75rem;
-  max-width: 42rem;
+  max-width: 52rem;
   margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
 }
 
@@ -33,11 +33,13 @@
 .title {
   margin: 0;
   font-family: var(--font-h2);
-  font-size: clamp(1.65rem, 3.5vw, 2.45rem);
+  /* Как у Проекты / Риски / Процесс; без nowrap — заголовок длинный */
+  font-size: clamp(2rem, 8vw, 2.75rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 1.05;
+  line-height: 0.95;
+  text-wrap: balance;
 }
 
 .lead {
@@ -166,7 +168,7 @@
   }
 
   .title {
-    font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
   }
 
   .lead {

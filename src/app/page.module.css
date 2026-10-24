@@ -367,11 +367,18 @@
 .journalHeading {
   margin: 0;
   font-family: var(--font-h2);
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  /* Как у Проекты / Риски / Процесс */
+  font-size: clamp(2rem, 8vw, 2.75rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 0.95;
+}
+
+@media (min-width: 1023px) {
+  .journalHeading {
+    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  }
 }
 
 .journal {
@@ -473,20 +480,26 @@
 }
 
 @media (max-width: 720px) {
+  /* Как на десктопе: медиа растягивается, оффер прижат к низу viewport */
   .hero {
-    height: auto;
+    height: calc(100svh - var(--header-height));
     min-height: calc(100svh - var(--header-height));
   }
 
   .heroMedia {
-    flex: 0 0 auto;
-    min-height: min(52svh, 28rem);
+    flex: 1 1 0;
+    min-height: 0;
   }
 
   .heroInner {
     grid-template-columns: 1fr;
     gap: 1.15rem;
     padding-block: 1.25rem;
+  }
+
+  /* Подпись только для десктопной двухколоночной сетки */
+  .heroLead {
+    display: none;
   }
 
   .monument {

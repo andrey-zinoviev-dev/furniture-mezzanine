@@ -22,9 +22,9 @@ export function RisksSolutions() {
               (02)
             </span>
           </h2>
-          <p className={styles.lead}>
+          {/* <p className={styles.lead}>
             Типичные опасения до заказа — и как мы их закрываем.
-          </p>
+          </p> */}
         </header>
 
         <ul className={styles.list}>

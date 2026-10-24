@@ -63,104 +63,105 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
           <span className={styles.srOnly}> — {total}</span>
         </h2>
         <div className={styles.headAside}>
-          <p className={styles.lead}>
+          {/* <p className={styles.lead}>
             Избранные объекты — кухни, гардеробные и комплексная меблировка.
-          </p>
-          <div className={styles.headActions}>
-            <Link href={siteRoutes.projects.href} className={styles.allLink}>
-              Все проекты
-            </Link>
-            {total > 1 ? (
-              <div className={styles.controls} role="group" aria-label="Навигация по проектам">
-                <button
-                  type="button"
-                  className={styles.controlBtn}
-                  aria-label="Предыдущий проект"
-                  onClick={() => go(-1)}
-                >
-                  ←
-                </button>
-                <span className={styles.controlStatus} aria-live="polite">
-                  {currentLabel}
-                  <span className={styles.controlSep} aria-hidden="true">
-                    /
-                  </span>
-                  {totalLabel}
-                </span>
-                <button
-                  type="button"
-                  className={styles.controlBtn}
-                  aria-label="Следующий проект"
-                  onClick={() => go(1)}
-                >
-                  →
-                </button>
-              </div>
-            ) : null}
-          </div>
+          </p> */}
+          <Link href={siteRoutes.projects.href} className={styles.allLink}>
+            Все проекты
+          </Link>
         </div>
       </header>
 
-      <div
-        className={styles.scroller}
-        tabIndex={0}
-        aria-label="Избранные проекты"
-        aria-roledescription="карусель"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocusCapture={() => setPaused(true)}
-        onBlurCapture={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-            setPaused(false);
-          }
-        }}
-      >
-        <ul
-          className={styles.track}
-          style={{ "--active-index": activeIndex } as CSSProperties}
+      <div className={styles.carousel}>
+        <div
+          className={styles.scroller}
+          tabIndex={0}
+          aria-label="Избранные проекты"
+          aria-roledescription="карусель"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+              setPaused(false);
+            }
+          }}
         >
-          {items.map((project, index) => {
-            const isActive = index === activeIndex;
+          <ul
+            className={styles.track}
+            style={{ "--active-index": activeIndex } as CSSProperties}
+          >
+            {items.map((project, index) => {
+              const isActive = index === activeIndex;
 
-            return (
-              <li
-                key={project.slug}
-                className={
-                  isActive ? `${styles.card} ${styles.cardActive}` : styles.card
-                }
-                data-active={isActive ? "true" : undefined}
-                aria-current={isActive ? "true" : undefined}
-              >
-                <Link
-                  href={`/projects/${project.slug}/`}
-                  className={styles.cardLink}
-                  onFocus={() => setActiveIndex(index)}
+              return (
+                <li
+                  key={project.slug}
+                  className={
+                    isActive ? `${styles.card} ${styles.cardActive}` : styles.card
+                  }
+                  data-active={isActive ? "true" : undefined}
+                  aria-current={isActive ? "true" : undefined}
                 >
-                  <span className={styles.cardMeta}>
-                    <span className={styles.cardIndex}>
-                      {String(index + 1).padStart(3, "0")}
+                  <Link
+                    href={`/projects/${project.slug}/`}
+                    className={styles.cardLink}
+                    onFocus={() => setActiveIndex(index)}
+                  >
+                    <span className={styles.cardMeta}>
+                      <span className={styles.cardIndex}>
+                        {String(index + 1).padStart(3, "0")}
+                      </span>
+                      <span className={styles.cardTitle}>{project.title}</span>
+                      <span className={styles.cardPlace}>{project.category}</span>
+                      {project.task ? (
+                        <span className={styles.cardTask}>{project.task}</span>
+                      ) : null}
                     </span>
-                    <span className={styles.cardTitle}>{project.title}</span>
-                    <span className={styles.cardPlace}>{project.category}</span>
-                    {project.task ? (
-                      <span className={styles.cardTask}>{project.task}</span>
-                    ) : null}
-                  </span>
-                  <span className={styles.frame}>
-                    <Image
-                      src={project.cover}
-                      alt=""
-                      fill
-                      sizes="(max-width: 1022px) 70vw, (min-width: 1023px) 40vw, 24vw"
-                      className={styles.image}
-                    />
-                    <span className={styles.grain} aria-hidden="true" />
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                    <span className={styles.frame}>
+                      <Image
+                        src={project.cover}
+                        alt=""
+                        fill
+                        sizes="(max-width: 1022px) 70vw, (min-width: 1023px) 40vw, 24vw"
+                        className={styles.image}
+                      />
+                      <span className={styles.grain} aria-hidden="true" />
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        {total > 1 ? (
+          <div className={styles.controls} role="group" aria-label="Навигация по проектам">
+            <button
+              type="button"
+              className={styles.controlBtn}
+              aria-label="Предыдущий проект"
+              onClick={() => go(-1)}
+            >
+              ←
+            </button>
+            <span className={styles.controlStatus} aria-live="polite">
+              {currentLabel}
+              <span className={styles.controlSep} aria-hidden="true">
+                /
+              </span>
+              {totalLabel}
+            </span>
+            <button
+              type="button"
+              className={styles.controlBtn}
+              aria-label="Следующий проект"
+              onClick={() => go(1)}
+            >
+              →
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );

@@ -25,10 +25,10 @@ export function WorkProcess() {
             следующего.
           </p>
         </div>
-        <p className={styles.note}>
+        {/* <p className={styles.note}>
           Обычно путь от брифа до монтажа занимает от 6 до 12 недель — в
           зависимости от объёма и комплектации.
-        </p>
+        </p> */}
       </header>
 
       <ol
