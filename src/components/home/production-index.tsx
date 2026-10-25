@@ -8,8 +8,8 @@ import styles from "./production-index.module.css";
 
 /**
  * Услуги:
- * — десктоп: золотая сетка 320px | 1fr, навигация слева, слайд справа
- *   (фото + текст + CTA);
+ * — шапка: заголовок + подпись в одном ряду;
+ * — десктоп: навигация слева, слайд справа;
  * — мобилка: простой список ссылок.
  */
 export function ProductionIndex() {
@@ -22,49 +22,47 @@ export function ProductionIndex() {
 
   return (
     <section className={styles.section} aria-labelledby="services">
-      <div className={styles.layout}>
+      <header className={styles.head}>
         <h2 id="services" className={styles.title}>
-          Что мы производим
-          <span className={styles.count} aria-hidden="true">
-            ({String(total).padStart(2, "0")})
-          </span>
+          С какой части интерьера начнём?
         </h2>
+        <p className={styles.lead}>
+          Кухни, системы хранения и мебель для жилых помещений. Каждое
+          направление требует своих конструктивных решений — под размеры
+          пространства, назначение и особенности проекта.
+        </p>
+      </header>
 
-        {/* <p className={styles.lead}>
-          Кухни, системы хранения и мебель для жилых пространств. Конструкцию,
-          размеры и конфигурацию определяем исходя из особенностей помещения и
-          ваших требований.
-        </p> */}
+      {/* Мобилка: развёрнутый список — фото, название, текст, CTA */}
+      <ul className={styles.mobileList}>
+        {productionIndex.map((service, index) => (
+          <li key={service.href} className={styles.mobileItem}>
+            <Link href={service.href} className={styles.mobileMedia}>
+              <Image
+                src={service.cover}
+                alt=""
+                fill
+                sizes="100vw"
+                className={styles.image}
+                priority={index === 0}
+              />
+            </Link>
+            <h3 className={styles.mobileItemTitle}>{service.title}</h3>
+            {service.description ? (
+              <p className={styles.mobileItemBody}>{service.description}</p>
+            ) : null}
+            <Link href={service.href} className={styles.mobileItemLink}>
+              Подробнее
+              <span className={styles.linkArrow} aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
 
-        {/* Мобилка: развёрнутый список — фото, название, текст, CTA */}
-        <ul className={styles.mobileList}>
-          {productionIndex.map((service, index) => (
-            <li key={service.href} className={styles.mobileItem}>
-              <Link href={service.href} className={styles.mobileMedia}>
-                <Image
-                  src={service.cover}
-                  alt=""
-                  fill
-                  sizes="100vw"
-                  className={styles.image}
-                  priority={index === 0}
-                />
-              </Link>
-              <h3 className={styles.mobileItemTitle}>{service.title}</h3>
-              {service.description ? (
-                <p className={styles.mobileItemBody}>{service.description}</p>
-              ) : null}
-              <Link href={service.href} className={styles.mobileItemLink}>
-                Подробнее
-                <span className={styles.linkArrow} aria-hidden="true">
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        {/* Десктоп: переключение слайдов */}
+      {/* Десктоп: переключение слайдов */}
+      <div className={styles.body}>
         <nav className={styles.nav} aria-label="Услуги">
           <ul className={styles.navList}>
             {productionIndex.map((service, index) => {

@@ -1,49 +1,49 @@
 /*
   Услуги:
-  — десктоп: золотая сетка 320px | 1fr (как риски), nav слева, слайд справа;
-  — мобилка: простой список ссылок.
+  — шапка: заголовок + подпись в одном flex-ряду;
+  — десктоп: nav | stage;
+  — мобилка: список ссылок.
 */
 
 .section {
   padding-block: 0;
   min-width: 0;
-}
-
-.layout {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  min-width: 0;
+  gap: clamp(2rem, 4vw, 3.25rem);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .title {
   margin: 0;
-  display: inline-flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  gap: 0.2em;
+  max-width: 22ch;
   font-family: var(--font-h2);
-  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 0.95;
-  white-space: nowrap;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
-.count {
-  margin-top: 0.12em;
-  flex-shrink: 0;
-  font-size: 0.38em;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  line-height: 1;
+.lead {
+  margin: 0;
+  max-width: 22rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
 }
 
-/* Desktop-only blocks hidden on mobile */
-.lead,
-.nav,
-.stage {
+/* Desktop-only body hidden on mobile */
+.body {
   display: none;
 }
 
@@ -123,43 +123,35 @@
 /* —— Desktop —— */
 
 @media (min-width: 1023px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 320px minmax(0, 1fr);
-    grid-template-areas:
-      "title lead"
-      "nav stage";
-    column-gap: clamp(1.5rem, 3vw, 2.5rem);
-    row-gap: clamp(2.5rem, 5vw, 4rem);
-    align-items: start;
+  .head {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
   }
 
   .title {
-    grid-area: title;
-    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+    flex: 1 1 auto;
+    max-width: 28ch;
+  }
+
+  .lead {
+    flex: 0 1 22rem;
+    text-align: right;
   }
 
   .mobileList {
     display: none;
   }
 
-  .lead {
-    display: block;
-    grid-area: lead;
-    margin: 0;
-    max-width: 22rem;
-    justify-self: end;
-    text-align: right;
-    font-size: 0.72rem;
-    line-height: 1.45;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--muted-strong);
+  .body {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    column-gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: start;
   }
 
   .nav {
-    display: block;
-    grid-area: nav;
     position: sticky;
     top: calc(var(--header-height) + 1.25rem);
   }
@@ -205,8 +197,6 @@
   }
 
   .stage {
-    display: block;
-    grid-area: stage;
     min-width: 0;
   }
 

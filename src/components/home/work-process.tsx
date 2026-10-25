@@ -12,23 +12,14 @@ export function WorkProcess() {
   return (
     <section className={styles.section} aria-labelledby="process">
       <header className={styles.head}>
-        <div className={styles.headMain}>
-          <h2 id="process" className={styles.title}>
-            Процесс
-            <span className={styles.count} aria-hidden="true">
-              ({String(total).padStart(2, "0")})
-            </span>
-          </h2>
-          <p className={styles.lead}>
-            Шесть понятных этапов: от первого разговора до обслуживания после
-            сдачи. Без сюрпризов по смете и срокам — каждый шаг согласуем до
-            следующего.
-          </p>
-        </div>
-        {/* <p className={styles.note}>
-          Обычно путь от брифа до монтажа занимает от 6 до 12 недель — в
-          зависимости от объёма и комплектации.
-        </p> */}
+        <h2 id="process" className={styles.title}>
+          Мебель на заказ — проще, чем кажется
+        </h2>
+        <p className={styles.lead}>
+          От первого обсуждения до обслуживания после установки — шесть
+          последовательных этапов. Вы участвуете в ключевых решениях, а
+          организацию и контроль работ мы берём на себя.
+        </p>
       </header>
 
       <ol

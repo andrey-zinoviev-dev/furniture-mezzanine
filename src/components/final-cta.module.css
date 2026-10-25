@@ -18,18 +18,19 @@
 
 .title {
   margin: 0;
+  max-width: 22ch;
   font-family: var(--font-h2);
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 1;
-  white-space: nowrap;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
 .lead {
   margin: 0;
-  max-width: 26rem;
+  max-width: 32rem;
   font-size: 0.72rem;
   line-height: 1.45;
   letter-spacing: 0.04em;
@@ -65,12 +66,7 @@
 }
 
 @media (max-width: 1022px) {
-  .title {
-    white-space: normal;
-    font-size: clamp(2.25rem, 10vw, 3.5rem);
-  }
-
   .lead {
-    max-width: none;
+    max-width: 36rem;
   }
 }

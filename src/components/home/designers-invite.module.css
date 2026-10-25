@@ -26,12 +26,13 @@
 .title {
   margin: 0;
   font-family: var(--font-h2);
-  font-size: clamp(1.85rem, 3.6vw, 3.25rem);
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 0.98;
+  line-height: 1.05;
   color: var(--foreground);
+  text-wrap: balance;
 }
 
 .caption {
@@ -164,7 +165,4 @@
     grid-template-columns: 1fr;
   }
 
-  .title {
-    font-size: clamp(1.65rem, 7vw, 2.35rem);
-  }
 }

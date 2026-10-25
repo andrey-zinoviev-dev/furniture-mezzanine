@@ -5,7 +5,8 @@ import { risksSolutions } from "@/lib/home-content";
 import styles from "./risks-solutions.module.css";
 
 /**
- * Риски: золотая сетка 320px | 1fr (как у проектов) + аккордеон.
+ * Риски: шапка (заголовок + подпись) отдельно;
+ * аккордеон — в золотой сетке 320px | 1fr.
  * Тоггл — шеврон, без круга с плюсом.
  */
 export function RisksSolutions() {
@@ -14,19 +15,18 @@ export function RisksSolutions() {
 
   return (
     <section className={styles.section} aria-labelledby="risks">
-      <div className={styles.layout}>
-        <header className={styles.head}>
-          <h2 id="risks" className={styles.title}>
-            Риски
-            <span className={styles.count} aria-hidden="true">
-              (02)
-            </span>
-          </h2>
-          {/* <p className={styles.lead}>
-            Типичные опасения до заказа — и как мы их закрываем.
-          </p> */}
-        </header>
+      <header className={styles.head}>
+        <h2 id="risks" className={styles.title}>
+          Что может повлиять на результат — кроме дизайна?
+        </h2>
+        <p className={styles.lead}>
+          Мы заранее учли основные риски индивидуального изготовления и
+          предусмотрели конкретные решения для каждого из них. Ниже — как это
+          работает на практике.
+        </p>
+      </header>
 
+      <div className={styles.layout}>
         <ul className={styles.list}>
           {risksSolutions.map((item, index) => {
             const panelId = `${baseId}-panel-${item.id}`;

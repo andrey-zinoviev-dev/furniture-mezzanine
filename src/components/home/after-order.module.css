@@ -15,14 +15,17 @@
 }
 
 .head {
-  display: grid;
-  gap: 0.75rem;
-  max-width: 52rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem;
   margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
 }
 
 .eyebrow {
   margin: 0;
+  width: 100%;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -32,21 +35,23 @@
 
 .title {
   margin: 0;
+  max-width: 22ch;
   font-family: var(--font-h2);
-  /* Как у Проекты / Риски / Процесс; без nowrap — заголовок длинный */
-  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 0.95;
+  line-height: 1.05;
   text-wrap: balance;
 }
 
 .lead {
   margin: 0;
-  max-width: 36rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  max-width: 22rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--muted-strong);
 }
 
@@ -163,17 +168,26 @@
 
   .head {
     flex: 0 0 auto;
-    gap: 0.5rem;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
     margin-bottom: 1.25rem;
   }
 
+  .eyebrow {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
   .title {
-    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+    flex: 1 1 auto;
+    max-width: 28ch;
   }
 
   .lead {
-    font-size: 0.9rem;
-    line-height: 1.4;
+    flex: 0 1 22rem;
+    text-align: right;
   }
 
   .bento {

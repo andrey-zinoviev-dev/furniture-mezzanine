@@ -1,6 +1,6 @@
 /*
-  Десктоп 1023px+: шапка в сетке 320px | 1fr,
-  лента на всю ширину секции (вне колонок), активная карточка = 2 неактивных.
+  Шапка: заголовок + подпись в одном flex-ряду.
+  Лента на всю ширину; активная карточка = 2 неактивных.
   Мобилка: нативный горизонтальный скролл + scroll-snap proximity.
 */
 
@@ -13,54 +13,37 @@
   --slide-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --slide-duration: 650ms;
 
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
-  grid-template-areas:
-    "title aside"
-    "carousel carousel";
-  column-gap: clamp(1.5rem, 3vw, 2.5rem);
-  row-gap: clamp(3.5rem, 8vw, 6.5rem);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+  min-width: 0;
 }
 
 .head {
-  display: contents;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .title {
-  grid-area: title;
   margin: 0;
-  display: inline-flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  gap: 0.2em;
+  max-width: 22ch;
   font-family: var(--font-h2);
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 0.95;
-  white-space: nowrap;
-}
-
-.count {
-  margin-top: 0.12em;
-  flex-shrink: 0;
-  font-size: 0.38em;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  line-height: 1;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
 .headAside {
-  grid-area: aside;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 0.85rem;
   max-width: 22rem;
-  justify-self: end;
-  text-align: right;
 }
 
 .lead {
@@ -86,7 +69,6 @@
 }
 
 .carousel {
-  grid-area: carousel;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -279,27 +261,35 @@
   transform: scale(1.04);
 }
 
+@media (min-width: 1023px) {
+  .head {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .title {
+    flex: 1 1 auto;
+    max-width: 28ch;
+  }
+
+  .headAside {
+    flex: 0 1 22rem;
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
 @media (max-width: 1022px) {
   .works {
     --card-w: min(70vw, 16rem);
     --frame-h: calc(var(--card-w) * 4 / 3);
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "title"
-      "aside"
-      "carousel";
-    row-gap: 1.25rem;
-  }
-
-  .title {
-    font-size: clamp(2rem, 8vw, 2.75rem);
+    gap: 1.25rem;
   }
 
   .headAside {
     max-width: none;
-    justify-self: start;
-    align-items: flex-start;
-    text-align: left;
   }
 
   /* На мобиле — свайп, стрелки не нужны */

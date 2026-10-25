@@ -11,57 +11,29 @@
 }
 
 .head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
-  gap: 1.5rem 2rem;
-  align-items: start;
-  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
-}
-
-.headMain {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 1rem;
-  max-width: 36rem;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
 }
 
 .title {
   margin: 0;
-  display: inline-flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  gap: 0.2em;
+  max-width: 22ch;
   font-family: var(--font-h2);
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 0.95;
-  white-space: nowrap;
-}
-
-.count {
-  margin-top: 0.12em;
-  flex-shrink: 0;
-  font-size: 0.38em;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  line-height: 1;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
 .lead {
   margin: 0;
-  max-width: 32rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--muted-strong);
-}
-
-.note {
-  margin: 0;
-  max-width: 16rem;
-  justify-self: end;
-  text-align: right;
-  font-size: 0.68rem;
+  max-width: 22rem;
+  font-size: 0.72rem;
   line-height: 1.45;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -138,16 +110,28 @@
   color: var(--muted-strong);
 }
 
-@media (max-width: 900px) {
+@media (min-width: 1023px) {
   .head {
-    grid-template-columns: 1fr;
-    margin-bottom: 2rem;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
   }
 
-  .note {
-    justify-self: start;
-    text-align: left;
-    max-width: none;
+  .title {
+    flex: 1 1 auto;
+    max-width: 28ch;
+  }
+
+  .lead {
+    flex: 0 1 22rem;
+    text-align: right;
+  }
+}
+
+@media (max-width: 900px) {
+  .head {
+    margin-bottom: 2rem;
   }
 
   .timeline {
@@ -171,10 +155,6 @@
 }
 
 @media (max-width: 560px) {
-  .title {
-    font-size: clamp(2rem, 8vw, 2.75rem);
-  }
-
   .stepBody {
     /* На мобилке лестница слабее — меньше вертикального разброса */
     margin-top: calc((var(--cols) - 1 - var(--i)) * 0.55rem);

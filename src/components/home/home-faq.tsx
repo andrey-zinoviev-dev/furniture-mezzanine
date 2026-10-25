@@ -5,7 +5,8 @@ import { homeFaq } from "@/lib/home-content";
 import styles from "./home-faq.module.css";
 
 /**
- * FAQ главной: золотая сетка 320px | 1fr + аккордеон, как у рисков.
+ * FAQ главной: шапка (заголовок + подпись) отдельно;
+ * аккордеон — в золотой сетке 320px | 1fr.
  */
 export function HomeFaq() {
   const baseId = useId();
@@ -13,21 +14,21 @@ export function HomeFaq() {
 
   return (
     <section className={styles.section} aria-labelledby="home-faq">
-      <div className={styles.layout}>
-        <header className={styles.head}>
-          <h2 id="home-faq" className={styles.title}>
-            Что важно знать
-            <span className={styles.count} aria-hidden="true">
-              ({String(homeFaq.length).padStart(2, "0")})
-            </span>
-          </h2>
-          {/* <p className={styles.lead}>
-            Когда лучше обращаться, можно ли работать по готовому дизайн-проекту
-            и что подготовить для первого обсуждения — отвечаем на основные
-            вопросы.
-          </p> */}
-        </header>
+      <header className={styles.head}>
+        <h2 id="home-faq" className={styles.title}>
+          Что важно знать
+          <span className={styles.count} aria-hidden="true">
+            ({String(homeFaq.length).padStart(2, "0")})
+          </span>
+        </h2>
+        {/* <p className={styles.lead}>
+          Когда лучше обращаться, можно ли работать по готовому дизайн-проекту
+          и что подготовить для первого обсуждения — отвечаем на основные
+          вопросы.
+        </p> */}
+      </header>
 
+      <div className={styles.layout}>
         <ul className={styles.list}>
           {homeFaq.map((item, index) => {
             const panelId = `${baseId}-panel-${item.id}`;

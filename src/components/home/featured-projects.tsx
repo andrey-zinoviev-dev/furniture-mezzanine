@@ -22,7 +22,7 @@ function canAutoplay() {
   );
 }
 
-/** Избранные проекты: шапка в сетке, лента на всю ширину секции. */
+/** Избранные проекты: шапка (заголовок + подпись), лента на всю ширину. */
 export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
   const items = getFeaturedProjects(limit);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -56,16 +56,14 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
     <div className={styles.works}>
       <header className={styles.head}>
         <h2 id="featured-projects" className={styles.title}>
-          Проекты
-          <span className={styles.count} aria-hidden="true">
-            ({totalLabel})
-          </span>
-          <span className={styles.srOnly}> — {total}</span>
+          Посмотрите, как это выглядит после реализации
         </h2>
         <div className={styles.headAside}>
-          {/* <p className={styles.lead}>
-            Избранные объекты — кухни, гардеробные и комплексная меблировка.
-          </p> */}
+          <p className={styles.lead}>
+            Избранные работы Mezzanine — от отдельных мебельных решений до
+            нескольких помещений в одном проекте. Здесь можно оценить детали
+            исполнения, пропорции и то, как мебель вписывается в интерьер.
+          </p>
           <Link href={siteRoutes.projects.href} className={styles.allLink}>
             Все проекты
           </Link>

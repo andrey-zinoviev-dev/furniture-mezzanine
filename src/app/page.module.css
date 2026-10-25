@@ -85,7 +85,7 @@
 /* Как .lead в production-index */
 .heroLead {
   margin: 0;
-  max-width: 22rem;
+  max-width: 32rem;
   font-size: 0.72rem;
   line-height: 1.45;
   letter-spacing: 0.04em;
@@ -349,7 +349,8 @@
 .journalHead {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  align-items: flex-start;
+  gap: 1rem;
   margin-bottom: 1.75rem;
 }
 
@@ -366,18 +367,32 @@
 
 .journalHeading {
   margin: 0;
+  max-width: 22ch;
   font-family: var(--font-h2);
-  /* Как у Проекты / Риски / Процесс */
-  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 0.95;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
 @media (min-width: 1023px) {
+  .journalHead {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
   .journalHeading {
-    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+    flex: 1 1 auto;
+    max-width: 28ch;
+  }
+
+  .journalLead {
+    flex: 0 1 22rem;
+    text-align: right;
   }
 }
 
