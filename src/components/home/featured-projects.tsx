@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useEffectEvent, useState, type CSSProperties } from "react";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import headStyles from "@/components/section-head.module.css";
 import { getFeaturedProjects } from "@/lib/projects";
 import { siteRoutes } from "@/lib/routes";
 import styles from "./featured-projects.module.css";
@@ -55,19 +57,17 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
   return (
     <div className={styles.works}>
       <header className={styles.head}>
-        <h2 id="featured-projects" className={styles.title}>
-          Посмотрите, как это выглядит после реализации
-        </h2>
-        <div className={styles.headAside}>
-          <p className={styles.lead}>
-            Избранные работы Mezzanine — от отдельных мебельных решений до
-            нескольких помещений в одном проекте. Здесь можно оценить детали
-            исполнения, пропорции и то, как мебель вписывается в интерьер.
-          </p>
-          <Link href={siteRoutes.projects.href} className={styles.allLink}>
-            Все проекты
-          </Link>
+        <div className={headStyles.top}>
+          <h2 id="featured-projects" className={styles.title}>
+            Посмотрите, как это выглядит после реализации
+          </h2>
+          <SectionEyebrow>Проекты</SectionEyebrow>
         </div>
+        <p className={styles.lead}>
+          Избранные работы Mezzanine — от отдельных мебельных решений до
+          нескольких помещений в одном проекте. Здесь можно оценить детали
+          исполнения, пропорции и то, как мебель вписывается в интерьер.
+        </p>
       </header>
 
       <div className={styles.carousel}>
@@ -133,33 +133,42 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
           </ul>
         </div>
 
-        {total > 1 ? (
-          <div className={styles.controls} role="group" aria-label="Навигация по проектам">
-            <button
-              type="button"
-              className={styles.controlBtn}
-              aria-label="Предыдущий проект"
-              onClick={() => go(-1)}
+        <div className={styles.toolbar}>
+          {total > 1 ? (
+            <div
+              className={styles.controls}
+              role="group"
+              aria-label="Навигация по проектам"
             >
-              ←
-            </button>
-            <span className={styles.controlStatus} aria-live="polite">
-              {currentLabel}
-              <span className={styles.controlSep} aria-hidden="true">
-                /
+              <button
+                type="button"
+                className={styles.controlBtn}
+                aria-label="Предыдущий проект"
+                onClick={() => go(-1)}
+              >
+                ←
+              </button>
+              <span className={styles.controlStatus} aria-live="polite">
+                {currentLabel}
+                <span className={styles.controlSep} aria-hidden="true">
+                  /
+                </span>
+                {totalLabel}
               </span>
-              {totalLabel}
-            </span>
-            <button
-              type="button"
-              className={styles.controlBtn}
-              aria-label="Следующий проект"
-              onClick={() => go(1)}
-            >
-              →
-            </button>
-          </div>
-        ) : null}
+              <button
+                type="button"
+                className={styles.controlBtn}
+                aria-label="Следующий проект"
+                onClick={() => go(1)}
+              >
+                →
+              </button>
+            </div>
+          ) : null}
+          <Link href={siteRoutes.projects.href} className={styles.allLink}>
+            Все проекты
+          </Link>
+        </div>
       </div>
     </div>
   );

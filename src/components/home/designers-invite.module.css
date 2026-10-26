@@ -1,10 +1,32 @@
 /*
-  Сетка 1fr | 1fr (как нижний блок Artchive):
-  слева — заголовок + подпись, справа — квадратное фото.
+  Шапка на всю ширину (title | eyebrow + линия),
+  ниже сетка 1fr | 1fr: подпись/CTA | фото.
 */
 .section {
   padding-block: 0;
   color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  max-width: 22ch;
+  font-family: var(--font-h2);
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--foreground);
+  text-wrap: balance;
 }
 
 .frame {
@@ -23,18 +45,6 @@
   min-height: 0;
 }
 
-.title {
-  margin: 0;
-  font-family: var(--font-h2);
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-  line-height: 1.05;
-  color: var(--foreground);
-  text-wrap: balance;
-}
-
 .caption {
   display: flex;
   flex-direction: column;
@@ -44,18 +54,8 @@
   max-width: 420px;
 }
 
-.label {
+.lead {
   margin: 0;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.note {
-  margin: 0;
-  max-width: 420px;
   font-size: 0.72rem;
   line-height: 1.45;
   letter-spacing: 0.04em;
@@ -164,5 +164,4 @@
   .frame {
     grid-template-columns: 1fr;
   }
-
 }

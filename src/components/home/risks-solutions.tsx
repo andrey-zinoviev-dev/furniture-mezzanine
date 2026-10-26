@@ -1,6 +1,8 @@
 "use client";
 
 import { useId, useState } from "react";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import headStyles from "@/components/section-head.module.css";
 import { risksSolutions } from "@/lib/home-content";
 import styles from "./risks-solutions.module.css";
 
@@ -16,9 +18,12 @@ export function RisksSolutions() {
   return (
     <section className={styles.section} aria-labelledby="risks">
       <header className={styles.head}>
-        <h2 id="risks" className={styles.title}>
-          Что может повлиять на результат — кроме дизайна?
-        </h2>
+        <div className={headStyles.top}>
+          <h2 id="risks" className={styles.title}>
+            Что может повлиять на результат — кроме дизайна?
+          </h2>
+          <SectionEyebrow>Риски</SectionEyebrow>
+        </div>
         <p className={styles.lead}>
           Мы заранее учли основные риски индивидуального изготовления и
           предусмотрели конкретные решения для каждого из них. Ниже — как это

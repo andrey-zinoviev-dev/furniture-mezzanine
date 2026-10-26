@@ -17,25 +17,15 @@
 .head {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   align-items: flex-start;
   gap: 1rem;
-  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
-}
-
-.eyebrow {
-  margin: 0;
   width: 100%;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
 }
 
 .title {
   margin: 0;
-  max-width: 22ch;
+  max-width: 28ch;
   font-family: var(--font-h2);
   font-size: 36px;
   font-weight: 800;
@@ -47,8 +37,9 @@
 
 .lead {
   margin: 0;
-  max-width: 22rem;
-  font-size: 0.72rem;
+  max-width: 34rem;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 1.45;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -168,26 +159,7 @@
 
   .head {
     flex: 0 0 auto;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
     margin-bottom: 1.25rem;
-  }
-
-  .eyebrow {
-    width: 100%;
-    flex-basis: 100%;
-  }
-
-  .title {
-    flex: 1 1 auto;
-    max-width: 28ch;
-  }
-
-  .lead {
-    flex: 0 1 22rem;
-    text-align: right;
   }
 
   .bento {

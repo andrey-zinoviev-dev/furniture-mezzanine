@@ -1,6 +1,8 @@
 "use client";
 
 import { useId, useState } from "react";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import headStyles from "@/components/section-head.module.css";
 import { homeFaq } from "@/lib/home-content";
 import styles from "./home-faq.module.css";
 
@@ -15,12 +17,15 @@ export function HomeFaq() {
   return (
     <section className={styles.section} aria-labelledby="home-faq">
       <header className={styles.head}>
-        <h2 id="home-faq" className={styles.title}>
-          Что важно знать
-          <span className={styles.count} aria-hidden="true">
-            ({String(homeFaq.length).padStart(2, "0")})
-          </span>
-        </h2>
+        <div className={headStyles.top}>
+          <h2 id="home-faq" className={styles.title}>
+            Что важно знать
+            <span className={styles.count} aria-hidden="true">
+              ({String(homeFaq.length).padStart(2, "0")})
+            </span>
+          </h2>
+          <SectionEyebrow>Вопросы</SectionEyebrow>
+        </div>
         {/* <p className={styles.lead}>
           Когда лучше обращаться, можно ли работать по готовому дизайн-проекту
           и что подготовить для первого обсуждения — отвечаем на основные

@@ -13,6 +13,8 @@ import { RisksSolutions } from "@/components/home/risks-solutions";
 // import { SolutionsMarquee } from "@/components/home/solutions-marquee";
 import { ValuesAccordion } from "@/components/home/values-accordion";
 import { WorkProcess } from "@/components/home/work-process";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import headStyles from "@/components/section-head.module.css";
 import {
   journalPreview,
   // materialsPreview,
@@ -145,9 +147,12 @@ export default function HomePage() {
       {/* 10. Журнал — 3 колонки: тег на фото, дата + заголовок снизу */}
       <section className={styles.journalSection} aria-labelledby="journal">
         <div className={styles.journalHead}>
-          <h2 id="journal" className={styles.journalHeading}>
-            Статьи
-          </h2>
+          <div className={headStyles.top}>
+            <h2 id="journal" className={styles.journalHeading}>
+              Статьи
+            </h2>
+            <SectionEyebrow>Журнал</SectionEyebrow>
+          </div>
           <p className={styles.journalLead}>
             Экспертиза проекта — кухни, смета, комплексная меблировка.
           </p>

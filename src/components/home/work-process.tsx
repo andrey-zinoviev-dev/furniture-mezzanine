@@ -1,4 +1,6 @@
 import type { CSSProperties } from "react";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import headStyles from "@/components/section-head.module.css";
 import { workSteps } from "@/lib/home-content";
 import styles from "./work-process.module.css";
 
@@ -12,9 +14,12 @@ export function WorkProcess() {
   return (
     <section className={styles.section} aria-labelledby="process">
       <header className={styles.head}>
-        <h2 id="process" className={styles.title}>
-          Мебель на заказ — проще, чем кажется
-        </h2>
+        <div className={headStyles.top}>
+          <h2 id="process" className={styles.title}>
+            Мебель на заказ — проще, чем кажется
+          </h2>
+          <SectionEyebrow>Процесс</SectionEyebrow>
+        </div>
         <p className={styles.lead}>
           От первого обсуждения до обслуживания после установки — шесть
           последовательных этапов. Вы участвуете в ключевых решениях, а

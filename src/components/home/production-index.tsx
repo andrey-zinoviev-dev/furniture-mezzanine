@@ -3,12 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import headStyles from "@/components/section-head.module.css";
 import { productionIndex } from "@/lib/home-content";
 import styles from "./production-index.module.css";
 
 /**
  * Услуги:
- * — шапка: заголовок + подпись в одном ряду;
+ * — шапка: заголовок | eyebrow + линия, подпись ниже;
  * — десктоп: навигация слева, слайд справа;
  * — мобилка: простой список ссылок.
  */
@@ -23,9 +25,12 @@ export function ProductionIndex() {
   return (
     <section className={styles.section} aria-labelledby="services">
       <header className={styles.head}>
-        <h2 id="services" className={styles.title}>
-          С какой части интерьера начнём?
-        </h2>
+        <div className={headStyles.top}>
+          <h2 id="services" className={styles.title}>
+            С какой части интерьера начнём?
+          </h2>
+          <SectionEyebrow>Услуги</SectionEyebrow>
+        </div>
         <p className={styles.lead}>
           Кухни, системы хранения и мебель для жилых помещений. Каждое
           направление требует своих конструктивных решений — под размеры

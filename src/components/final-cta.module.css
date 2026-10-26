@@ -18,7 +18,8 @@
 
 .title {
   margin: 0;
-  max-width: 22ch;
+  /* max-width: 22ch; */
+  max-width: 720px;
   font-family: var(--font-h2);
   font-size: 36px;
   font-weight: 800;

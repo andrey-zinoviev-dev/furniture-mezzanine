@@ -1,3 +1,5 @@
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import headStyles from "@/components/section-head.module.css";
 import { afterOrder } from "@/lib/home-content";
 import styles from "./after-order.module.css";
 
@@ -11,10 +13,12 @@ export function AfterOrder() {
   return (
     <section className={styles.section} aria-labelledby="after-order">
       <header className={styles.head}>
-        <p className={styles.eyebrow}>{eyebrow}</p>
-        <h2 id="after-order" className={styles.title}>
-          {title}
-        </h2>
+        <div className={headStyles.top}>
+          <h2 id="after-order" className={styles.title}>
+            {title}
+          </h2>
+          <SectionEyebrow>{eyebrow}</SectionEyebrow>
+        </div>
         <p className={styles.lead}>{lead}</p>
       </header>
 

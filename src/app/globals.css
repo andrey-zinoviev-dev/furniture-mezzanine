@@ -11,6 +11,7 @@
   --font-ui: var(--font-ui-family), "Helvetica Neue", Helvetica, sans-serif;
   --font-display: var(--font-heading-family), var(--font-ui-family), sans-serif;
   --font-h2: var(--font-heading-family), var(--font-ui-family), sans-serif;
+  --font-mono: var(--font-mono-family), ui-monospace, monospace;
 }
 
 h2 {

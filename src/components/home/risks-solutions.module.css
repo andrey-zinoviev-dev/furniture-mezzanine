@@ -14,11 +14,12 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
+  width: 100%;
 }
 
 .title {
   margin: 0;
-  max-width: 22ch;
+  max-width: 28ch;
   font-family: var(--font-h2);
   font-size: 36px;
   font-weight: 800;
@@ -30,8 +31,9 @@
 
 .lead {
   margin: 0;
-  max-width: 22rem;
-  font-size: 0.72rem;
+  max-width: 34rem;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 1.45;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -136,25 +138,6 @@
   font-size: 0.95rem;
   line-height: 1.5;
   color: var(--muted-strong);
-}
-
-@media (min-width: 1023px) {
-  .head {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-  }
-
-  .title {
-    flex: 1 1 auto;
-    max-width: 28ch;
-  }
-
-  .lead {
-    flex: 0 1 22rem;
-    text-align: right;
-  }
 }
 
 @media (max-width: 1022px) {

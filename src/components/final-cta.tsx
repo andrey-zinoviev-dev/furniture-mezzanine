@@ -10,7 +10,7 @@ export function FinalCta() {
   return (
     <section className={styles.section} aria-labelledby="final-cta">
       <h2 id="final-cta" className={styles.title}>
-        Есть идея или готовый дизайн-проект? Начнём с него.
+        Есть идея или готовый дизайн-проект?
       </h2>
       <p className={styles.lead}>
         Пришлите планировку, рендеры, референсы или опишите задумку. Этого

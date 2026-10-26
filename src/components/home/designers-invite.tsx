@@ -1,25 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import headStyles from "@/components/section-head.module.css";
 // import { designersInviteBenefits } from "@/lib/home-content";
 import { siteRoutes } from "@/lib/routes";
 import styles from "./designers-invite.module.css";
 
 /**
- * Секция «Дизайнерам»: сетка 1fr | 1fr.
- * Слева — заголовок и подпись, справа — квадратное фото.
+ * Секция «Дизайнерам»: шапка (title | eyebrow + линия),
+ * ниже сетка — подпись+CTA блоком внизу слева, фото справа.
  */
 export function DesignersInvite() {
   return (
     <section className={styles.section} aria-labelledby="designers-invite">
-      <div className={styles.frame}>
-        <div className={styles.copy}>
+      <header className={styles.head}>
+        <div className={headStyles.top}>
           <h2 id="designers-invite" className={styles.title}>
             Ваш проект — наша точная реализация
           </h2>
+          <SectionEyebrow>Дизайнерам</SectionEyebrow>
+        </div>
+      </header>
 
+      <div className={styles.frame}>
+        <div className={styles.copy}>
           <div className={styles.caption}>
-            <p className={styles.label}>Для дизайнеров и архитекторов</p>
-            <p className={styles.note}>
+            <p className={styles.lead}>
               Берём на себя техническую проработку, производство и монтаж мебели
               по вашему дизайн-проекту. Сохраняем авторские решения, а любые
               изменения предварительно согласовываем с вами.
