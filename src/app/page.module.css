@@ -352,19 +352,7 @@
   align-items: flex-start;
   gap: 1rem;
   width: 100%;
-  margin-bottom: 1.75rem;
-}
-
-/* Как .lead в production-index */
-.journalLead {
-  margin: 0;
-  max-width: 34rem;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--muted-strong);
+  margin-bottom: var(--section-body-gap);
 }
 
 .journalHeading {

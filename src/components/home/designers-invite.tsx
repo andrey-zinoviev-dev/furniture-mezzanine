@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import headStyles from "@/components/section-head.module.css";
+import { SectionLead } from "@/components/section-lead";
 // import { designersInviteBenefits } from "@/lib/home-content";
 import { siteRoutes } from "@/lib/routes";
 import styles from "./designers-invite.module.css";
@@ -25,11 +26,11 @@ export function DesignersInvite() {
       <div className={styles.frame}>
         <div className={styles.copy}>
           <div className={styles.caption}>
-            <p className={styles.lead}>
+            <SectionLead>
               Берём на себя техническую проработку, производство и монтаж мебели
               по вашему дизайн-проекту. Сохраняем авторские решения, а любые
               изменения предварительно согласовываем с вами.
-            </p>
+            </SectionLead>
             <Link href={siteRoutes.designers.href} className={styles.cta}>
               Подробнее о сотрудничестве
             </Link>

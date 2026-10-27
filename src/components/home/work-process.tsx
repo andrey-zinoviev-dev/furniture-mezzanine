@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import headStyles from "@/components/section-head.module.css";
+import { SectionLead } from "@/components/section-lead";
 import { workSteps } from "@/lib/home-content";
 import styles from "./work-process.module.css";
 
@@ -20,11 +21,11 @@ export function WorkProcess() {
           </h2>
           <SectionEyebrow>Процесс</SectionEyebrow>
         </div>
-        <p className={styles.lead}>
+        <SectionLead>
           От первого обсуждения до обслуживания после установки — шесть
           последовательных этапов. Вы участвуете в ключевых решениях, а
           организацию и контроль работ мы берём на себя.
-        </p>
+        </SectionLead>
       </header>
 
       <ol

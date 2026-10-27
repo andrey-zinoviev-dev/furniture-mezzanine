@@ -15,6 +15,7 @@ import { ValuesAccordion } from "@/components/home/values-accordion";
 import { WorkProcess } from "@/components/home/work-process";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import headStyles from "@/components/section-head.module.css";
+import { SectionLead } from "@/components/section-lead";
 import {
   journalPreview,
   // materialsPreview,
@@ -66,10 +67,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Услуги — навигация слева, блоки направлений справа */}
+      {/* 2. Направления — заголовок вне сетки, подпись | список ссылок */}
       <ProductionIndex />
 
-      {/* 3. Избранные проекты — сетка 320px | 1fr, горизонтальная лента */}
+      {/* 3. Избранные проекты — горизонтальная лента */}
       <section className={styles.section} aria-labelledby="featured-projects">
         <FeaturedProjects />
       </section>
@@ -153,9 +154,9 @@ export default function HomePage() {
             </h2>
             <SectionEyebrow>Журнал</SectionEyebrow>
           </div>
-          <p className={styles.journalLead}>
+          <SectionLead>
             Экспертиза проекта — кухни, смета, комплексная меблировка.
-          </p>
+          </SectionLead>
         </div>
         <ul className={styles.journal}>
           {journalPreview.map((article) => (

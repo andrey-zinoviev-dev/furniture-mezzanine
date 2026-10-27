@@ -7,6 +7,8 @@
   --accent: #c45c4a;
   --container: 1440px;
   --gutter: clamp(1rem, 2.5vw, 1.75rem);
+  /* Зазор от шапки секции (title + eyebrow + lead) к контенту */
+  --section-body-gap: clamp(2rem, 4vw, 3.25rem);
   --header-height: 48px;
   --font-ui: var(--font-ui-family), "Helvetica Neue", Helvetica, sans-serif;
   --font-display: var(--font-heading-family), var(--font-ui-family), sans-serif;

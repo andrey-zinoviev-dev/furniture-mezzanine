@@ -3,12 +3,13 @@
 import { useId, useState } from "react";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import headStyles from "@/components/section-head.module.css";
+import { SectionLead } from "@/components/section-lead";
 import { risksSolutions } from "@/lib/home-content";
 import styles from "./risks-solutions.module.css";
 
 /**
  * Риски: шапка (заголовок + подпись) отдельно;
- * аккордеон — в золотой сетке 320px | 1fr.
+ * аккордеон — ≥1280px в сетке 360px | 0.25fr | 1fr (справа).
  * Тоггл — шеврон, без круга с плюсом.
  */
 export function RisksSolutions() {
@@ -24,11 +25,11 @@ export function RisksSolutions() {
           </h2>
           <SectionEyebrow>Риски</SectionEyebrow>
         </div>
-        <p className={styles.lead}>
+        <SectionLead>
           Мы заранее учли основные риски индивидуального изготовления и
           предусмотрели конкретные решения для каждого из них. Ниже — как это
           работает на практике.
-        </p>
+        </SectionLead>
       </header>
 
       <div className={styles.layout}>

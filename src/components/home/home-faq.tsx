@@ -8,7 +8,7 @@ import styles from "./home-faq.module.css";
 
 /**
  * FAQ главной: шапка (заголовок + подпись) отдельно;
- * аккордеон — в золотой сетке 320px | 1fr.
+ * аккордеон — ≥1280px в сетке 360px | 0.25fr | 1fr (справа).
  */
 export function HomeFaq() {
   const baseId = useId();
@@ -26,11 +26,6 @@ export function HomeFaq() {
           </h2>
           <SectionEyebrow>Вопросы</SectionEyebrow>
         </div>
-        {/* <p className={styles.lead}>
-          Когда лучше обращаться, можно ли работать по готовому дизайн-проекту
-          и что подготовить для первого обсуждения — отвечаем на основные
-          вопросы.
-        </p> */}
       </header>
 
       <div className={styles.layout}>

@@ -1,26 +1,18 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import headStyles from "@/components/section-head.module.css";
+import { SectionLead } from "@/components/section-lead";
 import { productionIndex } from "@/lib/home-content";
 import styles from "./production-index.module.css";
 
 /**
- * Услуги:
- * — шапка: заголовок | eyebrow + линия, подпись ниже;
- * — десктоп: навигация слева, слайд справа;
- * — мобилка: простой список ссылок.
+ * Направления:
+ * — шапка: заголовок + eyebrow вне сетки;
+ * — ≥1280px: 360px | 0.25fr | 1fr; ниже: 360px | 1fr —
+ *   подпись слева, строки-ссылки справа.
  */
 export function ProductionIndex() {
-  const [active, setActive] = useState(0);
-  const total = productionIndex.length;
-
-  if (total === 0) return null;
-
-  const item = productionIndex[active] ?? productionIndex[0];
+  if (productionIndex.length === 0) return null;
 
   return (
     <section className={styles.section} aria-labelledby="services">
@@ -29,102 +21,39 @@ export function ProductionIndex() {
           <h2 id="services" className={styles.title}>
             С какой части интерьера начнём?
           </h2>
-          <SectionEyebrow>Услуги</SectionEyebrow>
+          <SectionEyebrow>Направления</SectionEyebrow>
         </div>
-        <p className={styles.lead}>
-          Кухни, системы хранения и мебель для жилых помещений. Каждое
-          направление требует своих конструктивных решений — под размеры
-          пространства, назначение и особенности проекта.
-        </p>
       </header>
 
-      {/* Мобилка: развёрнутый список — фото, название, текст, CTA */}
-      <ul className={styles.mobileList}>
-        {productionIndex.map((service, index) => (
-          <li key={service.href} className={styles.mobileItem}>
-            <Link href={service.href} className={styles.mobileMedia}>
-              <Image
-                src={service.cover}
-                alt=""
-                fill
-                sizes="100vw"
-                className={styles.image}
-                priority={index === 0}
-              />
-            </Link>
-            <h3 className={styles.mobileItemTitle}>{service.title}</h3>
-            {service.description ? (
-              <p className={styles.mobileItemBody}>{service.description}</p>
-            ) : null}
-            <Link href={service.href} className={styles.mobileItemLink}>
-              Подробнее
-              <span className={styles.linkArrow} aria-hidden="true">
-                →
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className={styles.layout}>
+        <SectionLead className={styles.lead}>
+          Кухни, системы хранения и мебель для жилых пространств. Конструкцию,
+          размеры и конфигурацию определяем исходя из особенностей помещения и
+          ваших требований.
+        </SectionLead>
 
-      {/* Десктоп: переключение слайдов */}
-      <div className={styles.body}>
-        <nav className={styles.nav} aria-label="Услуги">
-          <ul className={styles.navList}>
-            {productionIndex.map((service, index) => {
-              const isActive = index === active;
-
-              return (
-                <li key={service.href}>
-                  <button
-                    type="button"
-                    className={styles.navButton}
-                    aria-current={isActive ? "true" : undefined}
-                    aria-controls="services-stage"
-                    onClick={() => setActive(index)}
-                  >
-                    {service.title}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <div
-          id="services-stage"
-          className={styles.stage}
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          <article
-            className={styles.card}
-            key={item.href}
-            aria-label={item.title}
-          >
-            <div className={styles.copy}>
-              {item.description ? (
-                <h3 className={styles.leadTitle}>{item.description}</h3>
-              ) : null}
-              <Link href={item.href} className={styles.link}>
-                Подробнее
-                <span className={styles.linkArrow} aria-hidden="true">
+        <ul className={styles.list}>
+          {productionIndex.map((service) => (
+            <li key={service.href}>
+              <Link href={service.href} className={styles.row}>
+                <span className={styles.index} aria-hidden="true">
+                  {String(service.index).padStart(2, "0")}
+                </span>
+                <span className={styles.name}>{service.title}</span>
+                {service.subsections.length > 0 ? (
+                  <span className={styles.subsections}>
+                    {service.subsections.join(" · ")}
+                  </span>
+                ) : (
+                  <span className={styles.subsections} />
+                )}
+                <span className={styles.arrow} aria-hidden="true">
                   →
                 </span>
               </Link>
-            </div>
-
-            <div className={styles.media}>
-              <Image
-                src={item.cover}
-                alt=""
-                fill
-                sizes="(max-width: 1022px) 100vw, 55vw"
-                className={styles.image}
-                priority={active === 0}
-              />
-            </div>
-          </article>
-        </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

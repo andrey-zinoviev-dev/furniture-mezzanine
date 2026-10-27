@@ -26,11 +26,22 @@ const categoryDescriptions: Record<string, string> = {
     "Вся мебель для квартиры или дома — в одном проекте, с одной ответственностью за результат.",
 };
 
+/** Подтипы направлений на главной (строка таблицы). */
+const categorySubsections: Record<string, readonly string[]> = {
+  "/kuhni/": ["Модульные", "Встроенные", "С островом", "Линейные"],
+  "/shkafy/": ["Распашные", "Купе", "В нишу", "Угловые"],
+  "/garderobnye/": ["Открытые", "Закрытые", "В нише", "Walk-in"],
+  "/mebel-dlya-vannoy/": ["Тумбы", "Пеналы", "Зеркальные шкафы"],
+  "/detskaya-mebel/": ["Кровати", "Рабочая зона", "Хранение"],
+  "/meblirovka/": ["Кухня и хранение", "Жилые комнаты", "Комплекс объекта"],
+};
+
 export const categoryNavigator = productRoutes.map((route, index) => ({
   href: route.href,
   title: route.title,
   cover: categoryCovers[route.href] ?? "/covers/cat-kitchen.jpg",
   description: categoryDescriptions[route.href] ?? route.description,
+  subsections: categorySubsections[route.href] ?? [],
   index: index + 1,
 }));
 

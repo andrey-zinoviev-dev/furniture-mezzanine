@@ -1,5 +1,6 @@
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import headStyles from "@/components/section-head.module.css";
+import { SectionLead } from "@/components/section-lead";
 import { afterOrder } from "@/lib/home-content";
 import styles from "./after-order.module.css";
 
@@ -19,7 +20,7 @@ export function AfterOrder() {
           </h2>
           <SectionEyebrow>{eyebrow}</SectionEyebrow>
         </div>
-        <p className={styles.lead}>{lead}</p>
+        <SectionLead>{lead}</SectionLead>
       </header>
 
       <ul className={styles.bento}>

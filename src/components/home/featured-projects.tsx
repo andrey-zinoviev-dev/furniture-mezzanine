@@ -2,9 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useEffectEvent, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+  type CSSProperties,
+  type TransitionEvent,
+} from "react";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import headStyles from "@/components/section-head.module.css";
+import { SectionLead } from "@/components/section-lead";
 import { getFeaturedProjects } from "@/lib/projects";
 import { siteRoutes } from "@/lib/routes";
 import styles from "./featured-projects.module.css";
@@ -24,34 +32,125 @@ function canAutoplay() {
   );
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function wrapTrackIndex(index: number, clones: number, total: number) {
+  let next = index;
+  while (next >= clones + total) next -= total;
+  while (next < clones) next += total;
+  return next;
+}
+
 /** Избранные проекты: шапка (заголовок + подпись), лента на всю ширину. */
 export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
   const items = getFeaturedProjects(limit);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const total = items.length;
+  const loop = total >= 2;
+  /** Клонов с каждого края (не больше total). */
+  const clones = loop ? Math.min(3, total) : 0;
+
+  const [trackIndex, setTrackIndex] = useState(clones);
+  const [paused, setPaused] = useState(false);
+  const [instant, setInstant] = useState(false);
+  const settleRaf = useRef(0);
+
+  const logicalIndex = loop
+    ? ((trackIndex - clones) % total + total) % total
+    : trackIndex;
+
+  const settleInstant = useEffectEvent(() => {
+    window.cancelAnimationFrame(settleRaf.current);
+    settleRaf.current = window.requestAnimationFrame(() => {
+      settleRaf.current = window.requestAnimationFrame(() => {
+        setInstant(false);
+      });
+    });
+  });
+
+  const jumpTo = useEffectEvent((next: number) => {
+    setInstant(true);
+    setTrackIndex(next);
+    settleInstant();
+  });
 
   const tick = useEffectEvent(() => {
-    setActiveIndex((index) => (index + 1) % total);
+    setTrackIndex((index) => (loop ? index + 1 : index));
   });
 
   useEffect(() => {
-    if (total < 2 || paused) return;
+    if (!loop || paused) return;
 
     const id = window.setInterval(() => {
       if (canAutoplay()) tick();
     }, AUTOPLAY_MS);
 
     return () => window.clearInterval(id);
-  }, [total, paused]);
+  }, [loop, paused]);
+
+  useEffect(() => {
+    return () => window.cancelAnimationFrame(settleRaf.current);
+  }, []);
+
+  // Без анимации transitionend не придёт — нормализуем сразу.
+  useEffect(() => {
+    if (!loop || instant) return;
+    if (trackIndex >= clones && trackIndex < clones + total) return;
+    if (!prefersReducedMotion()) return;
+    jumpTo(wrapTrackIndex(trackIndex, clones, total));
+  }, [trackIndex, loop, clones, total, instant]);
 
   if (total === 0) return null;
 
+  const slides = loop
+    ? [
+        ...items.slice(-clones).map((project, i) => ({
+          project,
+          key: `${project.slug}-head-${i}`,
+          clone: true as const,
+          labelIndex: total - clones + i,
+        })),
+        ...items.map((project, i) => ({
+          project,
+          key: project.slug,
+          clone: false as const,
+          labelIndex: i,
+        })),
+        ...items.slice(0, clones).map((project, i) => ({
+          project,
+          key: `${project.slug}-tail-${i}`,
+          clone: true as const,
+          labelIndex: i,
+        })),
+      ]
+    : items.map((project, i) => ({
+        project,
+        key: project.slug,
+        clone: false as const,
+        labelIndex: i,
+      }));
+
   const go = (delta: -1 | 1) => {
-    setActiveIndex((index) => (index + delta + total) % total);
+    if (!loop) {
+      setTrackIndex((index) => (index + delta + total) % total);
+      return;
+    }
+
+    const max = total + 2 * clones - 1;
+    setTrackIndex((index) => Math.max(0, Math.min(max, index + delta)));
   };
 
-  const currentLabel = String(activeIndex + 1).padStart(2, "0");
+  const onTrackTransitionEnd = (event: TransitionEvent<HTMLUListElement>) => {
+    if (event.propertyName !== "transform" || event.target !== event.currentTarget) {
+      return;
+    }
+    if (!loop) return;
+    if (trackIndex >= clones && trackIndex < clones + total) return;
+    jumpTo(wrapTrackIndex(trackIndex, clones, total));
+  };
+
+  const currentLabel = String(logicalIndex + 1).padStart(2, "0");
   const totalLabel = String(total).padStart(2, "0");
 
   return (
@@ -63,11 +162,11 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
           </h2>
           <SectionEyebrow>Проекты</SectionEyebrow>
         </div>
-        <p className={styles.lead}>
+        <SectionLead>
           Избранные работы Mezzanine — от отдельных мебельных решений до
           нескольких помещений в одном проекте. Здесь можно оценить детали
           исполнения, пропорции и то, как мебель вписывается в интерьер.
-        </p>
+        </SectionLead>
       </header>
 
       <div className={styles.carousel}>
@@ -86,29 +185,42 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
           }}
         >
           <ul
-            className={styles.track}
-            style={{ "--active-index": activeIndex } as CSSProperties}
+            className={
+              instant ? `${styles.track} ${styles.trackInstant}` : styles.track
+            }
+            style={{ "--active-index": trackIndex } as CSSProperties}
+            onTransitionEnd={onTrackTransitionEnd}
           >
-            {items.map((project, index) => {
-              const isActive = index === activeIndex;
+            {slides.map((slide, index) => {
+              const isActive = index === trackIndex;
+              const { project, labelIndex } = slide;
 
               return (
                 <li
-                  key={project.slug}
-                  className={
-                    isActive ? `${styles.card} ${styles.cardActive}` : styles.card
-                  }
+                  key={slide.key}
+                  className={[
+                    styles.card,
+                    isActive ? styles.cardActive : "",
+                    slide.clone ? styles.cardClone : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
                   data-active={isActive ? "true" : undefined}
-                  aria-current={isActive ? "true" : undefined}
+                  aria-current={isActive && !slide.clone ? "true" : undefined}
+                  aria-hidden={slide.clone ? true : undefined}
                 >
                   <Link
                     href={`/projects/${project.slug}/`}
                     className={styles.cardLink}
-                    onFocus={() => setActiveIndex(index)}
+                    tabIndex={slide.clone ? -1 : undefined}
+                    onFocus={() => {
+                      if (slide.clone) return;
+                      setTrackIndex(index);
+                    }}
                   >
                     <span className={styles.cardMeta}>
                       <span className={styles.cardIndex}>
-                        {String(index + 1).padStart(3, "0")}
+                        {String(labelIndex + 1).padStart(3, "0")}
                       </span>
                       <span className={styles.cardTitle}>{project.title}</span>
                       <span className={styles.cardPlace}>{project.category}</span>

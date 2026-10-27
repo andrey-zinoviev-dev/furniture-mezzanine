@@ -15,7 +15,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: clamp(2.5rem, 6vw, 4.5rem);
+  gap: var(--section-body-gap);
   min-width: 0;
 }
 
@@ -37,17 +37,6 @@
   text-transform: uppercase;
   line-height: 1.05;
   text-wrap: balance;
-}
-
-.lead {
-  margin: 0;
-  max-width: 34rem;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--muted-strong);
 }
 
 .allLink {
@@ -164,6 +153,12 @@
   );
   transition: transform var(--slide-duration) var(--slide-ease);
   will-change: transform;
+}
+
+/* Бесшовный прыжок с клона на оригинал — без анимации. */
+.trackInstant,
+.trackInstant .card {
+  transition: none;
 }
 
 .card {
@@ -302,6 +297,11 @@
     transform: none;
     transition: none;
     will-change: auto;
+  }
+
+  /* Клоны только для desktop-loop; в native-scroll их быть не должно. */
+  .cardClone {
+    display: none;
   }
 
   .card,
