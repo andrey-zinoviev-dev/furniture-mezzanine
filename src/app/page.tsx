@@ -67,6 +67,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <AboutSection />
+
       {/* 2. Направления — заголовок вне сетки, подпись | список ссылок */}
       <ProductionIndex />
 
