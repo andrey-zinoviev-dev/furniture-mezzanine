@@ -1,15 +1,11 @@
 /*
-  Шапка: заголовок + подпись в одном flex-ряду.
-  Лента на всю ширину; активная карточка = 2 неактивных.
+  Шапка: заголовок + подпись.
+  Desktop: один слайд на всю ширину контейнера — обложка | мета (50/50).
   Мобилка: нативный горизонтальный скролл + scroll-snap proximity.
 */
 
 .works {
-  /* Неактивные шире, чем раньше — не «палочки» */
-  --card-w: clamp(17rem, 23vw, 21rem);
-  --track-gap: clamp(0.85rem, 1.5vw, 1.25rem);
-  /* Общая высота кадра для всех карточек (не от ширины) */
-  --frame-h: clamp(22rem, 30vw, 28rem);
+  --slide-h: clamp(24rem, 38vw, 34rem);
   --slide-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --slide-duration: 650ms;
 
@@ -124,67 +120,56 @@
   border: 0;
 }
 
-/*
-  Клип слева по краю контента (как у заголовка) — иначе в левом gutter
-  торчит край предыдущей карточки. Вправо по-прежнему выходим за gutter.
-*/
 .scroller {
-  margin-right: calc(var(--gutter) * -1);
   overflow: hidden;
   outline: none;
+  min-width: 0;
+  width: 100%;
 }
 
 .scroller:focus-visible {
   box-shadow: inset 0 0 0 1px var(--foreground);
 }
 
+/*
+  Track растянут на ширину scroller; каждый слайд = 100% этой ширины.
+  translate на -100% * index сдвигает ровно на один слайд.
+*/
 .track {
   display: flex;
-  align-items: flex-start;
-  width: max-content;
-  gap: var(--track-gap);
-  padding-right: var(--gutter);
+  align-items: stretch;
+  width: 100%;
+  gap: 0;
   list-style: none;
   margin: 0;
-  transform: translate3d(
-    calc(-1 * var(--active-index, 0) * (var(--card-w) + var(--track-gap))),
-    0,
-    0
-  );
+  padding: 0;
+  transform: translate3d(calc(-100% * var(--active-index, 0)), 0, 0);
   transition: transform var(--slide-duration) var(--slide-ease);
   will-change: transform;
 }
 
-/* Бесшовный прыжок с клона на оригинал — без анимации. */
-.trackInstant,
-.trackInstant .card {
-  transition: none;
-}
-
 .card {
-  flex: 0 0 var(--card-w);
-  transition: flex-basis var(--slide-duration) var(--slide-ease);
-}
-
-/* Активный = два неактивных с зазором между ними */
-.cardActive {
-  flex-basis: calc(var(--card-w) * 2 + var(--track-gap));
+  flex: 0 0 100%;
+  min-width: 0;
 }
 
 .cardLink {
   display: grid;
-  grid-template-rows: minmax(6.75rem, auto) var(--frame-h);
-  gap: 0.75rem;
-  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "frame meta";
+  height: var(--slide-h);
+  min-height: 0;
 }
 
 .cardMeta {
+  grid-area: meta;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  justify-content: center;
+  gap: 0.35rem;
   min-width: 0;
-  /* Текст к низу ячейки — кадры стартуют с одной линии */
-  justify-content: flex-end;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: var(--background);
 }
 
 .cardIndex {
@@ -195,10 +180,12 @@
 }
 
 .cardTitle {
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
+  font-family: var(--font-h2);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-transform: uppercase;
   transition: color 160ms ease;
 }
 
@@ -211,16 +198,17 @@
 }
 
 .cardTask {
-  margin-top: 0.35rem;
-  font-size: 0.78rem;
+  margin-top: 0.65rem;
+  max-width: 36ch;
+  font-size: 0.85rem;
   font-weight: 400;
   letter-spacing: 0.01em;
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--muted-strong);
   text-wrap: pretty;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   overflow: hidden;
 }
 
@@ -229,12 +217,13 @@
   color: var(--muted);
 }
 
-/* Одна высота кадра у всех: неактивный ≈ 3/4, активный — шире, тот же crop */
 .frame {
+  grid-area: frame;
   position: relative;
   display: block;
   width: 100%;
-  height: var(--frame-h);
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
   background: #1a1714;
   isolation: isolate;
@@ -293,7 +282,10 @@
   }
 
   .track {
+    width: max-content;
+    gap: clamp(0.85rem, 1.5vw, 1.25rem);
     padding-left: var(--gutter);
+    padding-right: var(--gutter);
     transform: none;
     transition: none;
     will-change: auto;
@@ -304,21 +296,52 @@
     display: none;
   }
 
-  .card,
-  .cardActive {
-    flex-basis: var(--card-w);
+  .card {
+    flex: 0 0 var(--card-w);
     scroll-snap-align: start;
-    transition: none;
   }
 
   .cardLink {
-    grid-template-rows: auto var(--frame-h);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "meta"
+      "frame";
+    height: auto;
+  }
+
+  .cardMeta {
+    justify-content: flex-end;
+    gap: 0.2rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .cardTitle {
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    text-transform: none;
+  }
+
+  .cardTask {
+    margin-top: 0.35rem;
+    max-width: none;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    -webkit-line-clamp: 2;
+  }
+
+  .frame {
+    height: var(--frame-h);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .track,
-  .card,
   .image {
     transition: none;
   }

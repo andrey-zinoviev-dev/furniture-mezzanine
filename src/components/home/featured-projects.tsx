@@ -48,42 +48,68 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
   const items = getFeaturedProjects(limit);
   const total = items.length;
   const loop = total >= 2;
-  /** Клонов с каждого края (не больше total). */
-  const clones = loop ? Math.min(3, total) : 0;
+  /** По одному клону с края — достаточно для бесшовного loop на full-width. */
+  const clones = loop ? 1 : 0;
 
   const [trackIndex, setTrackIndex] = useState(clones);
   const [paused, setPaused] = useState(false);
-  const [instant, setInstant] = useState(false);
+  const trackRef = useRef<HTMLUListElement>(null);
   const settleRaf = useRef(0);
 
   const logicalIndex = loop
     ? ((trackIndex - clones) % total + total) % total
     : trackIndex;
 
-  const settleInstant = useEffectEvent(() => {
+  /** Мгновенный прыжок на оригинал после клона — через DOM, без React-state «instant». */
+  const jumpTo = (next: number) => {
+    const el = trackRef.current;
     window.cancelAnimationFrame(settleRaf.current);
+
+    if (el) {
+      el.style.transition = "none";
+      el.style.transform = `translate3d(${-100 * next}%, 0, 0)`;
+    }
+
+    setTrackIndex(next);
+
     settleRaf.current = window.requestAnimationFrame(() => {
       settleRaf.current = window.requestAnimationFrame(() => {
-        setInstant(false);
+        if (!el) return;
+        el.style.transition = "";
+        el.style.transform = "";
       });
     });
-  });
+  };
 
-  const jumpTo = useEffectEvent((next: number) => {
-    setInstant(true);
-    setTrackIndex(next);
-    settleInstant();
-  });
+  const advance = (delta: -1 | 1) => {
+    if (!loop) {
+      setTrackIndex((index) => (index + delta + total) % total);
+      return;
+    }
 
-  const tick = useEffectEvent(() => {
-    setTrackIndex((index) => (loop ? index + 1 : index));
+    // Без анимации не заходим на клоны — сразу логический сосед.
+    if (prefersReducedMotion()) {
+      setTrackIndex((index) => {
+        const logical = ((index - clones) % total + total) % total;
+        return clones + ((logical + delta + total) % total);
+      });
+      return;
+    }
+
+    const max = total + 2 * clones - 1;
+    setTrackIndex((index) => Math.max(0, Math.min(max, index + delta)));
+  };
+
+  // Только для interval: свежие loop/total/clones без рестарта таймера.
+  const onAutoplayTick = useEffectEvent(() => {
+    advance(1);
   });
 
   useEffect(() => {
     if (!loop || paused) return;
 
     const id = window.setInterval(() => {
-      if (canAutoplay()) tick();
+      if (canAutoplay()) onAutoplayTick();
     }, AUTOPLAY_MS);
 
     return () => window.clearInterval(id);
@@ -92,14 +118,6 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
   useEffect(() => {
     return () => window.cancelAnimationFrame(settleRaf.current);
   }, []);
-
-  // Без анимации transitionend не придёт — нормализуем сразу.
-  useEffect(() => {
-    if (!loop || instant) return;
-    if (trackIndex >= clones && trackIndex < clones + total) return;
-    if (!prefersReducedMotion()) return;
-    jumpTo(wrapTrackIndex(trackIndex, clones, total));
-  }, [trackIndex, loop, clones, total, instant]);
 
   if (total === 0) return null;
 
@@ -131,16 +149,6 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
         labelIndex: i,
       }));
 
-  const go = (delta: -1 | 1) => {
-    if (!loop) {
-      setTrackIndex((index) => (index + delta + total) % total);
-      return;
-    }
-
-    const max = total + 2 * clones - 1;
-    setTrackIndex((index) => Math.max(0, Math.min(max, index + delta)));
-  };
-
   const onTrackTransitionEnd = (event: TransitionEvent<HTMLUListElement>) => {
     if (event.propertyName !== "transform" || event.target !== event.currentTarget) {
       return;
@@ -162,11 +170,11 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
           </h2>
           <SectionEyebrow>Проекты</SectionEyebrow>
         </div>
-        <SectionLead>
+        {/* <SectionLead>
           Избранные работы Mezzanine — от отдельных мебельных решений до
           нескольких помещений в одном проекте. Здесь можно оценить детали
           исполнения, пропорции и то, как мебель вписывается в интерьер.
-        </SectionLead>
+        </SectionLead> */}
       </header>
 
       <div className={styles.carousel}>
@@ -185,9 +193,8 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
           }}
         >
           <ul
-            className={
-              instant ? `${styles.track} ${styles.trackInstant}` : styles.track
-            }
+            ref={trackRef}
+            className={styles.track}
             style={{ "--active-index": trackIndex } as CSSProperties}
             onTransitionEnd={onTrackTransitionEnd}
           >
@@ -200,7 +207,6 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
                   key={slide.key}
                   className={[
                     styles.card,
-                    isActive ? styles.cardActive : "",
                     slide.clone ? styles.cardClone : "",
                   ]
                     .filter(Boolean)
@@ -233,7 +239,7 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
                         src={project.cover}
                         alt=""
                         fill
-                        sizes="(max-width: 1022px) 70vw, (min-width: 1023px) 40vw, 24vw"
+                        sizes="(max-width: 1022px) 70vw, 50vw"
                         className={styles.image}
                       />
                       <span className={styles.grain} aria-hidden="true" />
@@ -256,7 +262,7 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
                 type="button"
                 className={styles.controlBtn}
                 aria-label="Предыдущий проект"
-                onClick={() => go(-1)}
+                onClick={() => advance(-1)}
               >
                 ←
               </button>
@@ -271,7 +277,7 @@ export function FeaturedProjects({ limit = 8 }: FeaturedProjectsProps) {
                 type="button"
                 className={styles.controlBtn}
                 aria-label="Следующий проект"
-                onClick={() => go(1)}
+                onClick={() => advance(1)}
               >
                 →
               </button>

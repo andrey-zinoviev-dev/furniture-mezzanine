@@ -69,13 +69,15 @@ export default function HomePage() {
 
       <AboutSection />
 
-      {/* 2. Направления — заголовок вне сетки, подпись | список ссылок */}
-      <ProductionIndex />
-
-      {/* 3. Избранные проекты — горизонтальная лента */}
+      {/* 2. Избранные проекты — горизонтальная лента */}
       <section className={styles.section} aria-labelledby="featured-projects">
         <FeaturedProjects />
       </section>
+
+      {/* 3. Направления — заголовок вне сетки, подпись | список ссылок */}
+      <ProductionIndex />
+
+
 
       <WorkProcess />
 
