@@ -1,21 +1,24 @@
-/* «О нас» — крупный типографический абзац, светлый фон */
+/*
+  «О нас»:
+  — шапка: title + eyebrow;
+  — подпись слева на ~½ контейнера, 24px;
+  — маленькие подписи внизу контейнера на всю ширину (без внешней сетки).
+*/
+
 .section {
+  padding-block: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-body-gap);
+}
+
+.head {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(1.25rem, 3vw, 2rem);
-  padding-block: 0;
-  min-width: 0;
-}
-
-.index {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
+  gap: 1rem;
+  width: 100%;
 }
 
 .title {
@@ -31,25 +34,106 @@
 }
 
 .body {
+  width: 100%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.paragraph {
   margin: 0;
-  max-width: 52rem;
   font-family: var(--font-h2);
-  font-size: clamp(1.35rem, 3.2vw, 2.35rem);
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.35;
-  color: color-mix(in srgb, var(--foreground) 38%, transparent);
+  color: #969696;
   text-wrap: pretty;
 }
 
-.mark {
-  color: var(--background);
-  background: var(--foreground);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  padding: 0.08em 0.18em;
-  margin-inline: -0.04em;
-  font-style: normal;
+.emphasis {
+  color: var(--foreground);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: clamp(1.25rem, 2.5vw, 2rem);
+  row-gap: clamp(1.75rem, 3vw, 2.5rem);
+  align-items: start;
+  width: 100%;
+  margin-top: auto;
+  min-width: 0;
+}
+
+.point,
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.pointTitle {
+  margin: 0;
+  font-family: var(--font-h2);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--foreground);
+  text-wrap: balance;
+}
+
+.pointBody {
+  margin: 0;
+  max-width: 28ch;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #a0a0a0;
+  text-wrap: pretty;
+}
+
+.asideLead {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+
+.asideInvite {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #a0a0a0;
+}
+
+.asideLink {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  transition: color 160ms ease;
+}
+
+.asideLink:hover,
+.asideLink:focus-visible {
+  color: var(--muted-strong);
+  outline: none;
+}
+
+@media (max-width: 1022px) {
+  .body {
+    max-width: 34rem;
+  }
+
+  .footer {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -57,8 +141,15 @@
     font-size: clamp(1.5rem, 7vw, 2rem);
   }
 
+  .paragraph {
+    font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+  }
+
   .body {
-    font-size: clamp(1.2rem, 5.5vw, 1.55rem);
-    line-height: 1.4;
+    max-width: none;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
   }
 }
