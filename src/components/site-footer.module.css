@@ -8,11 +8,14 @@
   padding-block: 2.5rem 1.25rem;
 }
 
+.nav {
+  padding-bottom: 3rem;
+}
+
 .cols {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
-  padding-bottom: 3rem;
 }
 
 .colTitle {
@@ -43,14 +46,6 @@
   color: rgb(255 255 255 / 0.55);
 }
 
-.bottom {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-}
-
 .brand {
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 12vw, 7.5rem);
@@ -59,6 +54,11 @@
   text-transform: uppercase;
   line-height: 0.9;
   color: inherit;
+}
+
+.metaCell {
+  align-self: end;
+  justify-self: end;
 }
 
 .meta {
@@ -83,14 +83,16 @@
   color: rgb(255 255 255 / 0.55);
 }
 
-@media (max-width: 700px) {
-  .cols {
-    grid-template-columns: 1fr;
+@media (max-width: 1022px) {
+  .nav {
     padding-bottom: 2rem;
   }
 
-  .bottom {
-    flex-direction: column;
-    align-items: flex-start;
+  .cols {
+    grid-template-columns: 1fr;
+  }
+
+  .metaCell {
+    justify-self: start;
   }
 }

@@ -1,0 +1,30 @@
+/*
+  Золотая сетка: 12 равных колонок (desktop ≥1023px).
+  Ячейки позиционируются через --gg-col (например `6 / span 7`).
+  ≤1022px — одна колонка, ячейки на всю ширину.
+*/
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 3vw, 2.5rem);
+  row-gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+}
+
+.cell {
+  grid-column: var(--gg-col, 1 / -1);
+  min-width: 0;
+}
+
+@media (max-width: 1022px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cell {
+    grid-column: 1;
+  }
+}

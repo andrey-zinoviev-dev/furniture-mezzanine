@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import headStyles from "@/components/section-head.module.css";
 import { SectionLead } from "@/components/section-lead";
@@ -6,12 +5,10 @@ import { workSteps } from "@/lib/home-content";
 import styles from "./work-process.module.css";
 
 /**
- * Процесс: горизонтальный таймлайн на всю ширину.
- * Номер → акцентная черта → название → checkpoint снизу.
+ * Процесс: ряд карточек-шагов.
+ * Номер + линия → название → checkpoint.
  */
 export function WorkProcess() {
-  const total = workSteps.length;
-
   return (
     <section className={styles.section} aria-labelledby="process">
       <header className={styles.head}>
@@ -21,29 +18,27 @@ export function WorkProcess() {
           </h2>
           <SectionEyebrow>Процесс</SectionEyebrow>
         </div>
-        <SectionLead>
+        {/* <SectionLead>
           От первого обсуждения до обслуживания после установки — шесть
           последовательных этапов. Вы участвуете в ключевых решениях, а
+          организацию и контроль работ мы берём на себя.
+        </SectionLead> */}
+        <SectionLead>
+          От первого знакомства с проектом до обслуживания после установки —
+          пять последовательных этапов. Вы участвуете в ключевых решениях, а
           организацию и контроль работ мы берём на себя.
         </SectionLead>
       </header>
 
-      <ol
-        className={styles.timeline}
-        style={{ "--cols": total } as CSSProperties}
-      >
-        {workSteps.map((step, index) => (
-          <li
-            key={step.n}
-            className={styles.step}
-            style={{ "--i": index } as CSSProperties}
-          >
-            <span className={styles.num}>{step.n}</span>
-            <div className={styles.stepBody}>
-              <span className={styles.bar} aria-hidden="true" />
-              <span className={styles.stepTitle}>{step.title}</span>
+      <ol className={styles.points}>
+        {workSteps.map((step) => (
+          <li key={step.n} className={styles.point}>
+            <div className={styles.pointHead}>
+              <span className={styles.pointIndex}>{step.n}</span>
+              <span className={styles.pointRule} aria-hidden="true" />
             </div>
-            <span className={styles.stepMeta}>({step.checkpoint})</span>
+            <p className={styles.pointTitle}>{step.title}</p>
+            <p className={styles.pointBody}>{step.checkpoint}</p>
           </li>
         ))}
       </ol>

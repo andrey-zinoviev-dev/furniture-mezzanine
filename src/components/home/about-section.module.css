@@ -1,7 +1,8 @@
 /*
   «О нас»:
   — шапка: title + eyebrow;
-  — подпись, под ней lead + ссылка.
+  — lead слева (колонки 1–4);
+  — подпись + CTA справа (колонки 6–12).
 */
 
 .section {
@@ -32,12 +33,16 @@
   text-wrap: balance;
 }
 
-.main {
+.lead {
+  max-width: 20rem;
+}
+
+.right {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.75rem, 3vw, 2.5rem);
+  align-items: flex-start;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
   min-width: 0;
-  width: 100%;
 }
 
 .body {
@@ -45,18 +50,6 @@
   flex-direction: column;
   gap: 1em;
   width: 100%;
-  max-width: 50%;
-}
-
-.aside {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  min-width: 0;
-}
-
-.lead {
-  max-width: 20rem;
 }
 
 .paragraph {
@@ -72,65 +65,6 @@
 
 .emphasis {
   color: var(--foreground);
-}
-
-.points {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: clamp(1.25rem, 2.5vw, 2rem);
-  row-gap: clamp(1.25rem, 2.5vw, 1.75rem);
-  min-width: 0;
-}
-
-.point {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  min-width: 0;
-}
-
-.pointHead {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-}
-
-.pointIndex {
-  flex: none;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  font-variant-numeric: tabular-nums;
-  color: #b0b0b0;
-}
-
-.pointRule {
-  flex: 1;
-  min-width: 0;
-  height: 1px;
-  background: color-mix(in srgb, var(--line) 22%, transparent);
-}
-
-.pointTitle {
-  margin: 0;
-  font-family: var(--font-h2);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: var(--foreground);
-  text-wrap: balance;
-}
-
-.pointBody {
-  margin: 0;
-  max-width: 28ch;
-  font-size: 0.78rem;
-  font-weight: 400;
-  line-height: 1.45;
-  color: #a0a0a0;
-  text-wrap: pretty;
 }
 
 .asideLink {
@@ -151,20 +85,6 @@
   outline: none;
 }
 
-@media (max-width: 1022px) {
-  .body {
-    max-width: 34rem;
-  }
-
-  .lead {
-    max-width: 34rem;
-  }
-
-  .points {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
 @media (max-width: 640px) {
   .title {
     font-size: clamp(1.5rem, 7vw, 2rem);
@@ -172,13 +92,5 @@
 
   .paragraph {
     font-size: clamp(1.1rem, 4.5vw, 1.5rem);
-  }
-
-  .body {
-    max-width: none;
-  }
-
-  .points {
-    grid-template-columns: 1fr;
   }
 }

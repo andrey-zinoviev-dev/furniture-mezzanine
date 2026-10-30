@@ -1,8 +1,8 @@
 /*
   Направления:
-  — шапка: заголовок + eyebrow вне сетки;
-  — контент: ≥1280px — 360px | 0.25fr | 1fr (воздух по центру, таблица справа);
-    ниже — 360px | 1fr. Строки как на /projects: hover = инверсия.
+  — шапка вне сетки;
+  — lead слева (1–4), список справа (6–12);
+  — строки как на /projects: hover = инверсия.
 */
 
 .section {
@@ -33,35 +33,16 @@
   text-wrap: balance;
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: 360px minmax(0, 1fr);
-  column-gap: clamp(1.5rem, 3vw, 2.5rem);
-  align-items: start;
-}
-
 .lead {
-  grid-column: 1;
   max-width: 20rem;
 }
 
 .list {
-  grid-column: 2;
   display: grid;
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-@media (min-width: 1280px) {
-  .layout {
-    grid-template-columns: 360px minmax(0, 0.25fr) minmax(0, 1fr);
-  }
-
-  .list {
-    grid-column: 3;
-  }
 }
 
 .row {
@@ -133,22 +114,6 @@
 .row:hover .arrow,
 .row:focus-visible .arrow {
   transform: translateX(0.2rem);
-}
-
-@media (max-width: 1022px) {
-  .layout {
-    grid-template-columns: 1fr;
-    row-gap: 1.75rem;
-  }
-
-  .lead,
-  .list {
-    grid-column: 1;
-  }
-
-  .lead {
-    max-width: 34rem;
-  }
 }
 
 @media (max-width: 640px) {

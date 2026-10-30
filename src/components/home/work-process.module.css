@@ -1,6 +1,6 @@
 /*
-  Процесс: горизонтальный таймлайн.
-  Колонки равной ширины; лёгкая «лестница» через --i (можно убрать).
+  Процесс: карточки-шаги (как points в about).
+  Номер + линия → название → checkpoint.
 */
 
 .section {
@@ -31,100 +31,86 @@
   text-wrap: balance;
 }
 
-.timeline {
-  --cols: 6;
-  --rise-step: clamp(0.85rem, 1.8vw, 1.45rem);
-
+.points {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-  align-items: stretch;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  column-gap: clamp(1.25rem, 2.5vw, 2rem);
+  row-gap: clamp(1.25rem, 2.5vw, 1.75rem);
   min-width: 0;
-  border-top: 1px solid color-mix(in srgb, var(--line) 12%, transparent);
 }
 
-.step {
-  --i: 0;
-
+.point {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.75rem;
   min-width: 0;
-  min-height: clamp(14rem, 28vw, 20rem);
-  padding: 1.15rem clamp(0.75rem, 1.6vw, 1.25rem) 0;
-  border-right: 1px solid color-mix(in srgb, var(--line) 12%, transparent);
 }
 
-.step:last-child {
-  border-right: 0;
-}
-
-.num {
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.stepBody {
-  display: grid;
-  gap: 0.85rem;
-  /* Лестница: каждый следующий шаг чуть выше */
-  margin-top: calc((var(--cols) - 1 - var(--i)) * var(--rise-step));
-}
-
-.bar {
-  display: block;
+.pointHead {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   width: 100%;
-  height: 3px;
-  background: var(--accent);
 }
 
-.stepTitle {
-  font-family: var(--font-h2);
-  font-size: clamp(0.82rem, 1.15vw, 0.98rem);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 1.25;
-  color: var(--foreground);
-}
-
-.stepMeta {
-  margin-top: auto;
-  padding-bottom: 0.15rem;
+.pointIndex {
+  flex: none;
   font-size: 0.72rem;
-  line-height: 1.4;
-  color: var(--muted-strong);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  color: #b0b0b0;
 }
 
-@media (max-width: 900px) {
-  .timeline {
-    display: flex;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    border-top: 0;
-  }
+.pointRule {
+  flex: 1;
+  min-width: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--line) 22%, transparent);
+}
 
-  .step {
-    flex: 0 0 min(70vw, 16rem);
-    min-height: 16rem;
-    border-top: 1px solid color-mix(in srgb, var(--line) 12%, transparent);
-  }
+.pointTitle {
+  margin: 0;
+  font-family: var(--font-h2);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--foreground);
+  text-wrap: balance;
+}
 
-  .step:last-child {
-    border-right: 1px solid color-mix(in srgb, var(--line) 12%, transparent);
+.pointBody {
+  margin: 0;
+  max-width: 28ch;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #a0a0a0;
+  text-wrap: pretty;
+}
+
+@media (max-width: 1022px) {
+  .points {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 560px) {
-  .stepBody {
-    /* На мобилке лестница слабее — меньше вертикального разброса */
-    margin-top: calc((var(--cols) - 1 - var(--i)) * 0.55rem);
+@media (max-width: 640px) {
+  .title {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+  }
+
+  .points {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .points {
+    grid-template-columns: 1fr;
   }
 }
